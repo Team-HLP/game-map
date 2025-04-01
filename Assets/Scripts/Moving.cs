@@ -5,7 +5,7 @@ using UnityEngine;
 public class Moving : MonoBehaviour
 {
     public float speed;           // 전진 속도
-    public float turnSpeed = 20f; // 회전 속도
+    public float turnSpeed = 30f; // 회전 속도
 
     private float horizontalInput;
 
