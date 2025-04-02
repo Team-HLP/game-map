@@ -21,5 +21,6 @@ public class Moving : MonoBehaviour
         // ÁÂ¿ì È¸Àü
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
+
     }
 }

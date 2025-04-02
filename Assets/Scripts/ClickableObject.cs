@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClickableObject : MonoBehaviour
 {
-    public enum ObjectType { Ufo, Fuel }
+    public enum ObjectType { Meteorite, Fuel }
     public ObjectType objectType;
     public float autoDestroyTime = 2f;
 
@@ -24,7 +24,7 @@ public class ClickableObject : MonoBehaviour
     }
     private void AutoDestroy()
     {
-        if (objectType == ObjectType.Ufo)
+        if (objectType == ObjectType.Meteorite)
         {
             GameManager.Instance.AddHp(-10);
         }
