@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.04956507, g: 0.047168784, b: 0.03561064, a: 1}
+  m_IndirectSpecularColor: {r: 0.003835726, g: 0.0036274206, b: 0.002712722, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -794,6 +794,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   turnSpeed: 20
+  MoveLeft:
+    actionPath: 
+    needsReinit: 0
+  MoveRight:
+    actionPath: 
+    needsReinit: 0
+  handType: 0
 --- !u!1 &835173754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,15 +1491,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  gameTime: 90
   hpText: {fileID: 1662746130}
   timerText: {fileID: 49400160}
-  gameStartPanel: {fileID: 23715313}
-  startButton: {fileID: 903572413}
-  gameOverPanel: {fileID: 667685498}
-  restartButton: {fileID: 1991340501}
-  quitButton: {fileID: 1838490332}
-  gameSuccessPanel: {fileID: 255951364}
-  gameTime: 90
 --- !u!1 &1786862222
 GameObject:
   m_ObjectHideFlags: 0

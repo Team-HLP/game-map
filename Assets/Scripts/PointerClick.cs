@@ -22,6 +22,8 @@ public class PointerClick : MonoBehaviour
     }
     private void OnPointerClick(object sender, PointerEventArgs e)
     {
+        Debug.Log("Laser Click: " + e.target.name);
+
         ExecuteEvents.Execute<IPointerClickHandler>(
             target: e.target.gameObject,
             eventData: new PointerEventData(EventSystem.current),

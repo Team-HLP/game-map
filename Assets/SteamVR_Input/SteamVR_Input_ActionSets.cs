@@ -17,17 +17,7 @@ namespace Valve.VR
     public partial class SteamVR_Actions
     {
         
-        private static SteamVR_Input_ActionSet_ControllerActions p_ControllerActions;
-        
         private static SteamVR_Input_ActionSet_default p__default;
-        
-        public static SteamVR_Input_ActionSet_ControllerActions ControllerActions
-        {
-            get
-            {
-                return SteamVR_Actions.p_ControllerActions.GetCopy<SteamVR_Input_ActionSet_ControllerActions>();
-            }
-        }
         
         public static SteamVR_Input_ActionSet_default _default
         {
@@ -39,10 +29,8 @@ namespace Valve.VR
         
         private static void StartPreInitActionSets()
         {
-            SteamVR_Actions.p_ControllerActions = ((SteamVR_Input_ActionSet_ControllerActions)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_ControllerActions>("/actions/ControllerActions")));
             SteamVR_Actions.p__default = ((SteamVR_Input_ActionSet_default)(SteamVR_ActionSet.Create<SteamVR_Input_ActionSet_default>("/actions/default")));
             Valve.VR.SteamVR_Input.actionSets = new Valve.VR.SteamVR_ActionSet[] {
-                    SteamVR_Actions.ControllerActions,
                     SteamVR_Actions._default};
         }
     }

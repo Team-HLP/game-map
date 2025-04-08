@@ -26,7 +26,7 @@ public class ClickableObject : MonoBehaviour
     {
         if (objectType == ObjectType.Meteorite)
         {
-            GameManager.Instance.AddHp(-100);
+            GameManager.Instance.AddHp(-10);
         }
 
         Destroy(gameObject);

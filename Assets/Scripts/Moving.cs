@@ -16,7 +16,7 @@ public class Moving : MonoBehaviour
 
     void Start()
     {
-        speed = 10f;
+        speed = 8f;
     }
     void Update()
     {
