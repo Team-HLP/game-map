@@ -7,8 +7,8 @@ public class LoginManager : MonoBehaviour
 {
     public TMP_InputField inputId;
     public TMP_InputField inputPassword;
-    public TextMeshProUGUI resultText;
-    public string loginUrl = "http://localhost:8000/user/login";
+    public TextMeshProUGUI resultText;  // TODO. 에러 메시지 네모 박스로 띄우도록 변경하기
+    public string loginUrl = "http://localhost:8000/user/login";    // TODO. 주소 변경, 환경변수로 빼기
 
     public void OnLoginButtonClicked()
     {
@@ -45,6 +45,7 @@ public class LoginManager : MonoBehaviour
             PlayerPrefs.Save();
 
             resultText.text = "로그인 성공!";
+            // TODO. 씬 전환 추가
         }
         else
         {
