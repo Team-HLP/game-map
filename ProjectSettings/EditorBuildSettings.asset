@@ -7,16 +7,18 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
-    guid: 47b459cd5cb7e9d4ebf0f22db3569d62
+    guid: 256b2297da9721348a2f81e298212f35
   - enabled: 1
     path: Assets/Scenes/PlayScene.unity
-    guid: b1a17dea1d20fd0409df23638ebf0e6c
+    guid: 9375e24547f117b4db35c5a7bf019840
   - enabled: 1
     path: Assets/Scenes/GameSuccessScene.unity
-    guid: 5e4df6fc0ada5c547a59396b43e36b1a
+    guid: 2d78de149a6989a4bad62aa9746e6da5
   - enabled: 1
     path: Assets/Scenes/GameOverScene.unity
-    guid: be5e15f2bd289964ba0e7b790bfa2632
+    guid: f9e5139128f96cc4994929fe30347ee5
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ac5e98c93d8fbdb43903a18d41719f89, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: bb7d16ee905a49844a4d1ff0a69c99ce, type: 2}
+    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: bee3484b918912e4a8b3f1f3c9aae211, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: dc29662613212d14cb16c52ddc491d71, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: b71507e180b7bf04aa45b12ee372df4e, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: c92114465eaa8fd4f8b0f6d922138785, type: 2}
