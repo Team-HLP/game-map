@@ -15,7 +15,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         else Destroy(gameObject);
     }
     private void Start()
@@ -64,11 +67,21 @@ public class GameManager : MonoBehaviour
     {
         success = true;
         Time.timeScale = 0;
+
+        GameResultData.result = "성공";
+        GameResultData.score = hp;
+        GameResultData.playTime = 90f - gameTime;
+
         SceneManager.LoadScene("GameSuccessScene");
     }
     private void GameOver()
     {
         Time.timeScale = 0;
+
+        GameResultData.result = "실패";
+        GameResultData.score = hp;
+        GameResultData.playTime = 90f - gameTime;
+
         SceneManager.LoadScene("GameOverScene");
     }
 }

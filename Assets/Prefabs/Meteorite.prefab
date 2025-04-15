@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6091631989257092518}
   - component: {fileID: 7704019298628587687}
   - component: {fileID: 6776555782118644983}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Meteorite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 3
+    m_Bits: 2
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -160,10 +160,10 @@ MonoBehaviour:
   m_AllowGazeInteraction: 1
   m_AllowGazeSelect: 1
   m_OverrideGazeTimeToSelect: 1
-  m_GazeTimeToSelect: 2
+  m_GazeTimeToSelect: 3
   m_OverrideTimeToAutoDeselectGaze: 1
-  m_TimeToAutoDeselectGaze: 1
-  m_AllowGazeAssistance: 0
+  m_TimeToAutoDeselectGaze: 2
+  m_AllowGazeAssistance: 1
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -178,19 +178,7 @@ MonoBehaviour:
       m_Calls: []
   m_FirstSelectEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7704019298628587687}
-        m_TargetAssemblyTypeName: ClickableObject, Assembly-CSharp
-        m_MethodName: OnGazeEnter
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_LastSelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -258,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3950674834303667691}
   - component: {fileID: 6081750215033611009}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

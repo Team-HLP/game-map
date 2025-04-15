@@ -11,4 +11,8 @@ public class ResultSceneManager : MonoBehaviour
     {
         SceneManager.LoadScene("StartScene");
     }
+    public void OnResultButtonClicked()
+    {
+        SceneManager.LoadScene("ResultScene");
+    }
 }

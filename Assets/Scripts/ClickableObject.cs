@@ -3,6 +3,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ClickableObject : MonoBehaviour
 {
+    public static ClickableObject Instance { get; private set; }
+
     public enum ObjectType { Meteorite, Fuel }
     public ObjectType objectType;
     public float gazeDuration = 3f;
@@ -11,6 +13,7 @@ public class ClickableObject : MonoBehaviour
     private float gazeTimer = 0f;
     private bool isGazedAt = false;
     private bool hasInteracted = false;
+    public int meteoriteDestroyedCount = 0;
 
     public GameObject explosionEffectPrefab;
     public GameObject fuelCollectEffectPrefab;
@@ -47,11 +50,12 @@ public class ClickableObject : MonoBehaviour
 
     void OnGazeComplete()
     {
-        hasInteracted = true;
+        hasInteracted = true;   
         CancelInvoke(nameof(AutoDestroy));
 
         if (objectType == ObjectType.Meteorite)
         {
+            meteoriteDestroyedCount++;
             SpawnEffect(explosionEffectPrefab); // ¿î¼® ÆÄ±« ¼º°ø
         }
         else if (objectType == ObjectType.Fuel)
@@ -68,12 +72,12 @@ public class ClickableObject : MonoBehaviour
 
         if (objectType == ObjectType.Meteorite)
         {
-            GameManager.Instance.AddHp(-10); // ¿î¼®ÀÌ ºÎµúÈû
+            GameManager.Instance.AddHp(-20); // ¿î¼®ÀÌ ºÎµúÈû
         }
         else if (objectType == ObjectType.Fuel)
         {
             SpawnEffect(fuelCollectEffectPrefab);
-            GameManager.Instance.AddHp(20); // ¿¬·á È¹µæ ¼º°ø
+            GameManager.Instance.AddHp(10); // ¿¬·á È¹µæ ¼º°ø
         }
 
         Destroy(gameObject);
