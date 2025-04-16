@@ -428,7 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idInput: {fileID: 1275987962}
   passwordInput: {fileID: 473036044}
-  nextSceneName: GAME
+  nextSceneName: PlayScene
 --- !u!4 &186173139
 Transform:
   m_ObjectHideFlags: 0
