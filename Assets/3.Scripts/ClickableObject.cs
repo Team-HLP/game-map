@@ -13,7 +13,6 @@ public class ClickableObject : MonoBehaviour
     private float gazeTimer = 0f;
     private bool isGazedAt = false;
     private bool hasInteracted = false;
-    public int meteoriteDestroyedCount = 0;
 
     public GameObject explosionEffectPrefab;
     public GameObject fuelCollectEffectPrefab;
@@ -55,7 +54,7 @@ public class ClickableObject : MonoBehaviour
 
         if (objectType == ObjectType.Meteorite)
         {
-            meteoriteDestroyedCount++;
+            GameManager.Instance.destroyedMeteo++;
             SpawnEffect(explosionEffectPrefab); // ¿î¼® ÆÄ±« ¼º°ø
         }
         else if (objectType == ObjectType.Fuel)
@@ -72,7 +71,7 @@ public class ClickableObject : MonoBehaviour
 
         if (objectType == ObjectType.Meteorite)
         {
-            GameManager.Instance.AddHp(-20); // ¿î¼®ÀÌ ºÎµúÈû
+            GameManager.Instance.AddHp(-100); // ¿î¼®ÀÌ ºÎµúÈû
         }
         else if (objectType == ObjectType.Fuel)
         {

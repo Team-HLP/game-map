@@ -881,7 +881,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
+  score: 0
+  destroyedMeteo: 0
+  success: 0
   gameTime: 90
+  gameResults: []
   hpText: {fileID: 1662746130}
   timerText: {fileID: 49400160}
 --- !u!1001 &1903001075
