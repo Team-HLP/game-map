@@ -11,6 +11,14 @@
         "com.unity.xr.interaction.toolkit": "2.5.4"
       }
     },
+    "com.tobii.xr.sdk": {
+      "version": "file:TobiiXRSDK_3.0.1.179",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.xr.management": "3.2.16"
+      }
+    },
     "com.unity.2d.animation": {
       "version": "7.0.12",
       "depth": 0,
