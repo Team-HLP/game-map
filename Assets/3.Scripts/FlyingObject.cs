@@ -31,7 +31,7 @@ public class FlyingObject : MonoBehaviour
         Vector3 spawnPosition = spawnArea.TransformPoint(spawnPosition2D);
 
         // 운석과 연료 중 하나를 랜덤으로 선택
-        GameObject prefabToSpawn = Random.value > 0.7f ? meteoritePrefab : fuelPrefab;
+        GameObject prefabToSpawn = Random.value < 0.7f ? meteoritePrefab : fuelPrefab;
 
         // 오브젝트 생성 후 변수에 저장
         GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);

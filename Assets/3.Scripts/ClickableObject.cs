@@ -71,7 +71,7 @@ public class ClickableObject : MonoBehaviour
 
         if (objectType == ObjectType.Meteorite)
         {
-            GameManager.Instance.AddHp(-100); // 款籍捞 何碟塞
+            GameManager.Instance.AddHp(-10); // 款籍捞 何碟塞
         }
         else if (objectType == ObjectType.Fuel)
         {
