@@ -1,0 +1,18 @@
+{
+    "name": "VSX.Health",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0058e7856b62514db99b17b51d0d7e8",
+        "GUID:0abc27e247cae3649bb5aad965b45dd0",
+        "GUID:36226d487c2962440baca18742e6846c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

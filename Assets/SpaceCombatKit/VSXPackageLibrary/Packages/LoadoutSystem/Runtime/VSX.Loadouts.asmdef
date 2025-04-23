@@ -1,0 +1,23 @@
+{
+    "name": "VSX.Loadouts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0058e7856b62514db99b17b51d0d7e8",
+        "GUID:0abc27e247cae3649bb5aad965b45dd0",
+        "GUID:36226d487c2962440baca18742e6846c",
+        "GUID:e193e6fa366a1f84483d39d72ca58d62",
+        "GUID:a9fe8afc2f411e2419e695d9df1e29ca",
+        "GUID:17e38ac084d45e84ba55649372ab287d",
+        "GUID:aea62bcdd4300a44dbd40a1e30c74d5f",
+        "GUID:135734a3965285f4bb347b14dfc83233"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

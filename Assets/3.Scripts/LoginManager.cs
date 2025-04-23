@@ -7,7 +7,7 @@ public class LoginManager : MonoBehaviour
 {
     [SerializeField] private TMP_InputField idInput;    // ID 입력창으로 변경
     [SerializeField] private TMP_InputField passwordInput; // TMP_InputField로 변경
-    [SerializeField] private string nextSceneName = "PlayScene"; // 로그인 성공 후 전환될 씬 이름
+    [SerializeField] private string nextSceneName = "GAME"; // 로그인 성공 후 전환될 씬 이름
 
     public void OnLoginButtonClick()
     {

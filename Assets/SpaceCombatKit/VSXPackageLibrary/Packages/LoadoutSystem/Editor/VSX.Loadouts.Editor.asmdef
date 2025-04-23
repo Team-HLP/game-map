@@ -1,0 +1,18 @@
+{
+    "name": "VSX.Loadouts.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:873f6ba6f4880dc479757e4a82c42e4f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -12,8 +12,6 @@ Material:
   m_ValidKeywords:
   - _EMISSION
   - _GLOSSYREFLECTIONS_OFF
-  - _METALLICGLOSSMAP
-  - _NORMALMAP
   m_InvalidKeywords:
   - _METALLICSPECGLOSSMAP
   - _OCCLUSIONMAP

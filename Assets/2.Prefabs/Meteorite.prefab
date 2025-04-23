@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2887293748681507088}
   - component: {fileID: 3040313887848767753}
   - component: {fileID: 5732868315270214459}
-  - component: {fileID: 1594188475075920964}
-  m_Layer: 3
+  - component: {fileID: 1805936342554939702}
+  m_Layer: 0
   m_Name: Meteorite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,12 +94,12 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3897906897140901242}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1594188475075920964
+--- !u!114 &1805936342554939702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,11 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 0
-  gazeDuration: 3
-  autoDestroyTime: 5
-  meteoriteDestroyedCount: 0
-  explosionEffectPrefab: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
-  fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
+  autoDestroyTime: 2
 --- !u!1 &4082215337674395669
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2342019091375709505}
   - component: {fileID: 8143014574694502865}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4082215337674395669}
   m_LocalRotation: {x: 0.8102161, y: -0.045819953, z: -0.08905589, w: 0.5775115}
-  m_LocalPosition: {x: 1.25, y: 5.28, z: 0.68}
+  m_LocalPosition: {x: 0.21, y: 1.98, z: 0.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
