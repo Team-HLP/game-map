@@ -64,8 +64,8 @@ public class EyesDataManager : MonoBehaviour
                 yield return shortInterval;
             }
 
-            float leftAvg = leftPupilCount > 0 ? leftPupilSum / leftPupilCount : 0f;
-            float rightAvg = rightPupilCount > 0 ? rightPupilSum / rightPupilCount : 0f;
+            float leftAvg = leftPupilCount > 0 ? leftPupilSum / leftPupilCount * 1000f : 0f;
+            float rightAvg = rightPupilCount > 0 ? rightPupilSum / rightPupilCount * 1000f : 0f;
 
             EyeData entry = new EyeData
             {
