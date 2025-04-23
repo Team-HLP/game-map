@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public Text hpText;
     public Text timerText;
 
+    public EyesDataManager eyesDataManager;
+
     private void Awake()
     {
         if (Instance == null)
@@ -94,12 +96,14 @@ public class GameManager : MonoBehaviour
         success = true;
         Time.timeScale = 0;
         SaveGameResult();
+        eyesDataManager.SaveEyesData();
         SceneManager.LoadScene("GameSuccessScene");
     }
     private void GameOver()
     {
         Time.timeScale = 0;
         SaveGameResult();
+        eyesDataManager.SaveEyesData();
         SceneManager.LoadScene("GameOverScene");
     }
     private void SaveGameResult()

@@ -88,12 +88,11 @@ public class EyesDataManager : MonoBehaviour
 
             leftPupilSum = rightPupilSum = 0f;
             leftPupilCount = rightPupilCount = 0;
-            blinkCount = 0;
         }
     }
 
     // TODO. 종료 조건 물어보고 로직 수정하기
-    void OnApplicationQuit()
+    public void SaveEyesData()
     {
         writer.WriteLine("]");
         writer.Flush();
