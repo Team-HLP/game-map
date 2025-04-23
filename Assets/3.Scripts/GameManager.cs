@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        Time.timeScale = 1f;
         UpdateHpUI();
     }
     private void Update()
@@ -94,14 +95,14 @@ public class GameManager : MonoBehaviour
     private void GameSuccess()
     {
         success = true;
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
         SaveGameResult();
         eyesDataManager.SaveEyesData();
         SceneManager.LoadScene("GameSuccessScene");
     }
     private void GameOver()
     {
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
         SaveGameResult();
         eyesDataManager.SaveEyesData();
         SceneManager.LoadScene("GameOverScene");
