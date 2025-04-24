@@ -969,7 +969,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meteoritePrefab: {fileID: 3897906897140901242, guid: c0cd427392037ff47985f3d45eeda9fc, type: 3}
   fuelPrefab: {fileID: 6830579541325509221, guid: 041fae348562cf844843556e33168cd4, type: 3}
-  spawnInterval: 10
   spawnArea: {fileID: 1947828681}
 --- !u!1 &1662746128
 GameObject:
@@ -1301,6 +1300,10 @@ PrefabInstance:
     - target: {fileID: 4879914434278830, guid: f676e25d0fcd1ec4fa22af3017316de9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114214629311031788, guid: f676e25d0fcd1ec4fa22af3017316de9, type: 3}
+      propertyPath: EnableEyeVersion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f676e25d0fcd1ec4fa22af3017316de9, type: 3}
