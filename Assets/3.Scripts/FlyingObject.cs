@@ -6,7 +6,7 @@ public class FlyingObject : MonoBehaviour
 {
     public GameObject meteoritePrefab;
     public GameObject fuelPrefab;
-    public float spawnInterval = 4f;  // 积己 埃拜
+    private float spawnInterval = 4f;  // 积己 埃拜
 
     public RectTransform spawnArea;
     private Transform playerCamera;
