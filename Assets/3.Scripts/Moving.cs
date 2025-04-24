@@ -9,7 +9,7 @@ public class Moving : MonoBehaviour
     public InputActionProperty rightMoveAction;  // 오른손 컨트롤러 입력
     void Start()
     {
-        speed = 8f;
+        speed = 4f;
     }
     void Update()
     {

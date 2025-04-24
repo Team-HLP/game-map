@@ -48,7 +48,9 @@ public class GazeRaycaster : MonoBehaviour
     {
         if (currentObject != null)
         {
+            currentObject.OnGazeExit(); // 응시 종료 알림 추가
             currentObject = null;
         }
     }
+
 }
