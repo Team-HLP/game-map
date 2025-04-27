@@ -8,22 +8,24 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public int hp = 100;
-    public int score = 0;           // Á¡¼ö ¼³Á¤ ¾ÆÁ÷ ¾È ÇÔ
-    public int destroyedMeteo = 0;  // ¿î¼® ÆÄ±« È½¼ö
-    public bool success = false;    // °ÔÀÓ ¼º°ø ¿©ºÎ
-    public float gameTime = 90f;    // °ÔÀÓ ÇÃ·¹ÀÌ 90ÃÊ·Î Á¦ÇÑ
+    public int score = 0;           // ì ìˆ˜ ì„¤ì • ì•„ì§ ì•ˆ í•¨
+    public int destroyedMeteo = 0;  // ìš´ì„ íŒŒê´´ íšŸìˆ˜
+    public bool success = false;    // ê²Œì„ ì„±ê³µ ì—¬ë¶€
+    public float gameTime = 90f;    // ê²Œì„ í”Œë ˆì´ 90ì´ˆë¡œ ì œí•œ
 
     public List<GameResult> gameResults = new List<GameResult>();
 
     public Text hpText;
     public Text timerText;
 
+    public EyesDataManager eyesDataManager;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // ¾À ÀüÈ¯¿¡µµ À¯Áö
+            DontDestroyOnLoad(gameObject); // ì”¬ ì „í™˜ì—ë„ ìœ ì§€
         }
         else Destroy(gameObject);
     }
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        Time.timeScale = 1;
         UpdateHpUI();
     }
     private void Update()
@@ -92,19 +95,19 @@ public class GameManager : MonoBehaviour
     private void GameSuccess()
     {
         success = true;
-        Time.timeScale = 0;
         SaveGameResult();
+        eyesDataManager.SaveEyesData();
         SceneManager.LoadScene("GameSuccessScene");
     }
     private void GameOver()
     {
-        Time.timeScale = 0;
         SaveGameResult();
+        eyesDataManager.SaveEyesData();
         SceneManager.LoadScene("GameOverScene");
     }
     private void SaveGameResult()
     {
-        int index = gameResults.Count + 1; // ¸î ¹øÂ° ÇÃ·¹ÀÌÀÎÁö
+        int index = gameResults.Count + 1; // ëª‡ ë²ˆì§¸ í”Œë ˆì´ì¸ì§€
         var result = new GameResult(index, hp, success, score, destroyedMeteo, 90f - gameTime);
         gameResults.Add(result);
     }

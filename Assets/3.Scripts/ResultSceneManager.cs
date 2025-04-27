@@ -12,10 +12,12 @@ public class ResultSceneManager : MonoBehaviour
     public void OnQuitButtonClicked()
     {
         GameManager.Instance.ResetGameData();
+        Time.timeScale = 1;
         SceneManager.LoadScene("MENU");
     }
     public void OnResultButtonClicked()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("ResultScene");
     }
 }

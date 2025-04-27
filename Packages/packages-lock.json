@@ -1,5 +1,24 @@
 {
   "dependencies": {
+    "com.htc.upm.vive.openxr": {
+      "version": "file:vive-openxr",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.xr.management": "4.2.1",
+        "com.unity.inputsystem": "1.7.0",
+        "com.unity.xr.openxr": "1.12.1",
+        "com.unity.xr.interaction.toolkit": "2.5.4"
+      }
+    },
+    "com.tobii.xr.sdk": {
+      "version": "file:TobiiXRSDK_3.0.1.179",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.xr.management": "3.2.16"
+      }
+    },
     "com.unity.2d.animation": {
       "version": "7.0.12",
       "depth": 0,
@@ -300,8 +319,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.openxr": {
-      "version": "1.9.1",
-      "depth": 0,
+      "version": "1.12.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.inputsystem": "1.6.3",
