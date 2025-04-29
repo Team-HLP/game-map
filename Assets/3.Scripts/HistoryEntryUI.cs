@@ -9,19 +9,23 @@ public class HistoryEntryUI : MonoBehaviour
 
     private ResultUIManager resultUIManager;
 
-    private string detailedResult;
-    private int detailedScore;
-    private float detailedTime;
+    private int meteorCount;
+    private int hp;
+    private string result;
+    private int score;
+    private float playTime;
 
-    public void Initialize(string result, int score, float time, ResultUIManager manager)
+    public void Initialize(int meteorCount, int hp, string result, int score, float playTime, ResultUIManager manager)
     {
         resultText.text = result;
         scoreText.text = $"{score}¡°";
-        playtimeText.text = $"{time:F1}√ ";
+        playtimeText.text = $"{playTime:F1}√ ";
 
-        detailedResult = result;
-        detailedScore = score;
-        detailedTime = time;
+        this.meteorCount = meteorCount;
+        this.hp = hp;
+        this.result = result;
+        this.score = score;
+        this.playTime = playTime;
 
         resultUIManager = manager;
 
@@ -30,6 +34,6 @@ public class HistoryEntryUI : MonoBehaviour
 
     void OnClickEntry()
     {
-        resultUIManager.DisplayDetails(detailedResult, detailedScore, detailedTime);
+        resultUIManager.DisplayDetails(meteorCount, hp, result, score, playTime);
     }
 }

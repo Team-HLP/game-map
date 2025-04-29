@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;           // 점수 설정 아직 안 함
     public int destroyedMeteo = 0;  // 운석 파괴 횟수
     public bool success = false;    // 게임 성공 여부
-    public float gameTime = 90f;    // 게임 플레이 90초로 제한
+    public float gameTime = 20f;    // 게임 플레이 90초로 제한
 
     public List<GameResult> gameResults = new List<GameResult>();
 
@@ -27,7 +27,10 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject); // 씬 전환에도 유지
         }
-        else Destroy(gameObject);
+        else 
+        {
+            Destroy(gameObject);
+        }
     }
     private void OnEnable()
     {
@@ -45,7 +48,9 @@ public class GameManager : MonoBehaviour
         {
             hpText = GameObject.Find("HpText")?.GetComponent<Text>();
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
+            eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
 
+            eyesDataManager.ReMeasuring();
             UpdateHpUI();
             UpdateTimerUI();
         }
@@ -108,8 +113,11 @@ public class GameManager : MonoBehaviour
     private void SaveGameResult()
     {
         int index = gameResults.Count + 1; // 몇 번째 플레이인지
-        var result = new GameResult(index, hp, success, score, destroyedMeteo, 90f - gameTime);
-        gameResults.Add(result);
+        var result = new GameResult(index, hp, success, score, destroyedMeteo, 20f - gameTime);
+        if (!gameResults.Contains(result))
+        {
+            gameResults.Add(result);
+        }
     }
     public void ResetGameData()
     {
@@ -117,6 +125,11 @@ public class GameManager : MonoBehaviour
         score = 0;
         destroyedMeteo = 0;
         success = false;
-        gameTime = 90f;
+        gameTime = 20f;
+
+        if (eyesDataManager != null)
+        {
+            eyesDataManager.ResetManager();
+        }
     }
 }

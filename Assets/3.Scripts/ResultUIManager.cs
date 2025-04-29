@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class ResultUIManager : MonoBehaviour
 {
+    [Header("상세 결과 표시용 텍스트")]
     public Text meteorCountText;
     public Text hpText;
     public Text resultText;
@@ -16,8 +17,6 @@ public class ResultUIManager : MonoBehaviour
 
     void Start()
     {
-        ShowCurrentResult();
-
         if (detailPanel != null)
             detailPanel.SetActive(false);
 
@@ -27,17 +26,6 @@ public class ResultUIManager : MonoBehaviour
         }
     }
 
-    void ShowCurrentResult()
-    {
-        var gm = GameManager.Instance;
-
-        meteorCountText.text = $"파괴한 운석 수 : {gm.destroyedMeteo}";
-        hpText.text = $"종료 시점 HP : {gm.hp}";
-        resultText.text = gm.success ? "결과 : 성공" : "결과 : 실패";
-        playTimeText.text = $"플레이 시간 : {gm.gameTime:F1}초";
-        scoreText.text = $"점수 : {gm.score}";
-    }
-
     public void AddHistoryEntry(GameResult result)
     {
         GameObject entryGO = Instantiate(historyEntryPrefab, contentParent);
@@ -45,14 +33,25 @@ public class ResultUIManager : MonoBehaviour
 
         string resultText = result.success ? "성공" : "실패";
 
-        entryUI.Initialize(resultText, result.score, result.gameTime, this);
+        entryUI.Initialize(result.destroyedMeteo, result.hp, resultText, result.score, result.gameTime, this);
     }
 
-    public void DisplayDetails(string result, int score, float time)
+    public void DisplayDetails(int meteorCount, int hp, string result, int score, float playTime)
     {
-        resultText.text = $"결과 : {result}";
-        scoreText.text = $"점수 : {score}";
-        playTimeText.text = $"플레이 시간 : {time:F1}초";
+        if (meteorCountText != null)
+            meteorCountText.text = $"파괴한 운석 수 : {meteorCount}";
+
+        if (hpText != null)
+            hpText.text = $"종료 시점 HP : {hp}";
+
+        if (resultText != null)
+            resultText.text = $"결과 : {result}";
+
+        if (playTimeText != null)
+            playTimeText.text = $"플레이 시간 : {playTime:F1}초";
+
+        if (scoreText != null)
+            scoreText.text = $"점수 : {score}";
 
         if (detailPanel != null)
             detailPanel.SetActive(true);
