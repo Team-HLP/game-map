@@ -14,10 +14,20 @@ using UnityEngine;
 [DefaultExecutionOrder(-10)]
 public class TobiiXR_Initializer : MonoBehaviour
 {
+    private static TobiiXR_Initializer instance;
+
     public TobiiXR_Settings Settings;
-    
+
     private void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(gameObject); // 중복 방지
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
         TobiiXR.Start(Settings);
     }
 }
