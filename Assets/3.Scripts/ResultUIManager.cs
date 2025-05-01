@@ -1,14 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using Valve.Newtonsoft.Json;
+using System.Globalization;
+using System;
 
 public class ResultUIManager : MonoBehaviour
 {
     [Header("상세 결과 표시용 텍스트")]
-    public Text meteorCountText;
-    public Text hpText;
+    public Text createdAtText;
     public Text resultText;
-    public Text playTimeText;
     public Text scoreText;
+    public Text hpText;
+    public Text meteorCountText;
 
     [Header("히스토리 리스트")]
     public GameObject historyEntryPrefab;
@@ -20,38 +26,75 @@ public class ResultUIManager : MonoBehaviour
         if (detailPanel != null)
             detailPanel.SetActive(false);
 
-        foreach (var result in GameManager.Instance.gameResults)
+        StartCoroutine(LoadGameResultsFromServer());
+    }
+
+    IEnumerator LoadGameResultsFromServer()
+    {
+        string url = Apiconfig.url + "/games?gameCategory=METEORITE_DESTRUCTION";
+        UnityWebRequest request = UnityWebRequest.Get(url);
+
+        string accessToken = PlayerPrefs.GetString("access_token", "");
+        request.SetRequestHeader("Authorization", "Bearer " + accessToken);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
         {
-            AddHistoryEntry(result);
+            string json = request.downloadHandler.text;
+            Debug.Log("서버에서 받은 결과:\n" + json);
+
+            List<GameResultResponse> serverResults = JsonConvert.DeserializeObject<List<GameResultResponse>>(json);
+
+            foreach (var result in serverResults)
+            {
+                string resultStr = result.result == "성공" ? "성공" : "실패";
+
+                DateTime createdTime;
+                string displayTime;
+
+                if (DateTime.TryParseExact(result.created_at, "yyyy.MM.dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out createdTime))
+                {
+                    displayTime = createdTime.ToString("yyyy.MM.dd HH:mm");
+                }
+                else
+                {
+                    displayTime = result.created_at;
+                }
+
+                AddHistoryEntry(resultStr, result.score, result.hp, result.meteorite_broken_count, displayTime);
+            }
+        }
+        else
+        {
+            Debug.LogError("서버에서 결과 불러오기 실패: " + request.error);
+            Debug.LogError("서버 응답:\n" + request.downloadHandler.text);
         }
     }
 
-    public void AddHistoryEntry(GameResult result)
+    public void AddHistoryEntry(string result, int score, int hp, int meteorCount, string created_at)
     {
         GameObject entryGO = Instantiate(historyEntryPrefab, contentParent);
         HistoryEntryUI entryUI = entryGO.GetComponent<HistoryEntryUI>();
-
-        string resultText = result.success ? "성공" : "실패";
-
-        entryUI.Initialize(result.destroyedMeteo, result.hp, resultText, result.score, result.gameTime, this);
+        entryUI.Initialize(result, score, hp, meteorCount, created_at, this);
     }
 
-    public void DisplayDetails(int meteorCount, int hp, string result, int score, float playTime)
+    public void DisplayDetails(string created_at, string result, int score, int meteorCount, int hp)
     {
-        if (meteorCountText != null)
-            meteorCountText.text = $"파괴한 운석 수 : {meteorCount}";
-
-        if (hpText != null)
-            hpText.text = $"종료 시점 HP : {hp}";
+        if (createdAtText != null)
+            createdAtText.text = $"플레이 시간  :  {created_at}";
 
         if (resultText != null)
-            resultText.text = $"결과 : {result}";
-
-        if (playTimeText != null)
-            playTimeText.text = $"플레이 시간 : {playTime:F1}초";
+            resultText.text = $"결과  :  {result}";
 
         if (scoreText != null)
-            scoreText.text = $"점수 : {score}";
+            scoreText.text = $"점수  :  {score}";
+
+        if (hpText != null)
+            hpText.text = $"종료 시점 HP  :  {hp}";
+
+        if (meteorCountText != null)
+            meteorCountText.text = $"파괴한 운석 수  :  {meteorCount}";
 
         if (detailPanel != null)
             detailPanel.SetActive(true);

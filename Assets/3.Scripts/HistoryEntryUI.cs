@@ -3,29 +3,29 @@ using UnityEngine.UI;
 
 public class HistoryEntryUI : MonoBehaviour
 {
+    public Text createdAtText;
     public Text resultText;
     public Text scoreText;
-    public Text playtimeText;
 
     private ResultUIManager resultUIManager;
 
-    private int meteorCount;
-    private int hp;
     private string result;
     private int score;
-    private float playTime;
+    private int hp;
+    private int meteorCount;
+    private string createdAt;
 
-    public void Initialize(int meteorCount, int hp, string result, int score, float playTime, ResultUIManager manager)
+    public void Initialize(string result, int score, int hp, int meteorCount, string created_at, ResultUIManager manager)
     {
+        createdAtText.text = created_at;
         resultText.text = result;
         scoreText.text = $"{score}¡°";
-        playtimeText.text = $"{playTime:F1}√ ";
 
-        this.meteorCount = meteorCount;
-        this.hp = hp;
+        this.createdAt = created_at;
         this.result = result;
         this.score = score;
-        this.playTime = playTime;
+        this.hp = hp;
+        this.meteorCount = meteorCount;
 
         resultUIManager = manager;
 
@@ -34,6 +34,6 @@ public class HistoryEntryUI : MonoBehaviour
 
     void OnClickEntry()
     {
-        resultUIManager.DisplayDetails(meteorCount, hp, result, score, playTime);
+        resultUIManager.DisplayDetails(createdAt, result, score, meteorCount, hp);
     }
 }

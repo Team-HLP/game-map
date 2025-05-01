@@ -6,6 +6,16 @@ public class StartButtonManager : MonoBehaviour
     public void OnStartButtonClicked()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("PlayScene");
+        SceneManager.LoadScene("SelectGameScene");
+    }
+    public void OnMeteoriteButtonClicked()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ResetGameData();
+        }
+
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MeteoriteScene");
     }
 }

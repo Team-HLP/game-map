@@ -5,12 +5,21 @@ public class ResultSceneManager : MonoBehaviour
 {
     public void OnRestartButtonClicked()
     {
-        GameManager.Instance.ResetGameData();
-        SceneManager.LoadScene("PlayScene");
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ResetGameData();
+        }
+
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MeteoriteScene");
     }
     public void OnQuitButtonClicked()
     {
-        GameManager.Instance.ResetGameData();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ResetGameData();
+        }
+
         Time.timeScale = 1;
         SceneManager.LoadScene("MENU");
     }

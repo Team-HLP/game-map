@@ -1,7 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using System.Collections;
+using Valve.Newtonsoft.Json;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -12,8 +15,6 @@ public class GameManager : MonoBehaviour
     public int destroyedMeteo = 0;  // 운석 파괴 횟수
     public bool success = false;    // 게임 성공 여부
     public float gameTime = 20f;    // 게임 플레이 90초로 제한
-
-    public List<GameResult> gameResults = new List<GameResult>();
 
     public Text hpText;
     public Text timerText;
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject); // 씬 전환에도 유지
         }
-        else 
+        else
         {
             Destroy(gameObject);
         }
@@ -83,11 +84,13 @@ public class GameManager : MonoBehaviour
             GameOver();
         }
     }
+
     private void UpdateHpUI()
     {
         if (hpText != null)
             hpText.text = "HP : " + hp;
     }
+
     private void UpdateTimerUI()
     {
         if (timerText != null)
@@ -97,6 +100,7 @@ public class GameManager : MonoBehaviour
             timerText.text = $"{minutes:00}:{seconds:00}";
         }
     }
+
     private void GameSuccess()
     {
         success = true;
@@ -104,21 +108,20 @@ public class GameManager : MonoBehaviour
         eyesDataManager.SaveEyesData();
         SceneManager.LoadScene("GameSuccessScene");
     }
+
     private void GameOver()
     {
         SaveGameResult();
         eyesDataManager.SaveEyesData();
         SceneManager.LoadScene("GameOverScene");
     }
+
     private void SaveGameResult()
     {
-        int index = gameResults.Count + 1; // 몇 번째 플레이인지
-        var result = new GameResult(index, hp, success, score, destroyedMeteo, 20f - gameTime);
-        if (!gameResults.Contains(result))
-        {
-            gameResults.Add(result);
-        }
+        string result = success ? "SUCCESS" : "FAIL";
+        StartCoroutine(GameResultCoroutine(result, score, hp, destroyedMeteo));
     }
+
     public void ResetGameData()
     {
         hp = 100;
@@ -132,4 +135,35 @@ public class GameManager : MonoBehaviour
             eyesDataManager.ResetManager();
         }
     }
+
+    IEnumerator GameResultCoroutine(string result, int score, int hp, int meteorite_broken_count)
+    {
+        GameResultRequest requestData = new GameResultRequest(result, score, hp, meteorite_broken_count);
+
+        string jsonBody = JsonConvert.SerializeObject(requestData);
+        Debug.Log(jsonBody);
+
+        UnityWebRequest request = new UnityWebRequest(Apiconfig.url + "/game/meteorite", "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        // 엑세스 토큰
+        string accessToken = PlayerPrefs.GetString("access_token", "");
+        request.SetRequestHeader("Authorization", "Bearer " + accessToken);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("결과 저장 성공");
+        }
+        else
+        {
+            Debug.LogError("결과 저장 실패: " + request.error);
+            Debug.LogError("서버 응답 본문: " + request.downloadHandler.text);
+        }
+    }
+
 }
