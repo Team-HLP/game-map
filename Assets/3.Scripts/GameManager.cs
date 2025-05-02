@@ -1,10 +1,9 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 using Valve.Newtonsoft.Json;
-
 
 public class GameManager : MonoBehaviour
 {
@@ -26,13 +25,14 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 전환에도 유지
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
     }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "PlayScene")
+        if (scene.name == "MeteoriteScene")
         {
             hpText = GameObject.Find("HpText")?.GetComponent<Text>();
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
@@ -56,11 +56,13 @@ public class GameManager : MonoBehaviour
             UpdateTimerUI();
         }
     }
+
     private void Start()
     {
         Time.timeScale = 1;
         UpdateHpUI();
     }
+
     private void Update()
     {
         if (success) return;
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
             GameSuccess();
         }
     }
+
     public void AddHp(int amount)
     {
         hp += amount;
@@ -149,7 +152,6 @@ public class GameManager : MonoBehaviour
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
-        // 엑세스 토큰
         string accessToken = PlayerPrefs.GetString("access_token", "");
         request.SetRequestHeader("Authorization", "Bearer " + accessToken);
 
@@ -165,5 +167,4 @@ public class GameManager : MonoBehaviour
             Debug.LogError("서버 응답 본문: " + request.downloadHandler.text);
         }
     }
-
 }
