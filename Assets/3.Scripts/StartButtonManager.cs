@@ -16,6 +16,7 @@ public class StartButtonManager : MonoBehaviour
         }
 
         Time.timeScale = 1;
+        // 베이스 라인 씬에서 다음 씬으로 넘어가기 위해 저장
         PlayerPrefs.SetString("gameScene", "MeteoriteScene");
         PlayerPrefs.Save();
         SceneManager.LoadScene("EyeDataMeausreScene");
