@@ -8,6 +8,7 @@ public class DotSpawner : MonoBehaviour
     public RectTransform canvasRect;
     public GameObject dotPrefab;
     public GameObject retryFocusNoticeText;
+    public GameObject complimentPhrases;
 
     private const int totalSessions = 3;
     private int currentSession = 0;
@@ -15,7 +16,9 @@ public class DotSpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnDot();
+        IntroConfirmHandler.Instance.rollBack();
+        StartCoroutine(ShowComplimentAndLoadNextScene());
+        // SpawnDot();
     }
 
     public void SpawnDot()
@@ -63,9 +66,22 @@ public class DotSpawner : MonoBehaviour
         }
         else
         {
-            EyePupilDataManager.Instance.SavePlayerPrefs();
-            SceneManager.LoadScene(PlayerPrefs.GetString("gameScene", "MainMenu"));
+            IntroConfirmHandler.Instance.rollBack();
+            StartCoroutine(ShowComplimentAndLoadNextScene());
         }
+    }
+
+    private IEnumerator ShowComplimentAndLoadNextScene()
+    {
+        if (complimentPhrases != null)
+        {
+            complimentPhrases.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(5f);
+
+        EyePupilDataManager.Instance.SavePlayerPrefs();
+        SceneManager.LoadScene(PlayerPrefs.GetString("gameScene", "MENU"));
     }
 
     Vector3 GetRandomWorldPoint()
