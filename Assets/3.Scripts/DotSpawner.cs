@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DotSpawner : MonoBehaviour
 {
@@ -63,7 +64,7 @@ public class DotSpawner : MonoBehaviour
         else
         {
             EyePupilDataManager.Instance.SavePlayerPrefs();
-            // TODO. 다음 씬으로 넘어 가도록
+            SceneManager.LoadScene(PlayerPrefs.GetString("gameScene", "MainMenu"));
         }
     }
 

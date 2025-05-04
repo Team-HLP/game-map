@@ -16,6 +16,8 @@ public class StartButtonManager : MonoBehaviour
         }
 
         Time.timeScale = 1;
-        SceneManager.LoadScene("MeteoriteScene");
+        PlayerPrefs.SetString("gameScene", "MeteoriteScene");
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("EyeDataMeausreScene");
     }
 }
