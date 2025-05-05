@@ -80,7 +80,7 @@ public class DotSpawner : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
 
-        EyePupilDataManager.Instance.SavePlayerPrefs();
+        BaseEyesPupilDataManager.Instance.SavePlayerPrefs();
         SceneManager.LoadScene(PlayerPrefs.GetString("gameScene", "MENU"));
     }
 

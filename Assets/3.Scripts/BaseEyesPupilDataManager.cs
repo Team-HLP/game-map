@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class EyePupilDataManager : MonoBehaviour
+public class BaseEyesPupilDataManager : MonoBehaviour
 {
-    public static EyePupilDataManager Instance { get; private set; }
+    public static BaseEyesPupilDataManager Instance { get; private set; }
 
     private List<EyePupilData> eyePupilDatas;
 

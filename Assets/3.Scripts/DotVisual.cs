@@ -98,7 +98,7 @@ public class DotVisual : MonoBehaviour
         hasCompleted = true;
 
         spawner.OnDotCompleted();
-        EyePupilDataManager.Instance.SaveEyePupilData(eyePupilDatas);
+        BaseEyesPupilDataManager.Instance.SaveEyePupilData(eyePupilDatas);
         Destroy(gameObject);
     }
 
