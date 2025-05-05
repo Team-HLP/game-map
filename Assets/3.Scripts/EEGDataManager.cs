@@ -6,27 +6,12 @@ using System.Text;
 using Looxid.Link;
 using System;
 
-[Serializable]
-public class EEGEntry
-{
-    public double time_stamp;
-    public double delta;
-    public double theta;
-    public double alpha;
-    public double beta;
-    public double gamma;
-}
-
-[Serializable]
-public class EEGDataWrapper
-{
-    public List<EEGEntry> eeg_data = new List<EEGEntry>();
-}
-
 public class EEGDataManager : MonoBehaviour
 {
-    private float collectDuration = 90f;
-    private EEGDataWrapper collectedEEG = new EEGDataWrapper();
+    enum BandType { Delta, Theta, Alpha, Beta, Gamma }
+    private string filePath;
+
+    private EEGDataWrapper collectedEEG;
     private EEGSensorID[] sensorIDs = new EEGSensorID[]
     {
         EEGSensorID.AF3, EEGSensorID.AF4,
@@ -34,16 +19,20 @@ public class EEGDataManager : MonoBehaviour
         EEGSensorID.AF7, EEGSensorID.AF8
     };
 
+    private Coroutine measureCoroutine;
+
     void Start()
     {
-        StartCoroutine(CollectEEGCoroutine());
+        filePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
+        collectedEEG = new EEGDataWrapper();
+        StartCoroutine(MeasureEEGData());
     }
 
-    IEnumerator CollectEEGCoroutine()
+    IEnumerator MeasureEEGData()
     {
-        float elapsed = 0f;
+        WaitForSeconds interval = new WaitForSeconds(1.0f);
 
-        while (elapsed < collectDuration)
+        while (true)
         {
             List<EEGFeatureIndex> recentData = LooxidLinkData.Instance.GetEEGFeatureIndexData(1.0f);
 
@@ -61,11 +50,8 @@ public class EEGDataManager : MonoBehaviour
                 collectedEEG.eeg_data.Add(entry);
             }
 
-            yield return new WaitForSeconds(1f);
-            elapsed += 1f;
+            yield return interval;
         }
-
-        SaveToJson(collectedEEG);
     }
 
     double AverageBand(EEGFeatureIndex index, EEGSensorID[] ids, BandType band)
@@ -86,13 +72,55 @@ public class EEGDataManager : MonoBehaviour
         return sum / ids.Length;
     }
 
-    void SaveToJson(EEGDataWrapper data)
+    public void StartMeasuring()
     {
-        string json = JsonUtility.ToJson(data, true);
-        string path = Path.Combine(Application.persistentDataPath, "eeg_data.json");
-        File.WriteAllText(path, json, Encoding.UTF8);
-        Debug.Log("EEG JSON 저장 완료: " + path);
+        if (measureCoroutine == null)
+        {
+            measureCoroutine = StartCoroutine(MeasureEEGData());
+        }
     }
 
-    enum BandType { Delta, Theta, Alpha, Beta, Gamma }
+    public void StopMeasuring()
+    {
+        if (measureCoroutine != null)
+        {
+            StopCoroutine(measureCoroutine);
+            measureCoroutine = null;
+        }
+    }
+
+    public void ResetManager()
+    {
+        collectedEEG = new EEGDataWrapper();
+    }
+
+    public void ReMeasuring()
+    {
+        StartMeasuring();
+    }
+
+    public void SaveEEGData()
+    {
+        StopMeasuring();
+        string json = JsonUtility.ToJson(collectedEEG, true);
+        File.WriteAllText(filePath, json, Encoding.UTF8);
+        Debug.Log("EEG JSON 저장 완료: " + filePath);
+    }
+
+    [Serializable]
+    public class EEGEntry
+    {
+        public double time_stamp;
+        public double delta;
+        public double theta;
+        public double alpha;
+        public double beta;
+        public double gamma;
+    }
+
+    [Serializable]
+    public class EEGDataWrapper
+    {
+        public List<EEGEntry> eeg_data = new List<EEGEntry>();
+    }
 }

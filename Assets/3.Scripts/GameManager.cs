@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public Text timerText;
 
     public EyesDataManager eyesDataManager;
+    public EEGDataManager eegDataManager;
 
     private void Awake()
     {
@@ -50,8 +51,10 @@ public class GameManager : MonoBehaviour
             hpText = GameObject.Find("HpText")?.GetComponent<Text>();
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
+            eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager>();
 
             eyesDataManager.ReMeasuring();
+            eegDataManager.ReMeasuring();
             UpdateHpUI();
             UpdateTimerUI();
         }
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
         success = true;
         SaveGameResult();
         eyesDataManager.SaveEyesData();
+        eegDataManager.SaveEEGData();
         SceneManager.LoadScene("GameSuccessScene");
     }
 
@@ -116,6 +120,7 @@ public class GameManager : MonoBehaviour
     {
         SaveGameResult();
         eyesDataManager.SaveEyesData();
+        eegDataManager.SaveEEGData();
         SceneManager.LoadScene("GameOverScene");
     }
 
