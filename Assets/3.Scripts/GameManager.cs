@@ -142,6 +142,10 @@ public class GameManager : MonoBehaviour
         {
             eyesDataManager.ResetManager();
         }
+        if (eegDataManager != null)
+        {
+            eegDataManager.ResetManager();
+        }
     }
 
     IEnumerator GameResultCoroutine(string result, int score, int hp, int meteorite_broken_count)
