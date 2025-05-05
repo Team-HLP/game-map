@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
             hpText = GameObject.Find("HpText")?.GetComponent<Text>();
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
-            eegDataManager = GameObject.Find("EegDataManager")?.GetComponent<EEGDataManager>();
+            eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager>();
 
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();
