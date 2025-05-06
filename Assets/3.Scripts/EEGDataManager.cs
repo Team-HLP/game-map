@@ -12,12 +12,7 @@ public class EEGDataManager : MonoBehaviour
     private string filePath;
 
     private EEGDataWrapper collectedEEG;
-    private EEGSensorID[] sensorIDs = new EEGSensorID[]
-    {
-        EEGSensorID.AF3, EEGSensorID.AF4,
-        EEGSensorID.Fp1, EEGSensorID.Fp2,
-        EEGSensorID.AF7, EEGSensorID.AF8
-    };
+    private EEGSensorID sensorID = EEGSensorID.Fp1;  // Fp1만 사용
 
     private Coroutine measureCoroutine;
 
@@ -26,7 +21,7 @@ public class EEGDataManager : MonoBehaviour
         filePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
         collectedEEG = new EEGDataWrapper();
         LooxidLinkManager.Instance.Initialize();
-        StartCoroutine(MeasureEEGData());
+        StartMeasuring();
     }
 
     IEnumerator MeasureEEGData()
@@ -42,13 +37,14 @@ public class EEGDataManager : MonoBehaviour
                 EEGEntry entry = new EEGEntry
                 {
                     time_stamp = data.timestamp,
-                    delta = AverageBand(data, sensorIDs, BandType.Delta),
-                    theta = AverageBand(data, sensorIDs, BandType.Theta),
-                    alpha = AverageBand(data, sensorIDs, BandType.Alpha),
-                    beta = AverageBand(data, sensorIDs, BandType.Beta),
-                    gamma = AverageBand(data, sensorIDs, BandType.Gamma)
+                    delta = ConvertLogToLinear(data.Delta(sensorID)),
+                    theta = ConvertLogToLinear(data.Theta(sensorID)),
+                    alpha = ConvertLogToLinear(data.Alpha(sensorID)),
+                    beta = ConvertLogToLinear(data.Beta(sensorID)),
+                    gamma = ConvertLogToLinear(data.Gamma(sensorID))
                 };
-                Debug.Log($"EEG Entry - Time: {entry.time_stamp}, Delta: {entry.delta}, Theta: {entry.theta}, Alpha: {entry.alpha}, Beta: {entry.beta}, Gamma: {entry.gamma}");
+
+                Debug.Log($"[EEG] Time: {entry.time_stamp}, Delta: {entry.delta}, Theta: {entry.theta}, Alpha: {entry.alpha}, Beta: {entry.beta}, Gamma: {entry.gamma}");
 
                 collectedEEG.eeg_data.Add(entry);
             }
@@ -57,22 +53,15 @@ public class EEGDataManager : MonoBehaviour
         }
     }
 
-    double AverageBand(EEGFeatureIndex index, EEGSensorID[] ids, BandType band)
+    // 로그 → 선형 변환 + NaN 처리 (필터링 없이 그대로 사용)
+    double ConvertLogToLinear(double value)
     {
-        double sum = 0.0;
-        foreach (var id in ids)
-        {
-            sum += band switch
-            {
-                BandType.Delta => index.Delta(id),
-                BandType.Theta => index.Theta(id),
-                BandType.Alpha => index.Alpha(id),
-                BandType.Beta => index.Beta(id),
-                BandType.Gamma => index.Gamma(id),
-                _ => 0.0
-            };
-        }
-        return sum / ids.Length;
+        // NaN, Infinity → 0 처리
+        if (double.IsNaN(value) || double.IsInfinity(value))
+            return 0.0;
+
+        // 로그 → 선형 변환
+        return Math.Pow(10, value);
     }
 
     public void StartMeasuring()
@@ -107,7 +96,7 @@ public class EEGDataManager : MonoBehaviour
         StopMeasuring();
         string json = JsonUtility.ToJson(collectedEEG, true);
         File.WriteAllText(filePath, json, Encoding.UTF8);
-        Debug.Log("EEG JSON 저장 완료: " + filePath);
+        Debug.Log("[EEG] JSON 저장 완료: " + filePath);
     }
 
     [Serializable]
