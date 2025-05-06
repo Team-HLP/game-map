@@ -114,7 +114,10 @@ public class DotVisual : MonoBehaviour
             
             if (left.isDiameterValid && right.isDiameterValid)
             {
-                eyePupilDatas.Add(new EyePupilData(left.pupilDiameter, right.pupilDiameter));
+                eyePupilDatas.Add(new EyePupilData(
+                    left.pupilDiameter * 1000f, 
+                    right.pupilDiameter * 1000f
+                ));
             }
         }
     }
