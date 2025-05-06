@@ -60,6 +60,7 @@ public class DotSpawner : MonoBehaviour
     {
         if (++currentSession < totalSessions)
         {
+            isFisrtDisPlayRetryFocusNoticeText = false;
             SpawnDot();
         }
         else
@@ -97,7 +98,7 @@ public class DotSpawner : MonoBehaviour
         if (retryFocusNoticeText != null)
         {
             Transform noticeTransform = retryFocusNoticeText.transform;
-            Vector3 aboveDotPos = dotTransform.position + new Vector3(0, 60f, 0);
+            Vector3 aboveDotPos = dotTransform.position + new Vector3(0, 5f, 0);
 
             noticeTransform.position = aboveDotPos;
             retryFocusNoticeText.SetActive(false);

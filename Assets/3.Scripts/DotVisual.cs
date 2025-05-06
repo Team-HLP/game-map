@@ -49,8 +49,7 @@ public class DotVisual : MonoBehaviour
             spawner.DisActiveRetryFocusNoticeText();
             gazeTimer += Time.deltaTime;
             _targetColor = highlightColor;
-            Debug.Log("응시 중");
-
+            
             if (Time.time >= nextSampleTime)
             {
                 SamplePupilSize();
