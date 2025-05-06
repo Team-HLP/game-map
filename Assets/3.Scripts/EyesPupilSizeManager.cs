@@ -31,8 +31,8 @@ public class EyesPupilSizeManager : MonoBehaviour
                     eyeDatas.Add(new EyeData
                     {
                         timestamp = Time.time,
-                        leftPupilSize = left.pupilDiameter,
-                        rightPupilSize = right.pupilDiameter
+                        leftPupilSize = left.pupilDiameter * 1000f,
+                        rightPupilSize = right.pupilDiameter * 1000f
                     });
                 }
             }
