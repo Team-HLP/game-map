@@ -49,6 +49,7 @@ public class DotVisual : MonoBehaviour
             spawner.DisActiveRetryFocusNoticeText();
             gazeTimer += Time.deltaTime;
             _targetColor = highlightColor;
+            Debug.Log("응시 중");
 
             if (Time.time >= nextSampleTime)
             {
@@ -109,7 +110,9 @@ public class DotVisual : MonoBehaviour
         {
             var left = pupils[(int)XrEyePositionHTC.XR_EYE_POSITION_LEFT_HTC];
             var right = pupils[(int)XrEyePositionHTC.XR_EYE_POSITION_RIGHT_HTC];
-
+            Debug.Log(left.pupilDiameter);
+            Debug.Log(right.pupilDiameter);
+            
             if (left.isDiameterValid && right.isDiameterValid)
             {
                 eyePupilDatas.Add(new EyePupilData(left.pupilDiameter, right.pupilDiameter));

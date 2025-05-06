@@ -16,9 +16,7 @@ public class DotSpawner : MonoBehaviour
 
     void Start()
     {
-        IntroConfirmHandler.Instance.rollBack();
-        StartCoroutine(ShowComplimentAndLoadNextScene());
-        // SpawnDot();
+        SpawnDot();
     }
 
     public void SpawnDot()
