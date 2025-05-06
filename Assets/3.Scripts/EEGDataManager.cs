@@ -25,6 +25,7 @@ public class EEGDataManager : MonoBehaviour
     {
         filePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
         collectedEEG = new EEGDataWrapper();
+        LooxidLinkManager.Instance.Initialize();
         StartCoroutine(MeasureEEGData());
     }
 
@@ -47,6 +48,8 @@ public class EEGDataManager : MonoBehaviour
                     beta = AverageBand(data, sensorIDs, BandType.Beta),
                     gamma = AverageBand(data, sensorIDs, BandType.Gamma)
                 };
+                Debug.Log($"EEG Entry - Time: {entry.time_stamp}, Delta: {entry.delta}, Theta: {entry.theta}, Alpha: {entry.alpha}, Beta: {entry.beta}, Gamma: {entry.gamma}");
+
                 collectedEEG.eeg_data.Add(entry);
             }
 
