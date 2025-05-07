@@ -1,0 +1,19 @@
+{
+    "name": "VSX.Engines3D",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0058e7856b62514db99b17b51d0d7e8",
+        "GUID:c16e250da69a6324faa4b31369a4a2c5",
+        "GUID:fe2762d2258aba342b2b3c26f74b950e",
+        "GUID:36226d487c2962440baca18742e6846c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

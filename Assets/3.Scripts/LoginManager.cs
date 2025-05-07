@@ -17,6 +17,7 @@ public class LoginManager : MonoBehaviour
         string password = passwordInput.text;
 
         StartCoroutine(LoginCoroutine(id, password));
+        PlayerPrefs.SetInt("loginSuccess", 1);
     }
 
     IEnumerator LoginCoroutine(string id, string password)

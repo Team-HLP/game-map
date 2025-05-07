@@ -1403,6 +1403,7 @@ GameObject:
   - component: {fileID: 1122921692}
   - component: {fileID: 1122921691}
   - component: {fileID: 1122921690}
+  - component: {fileID: 1122921694}
   m_Layer: 5
   m_Name: Mole Button
   m_TagString: Untagged
@@ -1526,6 +1527,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1122921688}
   m_CullTransparentMesh: 1
+--- !u!114 &1122921694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122921688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f85dd57f1faa6c4a812577a4afb8463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffect: 0
+  effectSpeed: 2
+  minBrightness: 0.6
+  maxBrightness: 1
+  waveFrequency: 2
+  flickerIntensity: 0.3
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  affectButtons: 1
+  affectImages: 1
+  includeInactiveObjects: 0
 --- !u!1 &1128894434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,6 +1780,7 @@ GameObject:
   - component: {fileID: 1326204607}
   - component: {fileID: 1326204606}
   - component: {fileID: 1326204605}
+  - component: {fileID: 1326204610}
   m_Layer: 5
   m_Name: Meteorite Button
   m_TagString: Untagged
@@ -1999,6 +2024,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326204603}
   m_CullTransparentMesh: 1
+--- !u!114 &1326204610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326204603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f85dd57f1faa6c4a812577a4afb8463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffect: 0
+  effectSpeed: 2
+  minBrightness: 0.6
+  maxBrightness: 1
+  waveFrequency: 2
+  flickerIntensity: 0.3
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  affectButtons: 1
+  affectImages: 1
+  includeInactiveObjects: 0
 --- !u!1001 &1440869141
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -423,6 +423,7 @@ GameObject:
   - component: {fileID: 236216531}
   - component: {fileID: 236216530}
   - component: {fileID: 236216529}
+  - component: {fileID: 236216533}
   m_Layer: 5
   m_Name: exit
   m_TagString: Untagged
@@ -558,6 +559,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 236216527}
   m_CullTransparentMesh: 1
+--- !u!114 &236216533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236216527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f85dd57f1faa6c4a812577a4afb8463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffect: 0
+  effectSpeed: 2
+  minBrightness: 0.6
+  maxBrightness: 1
+  waveFrequency: 2
+  flickerIntensity: 0.3
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  affectButtons: 1
+  affectImages: 1
+  includeInactiveObjects: 0
 --- !u!1 &269864189
 GameObject:
   m_ObjectHideFlags: 0
@@ -1496,6 +1520,7 @@ GameObject:
   - component: {fileID: 840167385}
   - component: {fileID: 840167384}
   - component: {fileID: 840167383}
+  - component: {fileID: 840167388}
   m_Layer: 5
   m_Name: restart
   m_TagString: Untagged
@@ -1739,6 +1764,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840167381}
   m_CullTransparentMesh: 1
+--- !u!114 &840167388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840167381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f85dd57f1faa6c4a812577a4afb8463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffect: 0
+  effectSpeed: 2
+  minBrightness: 0.6
+  maxBrightness: 1
+  waveFrequency: 2
+  flickerIntensity: 0.3
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  affectButtons: 1
+  affectImages: 1
+  includeInactiveObjects: 0
 --- !u!1 &899407551
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,6 +1876,7 @@ GameObject:
   - component: {fileID: 959546167}
   - component: {fileID: 959546166}
   - component: {fileID: 959546165}
+  - component: {fileID: 959546169}
   m_Layer: 5
   m_Name: rank
   m_TagString: Untagged
@@ -1963,6 +2012,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959546163}
   m_CullTransparentMesh: 1
+--- !u!114 &959546169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959546163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f85dd57f1faa6c4a812577a4afb8463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffect: 0
+  effectSpeed: 2
+  minBrightness: 0.6
+  maxBrightness: 1
+  waveFrequency: 2
+  flickerIntensity: 0.3
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  affectButtons: 1
+  affectImages: 1
+  includeInactiveObjects: 0
 --- !u!1 &976388593
 GameObject:
   m_ObjectHideFlags: 0

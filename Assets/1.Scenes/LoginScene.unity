@@ -2580,6 +2580,7 @@ GameObject:
   - component: {fileID: 1471628194}
   - component: {fileID: 1471628197}
   - component: {fileID: 1471628198}
+  - component: {fileID: 1471628199}
   m_Layer: 5
   m_Name: confirm
   m_TagString: Untagged
@@ -2811,6 +2812,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 103.9196, y: 19.5155, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1471628199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471628192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f85dd57f1faa6c4a812577a4afb8463, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffect: 0
+  effectSpeed: 2
+  minBrightness: 0.6
+  maxBrightness: 1
+  waveFrequency: 2
+  flickerIntensity: 0.3
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  affectButtons: 1
+  affectImages: 1
+  includeInactiveObjects: 0
 --- !u!1 &1524036167
 GameObject:
   m_ObjectHideFlags: 0

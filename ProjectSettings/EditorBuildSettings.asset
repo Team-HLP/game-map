@@ -9,14 +9,14 @@ EditorBuildSettings:
     path: Assets/1.Scenes/MENU.unity
     guid: 5d761bc34d58d5d44a1f2ff421833cd7
   - enabled: 1
-    path: Assets/1.Scenes/SelectGameScene.unity
-    guid: 666457d68e1d2ed4499e4a7c7c0a57e9
-  - enabled: 1
     path: Assets/1.Scenes/LoginScene.unity
     guid: 7d0d592f95b7f074ea0b6d29a7d47b29
   - enabled: 1
     path: Assets/1.Scenes/MeteoriteScene.unity
     guid: df553599c96cf35408aec8d809e33e07
+  - enabled: 1
+    path: Assets/1.Scenes/SelectGameScene.unity
+    guid: 666457d68e1d2ed4499e4a7c7c0a57e9
   - enabled: 1
     path: Assets/1.Scenes/GameSuccessScene.unity
     guid: 5e4df6fc0ada5c547a59396b43e36b1a
@@ -26,8 +26,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1.Scenes/ResultScene.unity
     guid: 96a22533f91378d4da03a6404431e407
+  - enabled: 1
+    path: Assets/1.Scenes/EyeDataMeausreScene.unity
+    guid: 2469b7cff5309dd4db6e1940934c36e8
   m_configObjects:
-    Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: e861d758f83678a4d91a951a28d8e96c, type: 2}
-    com.unity.input.settings: {fileID: 11400000, guid: ef6258393d4043849b2cb2bead81f68f, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ac5e98c93d8fbdb43903a18d41719f89, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: bb7d16ee905a49844a4d1ff0a69c99ce, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 15762e7d1852b174496d703157a471ea,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ac5e98c93d8fbdb43903a18d41719f89,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: bb7d16ee905a49844a4d1ff0a69c99ce,
+      type: 2}

@@ -14,7 +14,6 @@ public class EyesDataManager : MonoBehaviour
         filePath = Path.Combine(Application.persistentDataPath, "eye_data.json");
     }
 
-    // TODO. 기준 동공 크기 구현되면 추가하기
     public void SaveEyesData()
     {
         eyesBlinkCountManager.StopMeasuring();
@@ -22,14 +21,16 @@ public class EyesDataManager : MonoBehaviour
 
         int eyeBlinkCount = eyesBlinkCountManager.GetEyeBlinkCount();
         var eyeDatas = eyesPupilSizeManager.GetEyeDatas();
+        float leftAvg = PlayerPrefs.GetFloat("left_avg", 0f);
+        float rightAvg = PlayerPrefs.GetFloat("right_avg", 0f);
 
-        var pupilRecords = new List<object>();
+        List<PupilRecord> pupilRecords = new List<PupilRecord>();
         foreach (var data in eyeDatas)
         {
-            pupilRecords.Add(new
+            pupilRecords.Add(new PupilRecord
             {
                 time_stamp = data.timestamp,
-                pupil_size = new
+                pupil_size = new PupilSize
                 {
                     left = data.leftPupilSize,
                     right = data.rightPupilSize
@@ -37,15 +38,22 @@ public class EyesDataManager : MonoBehaviour
             });
         }
 
-        var finalJsonObject = new
+        EyesData eyesData = new EyesData
         {
             blink_eye_count = eyeBlinkCount,
-            pupil_records = pupilRecords
+            pupil_records = pupilRecords.ToArray(),
+            base_pupil_size = new PupilSize
+            {
+                left = leftAvg,
+                right = rightAvg
+            }
         };
 
-        string json = JsonUtility.ToJson(new Wrapper(finalJsonObject), true);
+        EyesDataWrapper wrapper = new EyesDataWrapper { eyes_data = eyesData };
+
+        string json = JsonUtility.ToJson(wrapper, true);
         File.WriteAllText(filePath, json, Encoding.UTF8);
-        Debug.Log("파일 저장 경로 :  " + filePath);
+        Debug.Log("파일 저장 경로 : " + filePath);
     }
 
     public void ResetManager()
@@ -61,13 +69,30 @@ public class EyesDataManager : MonoBehaviour
     }
 
     [System.Serializable]
-    private class Wrapper
+    private class EyesDataWrapper
     {
-        public object eyes_data;
+        public EyesData eyes_data;
+    }
 
-        public Wrapper(object data)
-        {
-            this.eyes_data = data;
-        }
+    [System.Serializable]
+    private class EyesData
+    {
+        public int blink_eye_count;
+        public PupilRecord[] pupil_records;
+        public PupilSize base_pupil_size;
+    }
+
+    [System.Serializable]
+    private class PupilRecord
+    {
+        public float time_stamp;
+        public PupilSize pupil_size;
+    }
+
+    [System.Serializable]
+    private class PupilSize
+    {
+        public float left;
+        public float right;
     }
 }

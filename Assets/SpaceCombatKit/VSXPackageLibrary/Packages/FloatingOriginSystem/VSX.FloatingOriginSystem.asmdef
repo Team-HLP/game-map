@@ -1,0 +1,16 @@
+{
+    "name": "VSX.FloatingOriginSystem",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0058e7856b62514db99b17b51d0d7e8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

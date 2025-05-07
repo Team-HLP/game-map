@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: af647dbba8c75f24180d5fac9f453f7f
+AssetOrigin:
+  serializedVersion: 1
+  productId: 108097
+  packageName: Space Combat Kit
+  packageVersion: 2.9.6
+  assetPath: Assets/SpaceCombatKit/VehicleCombatKits/Audio/Radar/Tone.wav
+  uploadId: 713205
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 8
+  defaultSettings:
+    serializedVersion: 2
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 0
+    quality: 1
+    conversionMode: 0
+    preloadAudioData: 1
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

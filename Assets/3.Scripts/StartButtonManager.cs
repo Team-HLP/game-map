@@ -3,10 +3,21 @@ using UnityEngine.SceneManagement;
 
 public class StartButtonManager : MonoBehaviour
 {
+    public GameObject loginPopup;
+
     public void OnStartButtonClicked()
     {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("SelectGameScene");
+        int isLoggedIn = PlayerPrefs.GetInt("loginSuccess", 0);
+
+        if (isLoggedIn == 1)
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("SelectGameScene");
+        }
+        else
+        {
+            loginPopup.SetActive(true);
+        }
     }
     public void OnMeteoriteButtonClicked()
     {
@@ -16,6 +27,9 @@ public class StartButtonManager : MonoBehaviour
         }
 
         Time.timeScale = 1;
-        SceneManager.LoadScene("MeteoriteScene");
+        // 베이스 라인 씬에서 다음 씬으로 넘어가기 위해 저장
+        PlayerPrefs.SetString("gameScene", "MeteoriteScene");
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("EyeDataMeausreScene");
     }
 }
