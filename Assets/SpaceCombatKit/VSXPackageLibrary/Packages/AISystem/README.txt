@@ -1,1 +1,0 @@
-The AI System is a set of scripts and functions used to set up core AI functionality.
