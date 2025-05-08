@@ -1,0 +1,16 @@
+{
+    "name": "VSX.Vehicles.ControlAnimations",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d39ae027d5df1ff4a9cd679e2e3ed8d6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

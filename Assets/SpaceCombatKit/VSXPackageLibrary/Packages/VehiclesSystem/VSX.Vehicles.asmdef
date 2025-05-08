@@ -1,0 +1,19 @@
+{
+    "name": "VSX.Vehicles",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0058e7856b62514db99b17b51d0d7e8",
+        "GUID:d39ae027d5df1ff4a9cd679e2e3ed8d6",
+        "GUID:b69d26a326c852849bb5390e098feb8d",
+        "GUID:36226d487c2962440baca18742e6846c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

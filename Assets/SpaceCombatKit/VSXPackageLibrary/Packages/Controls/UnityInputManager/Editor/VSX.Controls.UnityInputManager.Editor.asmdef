@@ -1,0 +1,18 @@
+{
+    "name": "VSX.Controls.UnityInputManager.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:975a95936727e71468abcf42c2831888"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
