@@ -14,6 +14,9 @@ public class EEGDataManager : MonoBehaviour
     private EEGDataWrapper collectedEEG;
     private EEGSensorID sensorID = EEGSensorID.Fp1;  // Fp1만 사용
 
+    // --- 3DVisualizer 예제에서 가져온 센서 상태 저장 변수
+    private EEGSensor sensorStatusData;
+
     private Coroutine measureCoroutine;
 
     void Start()
@@ -21,7 +24,49 @@ public class EEGDataManager : MonoBehaviour
         filePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
         collectedEEG = new EEGDataWrapper();
         LooxidLinkManager.Instance.Initialize();
+
+        // 센서 상태 이벤트 구독
+        LooxidLinkData.OnReceiveEEGSensorStatus += OnReceiveEEGSensorStatus;
+
+        // 원시 신호 이벤트 구독
+        LooxidLinkData.OnReceiveEEGRawSignals += OnReceiveEEGRawSignals;
+
+        // 노이즈 / 센서 Off 메시지
+        LooxidLinkManager.OnShowNoiseSignalMessage += () =>
+            Debug.LogWarning("[EEG] 노이즈 신호 발생 (Noise Detected)");
+        LooxidLinkManager.OnHideNoiseSignalMessage += () =>
+            Debug.Log("[EEG] 노이즈 신호 사라짐 (Noise Cleared)");
+
         StartMeasuring();
+    }
+
+    void OnDestroy()
+    {
+        LooxidLinkData.OnReceiveEEGSensorStatus -= OnReceiveEEGSensorStatus;
+        LooxidLinkData.OnReceiveEEGRawSignals   -= OnReceiveEEGRawSignals;
+    }
+
+    // 센서 접촉 상태 콜백
+    void OnReceiveEEGSensorStatus(EEGSensor status)
+    {
+        sensorStatusData = status;
+        bool isFp1On = sensorStatusData.IsSensorOn(EEGSensorID.Fp1);
+        Debug.Log($"[EEG STATUS] Fp1 Sensor On? {isFp1On}");
+    }
+
+    // 원시 신호 콜백
+    void OnReceiveEEGRawSignals(EEGRawSignal raw)
+    {
+        double[] channelData = raw.FilteredRawSignal(sensorID);
+        if (channelData != null && channelData.Length > 0)
+        {
+            double sample = channelData[channelData.Length - 1];
+            Debug.Log($"[RAW SIGNAL] {sensorID} latest sample: {sample}");
+        }
+        else
+        {
+            Debug.LogWarning($"[RAW SIGNAL] {sensorID} no raw data!");
+        }
     }
 
     IEnumerator MeasureEEGData()
@@ -30,21 +75,43 @@ public class EEGDataManager : MonoBehaviour
 
         while (true)
         {
-            List<EEGFeatureIndex> recentData = LooxidLinkData.Instance.GetEEGFeatureIndexData(1.0f);
+            // 연결 상태
+            Debug.Log("[EEG] Link Core: " +
+                      LooxidLinkManager.Instance.isLinkCoreConnected +
+                      " | Link Hub: " +
+                      LooxidLinkManager.Instance.isLinkHubConnected);
+
+            // 밴드 파워 데이터 (float 리터럴)
+            List<EEGFeatureIndex> recentData =
+                LooxidLinkData.Instance.GetEEGFeatureIndexData(1.0f);
 
             foreach (var data in recentData)
             {
+                if (sensorStatusData != null)
+                {
+                    bool on = sensorStatusData.IsSensorOn(sensorID);
+                    Debug.Log($"[EEG STATUS] {sensorID} On? {on}");
+                }
+
+                // 원본 로그 값
+                double rawDelta = data.Delta(sensorID);
+                double rawTheta = data.Theta(sensorID);
+                double rawAlpha = data.Alpha(sensorID);
+                double rawBeta  = data.Beta(sensorID);
+                double rawGamma = data.Gamma(sensorID);
+                Debug.Log($"[EEG RAW] Δ:{rawDelta}, Θ:{rawTheta}, α:{rawAlpha}, β:{rawBeta}, γ:{rawGamma}");
+
+                // 로그→선형 변환 후 저장
                 EEGEntry entry = new EEGEntry
                 {
                     time_stamp = data.timestamp,
-                    delta = ConvertLogToLinear(data.Delta(sensorID)),
-                    theta = ConvertLogToLinear(data.Theta(sensorID)),
-                    alpha = ConvertLogToLinear(data.Alpha(sensorID)),
-                    beta = ConvertLogToLinear(data.Beta(sensorID)),
-                    gamma = ConvertLogToLinear(data.Gamma(sensorID))
+                    delta      = ConvertLogToLinear(rawDelta),
+                    theta      = ConvertLogToLinear(rawTheta),
+                    alpha      = ConvertLogToLinear(rawAlpha),
+                    beta       = ConvertLogToLinear(rawBeta),
+                    gamma      = ConvertLogToLinear(rawGamma)
                 };
-
-                Debug.Log($"[EEG] Time: {entry.time_stamp}, Delta: {entry.delta}, Theta: {entry.theta}, Alpha: {entry.alpha}, Beta: {entry.beta}, Gamma: {entry.gamma}");
+                Debug.Log($"[EEG CONV] Δ:{entry.delta}, Θ:{entry.theta}, α:{entry.alpha}, β:{entry.beta}, γ:{entry.gamma}");
 
                 collectedEEG.eeg_data.Add(entry);
             }
@@ -53,23 +120,17 @@ public class EEGDataManager : MonoBehaviour
         }
     }
 
-    // 로그 → 선형 변환 + NaN 처리 (필터링 없이 그대로 사용)
     double ConvertLogToLinear(double value)
     {
-        // NaN, Infinity → 0 처리
         if (double.IsNaN(value) || double.IsInfinity(value))
             return 0.0;
-
-        // 로그 → 선형 변환
         return Math.Pow(10, value);
     }
 
     public void StartMeasuring()
     {
         if (measureCoroutine == null)
-        {
             measureCoroutine = StartCoroutine(MeasureEEGData());
-        }
     }
 
     public void StopMeasuring()
@@ -81,11 +142,13 @@ public class EEGDataManager : MonoBehaviour
         }
     }
 
+    // GameManager용: 저장된 데이터 초기화
     public void ResetManager()
     {
         collectedEEG = new EEGDataWrapper();
     }
 
+    // GameManager용: 측정 재시작
     public void ReMeasuring()
     {
         StartMeasuring();
