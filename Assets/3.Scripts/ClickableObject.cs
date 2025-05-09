@@ -91,6 +91,12 @@ public class ClickableObject : MonoBehaviour
         hasInteracted = true;
         CancelInvoke(nameof(AutoDestroy));
 
+        // 응시 완료 기록
+        FindObjectOfType<BehaviorDataManager>()?.RecordObjectEvent(
+            objectType.ToString(),
+            "LookedAt"
+        );
+
         if (objectType == ObjectType.Meteorite)
         {
             GameManager.Instance.destroyedMeteo++;
