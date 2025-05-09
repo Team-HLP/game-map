@@ -114,20 +114,22 @@ public class GameManager : MonoBehaviour
 
     private void GameSuccess()
     {
+        GazeRaycaster.SaveUserStatusToJson();
         success = true;
         SaveGameResult();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
-        behaviorDataManager.SaveBehaviorData();
+        //behaviorDataManager.SaveBehaviorData();
         SceneManager.LoadScene("GameSuccessScene");
     }
 
     private void GameOver()
     {
+        GazeRaycaster.SaveUserStatusToJson();
         SaveGameResult();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
-        behaviorDataManager.SaveBehaviorData();
+        //behaviorDataManager.SaveBehaviorData();
         SceneManager.LoadScene("GameOverScene");
     }
 

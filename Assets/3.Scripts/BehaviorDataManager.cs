@@ -5,49 +5,73 @@ using System.Collections.Generic;
 
 public class BehaviorDataManager : MonoBehaviour
 {
-    private string filePath;
-    private List<ObjectBehaviorRecord> behaviorRecords = new List<ObjectBehaviorRecord>();
+    [SerializeField] int sessionSeconds = 90;
 
-    void Start()
+    string filePath;
+    // 초 단위 → (오브젝트 타입 → 카운터)
+    readonly Dictionary<int, Dictionary<string, ObjectCounter>> data =
+        new Dictionary<int, Dictionary<string, ObjectCounter>>();
+
+    void Awake()
     {
-        filePath = Path.Combine(Application.persistentDataPath, "behavior_data.json");
+        filePath = Path.Combine(Application.persistentDataPath, "behavior_series.json");
+        for (int s = 0; s <= sessionSeconds; s++)
+            data[s] = new Dictionary<string, ObjectCounter>();
     }
 
-    // 오브젝트 이벤트 기록 함수
     public void RecordObjectEvent(string objectType, string eventType)
     {
-        behaviorRecords.Add(new ObjectBehaviorRecord
+        int sec = Mathf.Clamp(Mathf.FloorToInt(Time.time), 0, sessionSeconds);
+
+        if (!data[sec].TryGetValue(objectType, out var counter))
         {
-            time_stamp = Time.time,
-            object_type = objectType,   // 예: "Meteorite", "Fuel"
-            event_type = eventType      // 예: "Spawned", "Destroyed", "LookedAt"
-        });
+            counter = new ObjectCounter { object_type = objectType };
+            data[sec][objectType] = counter;
+        }
+
+        if (eventType == "LookedAt")      counter.looked++;
+        else if (eventType == "Destroyed") counter.destroyed++;
     }
 
-    // JSON으로 저장
     public void SaveBehaviorData()
     {
-        BehaviorDataWrapper wrapper = new BehaviorDataWrapper
+        var wrapper = new TimeSeriesWrapper();
+        var list = new List<SecondEntry>();
+
+        foreach (var kv in data)
         {
-            behaviors = behaviorRecords.ToArray()
-        };
+            var entry = new SecondEntry
+            {
+                time_stamp = kv.Key,
+                objects    = new List<ObjectCounter>(kv.Value.Values).ToArray()
+            };
+            list.Add(entry);
+        }
+        wrapper.series = list.ToArray();
 
         string json = JsonUtility.ToJson(wrapper, true);
         File.WriteAllText(filePath, json, Encoding.UTF8);
-        Debug.Log("행동 데이터 저장 경로: " + filePath);
+        Debug.Log("시계열 행동 데이터 저장: " + filePath);
     }
 
     [System.Serializable]
-    private class BehaviorDataWrapper
+    class TimeSeriesWrapper
     {
-        public ObjectBehaviorRecord[] behaviors;
+        public SecondEntry[] series;
     }
 
     [System.Serializable]
-    private class ObjectBehaviorRecord
+    class SecondEntry
     {
-        public float time_stamp;
+        public int time_stamp;             // 기존 second → time_stamp
+        public ObjectCounter[] objects;
+    }
+
+    [System.Serializable]
+    class ObjectCounter
+    {
         public string object_type;
-        public string event_type;
+        public int looked;
+        public int destroyed;
     }
 }

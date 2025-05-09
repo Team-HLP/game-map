@@ -1,8 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 using Tobii.XR;
+using System.IO;
 
 public class GazeRaycaster : MonoBehaviour
 {
+    public static List<UserStatus> userStatus = new List<UserStatus>();
     public ClickableObject currentObject = null;
 
     void Update()
@@ -11,7 +14,8 @@ public class GazeRaycaster : MonoBehaviour
         var eyeData = TobiiXR.GetEyeTrackingData(TobiiXR_TrackingSpace.World);
 
         // 시선이 유효하지 않으면 무시
-        if (!eyeData.GazeRay.IsValid) {
+        if (!eyeData.GazeRay.IsValid)
+        {
             ExitCurrentObject();
             return;
         }
@@ -31,15 +35,18 @@ public class GazeRaycaster : MonoBehaviour
                     currentObject = hitObject;
                 }
 
+                userStatus.Add(new UserStatus(Time.time, Status.LOCKED, currentObject.GetObjectTypeAsString()));
                 currentObject.OnGazeEnter(); // 시선이 닿았다고 알림
             }
             else
             {
+                userStatus.Add(new UserStatus(Time.time, Status.NOT_LOCKED, ""));
                 ExitCurrentObject();
             }
         }
         else
         {
+            userStatus.Add(new UserStatus(Time.time, Status.NOT_LOCKED, ""));
             ExitCurrentObject();
         }
     }
@@ -53,4 +60,46 @@ public class GazeRaycaster : MonoBehaviour
         }
     }
 
+    public static void SaveUserDestoryStatus(string object_name)
+    {
+        userStatus.Add(new UserStatus(Time.time, Status.DESTROY, object_name));
+    }
+
+    public static void SaveUserStatusToJson()
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, "behavior_series.json");
+
+        UserStatusListWrapper wrapper = new UserStatusListWrapper();
+        wrapper.list = userStatus;
+
+        string json = JsonUtility.ToJson(wrapper, true);
+
+        File.WriteAllText(filePath, json);
+        Debug.Log("User status saved to: " + filePath);
+        userStatus = new List<UserStatus>();
+    }
+
+    [System.Serializable]
+    public class UserStatus
+    {
+        public float time_stamp;
+        public string status;
+        public string object_name;
+
+        public UserStatus(float time_stamp, Status status, string object_name)
+        {
+            this.time_stamp = time_stamp;
+            this.status = status.ToString();
+            this.object_name = object_name;
+        }
+    }
+
+    [System.Serializable]
+    public enum Status { LOCKED, NOT_LOCKED, DESTROY }
+
+    [System.Serializable]
+    public class UserStatusListWrapper
+    {
+        public List<UserStatus> list;
+    }
 }

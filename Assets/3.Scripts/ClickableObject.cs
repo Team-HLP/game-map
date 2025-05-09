@@ -85,29 +85,29 @@ public class ClickableObject : MonoBehaviour
     public void OnGazeExit () { /* 연속 응시판별은 Update에서 처리하니 비워둠 */ }
 
     /* ────────────────────────────── 성공 처리 ──────────────────────────────── */
-    void OnGazeComplete ()
+void OnGazeComplete ()
+{
+    if (hasInteracted) return;
+    hasInteracted = true;
+    GazeRaycaster.SaveUserDestoryStatus(objectType.ToString());
+    CancelInvoke(nameof(AutoDestroy));
+
+    // 응시 완료 + 파괴 모두 기록
+    var mgr = FindObjectOfType<BehaviorDataManager>();
+    mgr?.RecordObjectEvent(objectType.ToString(), "LookedAt");
+    mgr?.RecordObjectEvent(objectType.ToString(), "Destroyed");
+
+    if (objectType == ObjectType.Meteorite)
     {
-        if (hasInteracted) return;
-        hasInteracted = true;
-        CancelInvoke(nameof(AutoDestroy));
-
-        // 응시 완료 기록
-        FindObjectOfType<BehaviorDataManager>()?.RecordObjectEvent(
-            objectType.ToString(),
-            "LookedAt"
-        );
-
-        if (objectType == ObjectType.Meteorite)
-        {
-            GameManager.Instance.destroyedMeteo++;
-            SpawnEffect(explosionEffectPrefab);
-        }
-        else if (objectType == ObjectType.Fuel)
-        {
-            SpawnEffect(explosionEffectPrefab);
-        }
-        Destroy(gameObject);
+        GameManager.Instance.destroyedMeteo++;
+        SpawnEffect(explosionEffectPrefab);
     }
+    else
+    {
+        SpawnEffect(explosionEffectPrefab);
+    }
+    Destroy(gameObject);
+}
 
     /* ────────────────────────────── 자동 파괴 ──────────────────────────────── */
     void AutoDestroy ()
@@ -131,5 +131,10 @@ public class ClickableObject : MonoBehaviour
         if (effectPrefab == null) return;
         var fx = Instantiate(effectPrefab, transform.position, Quaternion.identity);
         Destroy(fx, 2f);
+    }
+
+    public string GetObjectTypeAsString()
+    {
+        return objectType.ToString();
     }
 }
