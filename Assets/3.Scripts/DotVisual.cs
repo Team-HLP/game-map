@@ -18,7 +18,7 @@ public class DotVisual : MonoBehaviour
 
     private float gazeActiveUntil = 0f;
     private float gazeTimer = 0f;
-    private float continuousGazeTime = 5f;
+    private float continuousGazeTime = 3f;
 
     private bool hasCompleted = false;
 
