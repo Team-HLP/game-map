@@ -730,7 +730,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1583,6 +1583,7 @@ GameObject:
   - component: {fileID: 1611559997281486173}
   - component: {fileID: 1222742799900582643}
   - component: {fileID: 430628380241951651}
+  - component: {fileID: 5742458425413481822}
   m_Layer: 2
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -1713,6 +1714,26 @@ MonoBehaviour:
   m_AimAssistRequiredSpeed: 0.25
   m_AimAssistPercent: 0.8
   m_AimAssistMaxSpeedPercent: 10
+--- !u!114 &5742458425413481822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6338015132292483055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13186b9251cf56f4c9963eec55c335a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: {fileID: 0}
+  defaultProfile: {fileID: 0}
+  gameStateProfiles:
+  - gameStates:
+    - {fileID: 11400000, guid: df62b6fdd74ad684ab28bf2c52e6fab3, type: 2}
+    - {fileID: 11400000, guid: ba9d69850f0196a4888f57c68e65d00a, type: 2}
+    - {fileID: 11400000, guid: 1364038f4d630f04aa5319900882fd0b, type: 2}
+    profile: {fileID: 11400000, guid: 128b3fd9ab1bfff4792c9839e919a909, type: 2}
 --- !u!1 &6407718326494736160
 GameObject:
   m_ObjectHideFlags: 0
