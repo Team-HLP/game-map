@@ -35,18 +35,19 @@ public class GazeRaycaster : MonoBehaviour
                     currentObject = hitObject;
                 }
 
-                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.LOCKED, currentObject.GetObjectTypeAsString()));
+                // 개인 로컬에서 돌리면 컴퓨터가 터질수도 있기 때문에 주석 처리
+                //userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.LOCKED, currentObject.GetObjectTypeAsString()));
                 currentObject.OnGazeEnter(); // 시선이 닿았다고 알림
             }
             else
             {
-                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
+                //userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
                 ExitCurrentObject();
             }
         }
         else
         {
-            userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
+            //userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
             ExitCurrentObject();
         }
     }
