@@ -1338,7 +1338,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 5, y: 5, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5013588106213289073
 MonoBehaviour:
@@ -1418,7 +1418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 2
-  continuousGazeTime: 2
+  continuousGazeTime: 1
   autoDestroyTime: 150
   explosionEffectPrefab: {fileID: 0}
   fuelCollectEffectPrefab: {fileID: 0}
