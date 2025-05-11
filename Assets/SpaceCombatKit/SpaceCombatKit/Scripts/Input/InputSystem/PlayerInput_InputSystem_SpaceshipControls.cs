@@ -99,7 +99,7 @@ namespace VSX.SpaceCombatKit
         protected virtual void Forward(float throttle)
         {
             if (!CanRunInput() || !movementEnabled) return;
-            movementInputs.z = throttle;
+            movementInputs.z = throttle * 0.2f;
         }
 
 
