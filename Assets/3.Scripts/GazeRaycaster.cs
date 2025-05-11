@@ -35,18 +35,18 @@ public class GazeRaycaster : MonoBehaviour
                     currentObject = hitObject;
                 }
 
-                userStatus.Add(new UserStatus(Time.time, Status.LOCKED, currentObject.GetObjectTypeAsString()));
+                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.LOCKED, currentObject.GetObjectTypeAsString()));
                 currentObject.OnGazeEnter(); // 시선이 닿았다고 알림
             }
             else
             {
-                userStatus.Add(new UserStatus(Time.time, Status.NOT_LOCKED, ""));
+                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
                 ExitCurrentObject();
             }
         }
         else
         {
-            userStatus.Add(new UserStatus(Time.time, Status.NOT_LOCKED, ""));
+            userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
             ExitCurrentObject();
         }
     }
@@ -70,7 +70,7 @@ public class GazeRaycaster : MonoBehaviour
         string filePath = Path.Combine(Application.persistentDataPath, "behavior_series.json");
 
         UserStatusListWrapper wrapper = new UserStatusListWrapper();
-        wrapper.list = userStatus;
+        wrapper.behavior_series = userStatus;
 
         string json = JsonUtility.ToJson(wrapper, true);
 
@@ -100,6 +100,6 @@ public class GazeRaycaster : MonoBehaviour
     [System.Serializable]
     public class UserStatusListWrapper
     {
-        public List<UserStatus> list;
+        public List<UserStatus> behavior_series;
     }
 }

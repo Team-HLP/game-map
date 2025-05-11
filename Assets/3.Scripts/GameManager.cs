@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public EyesDataManager eyesDataManager;
     public EEGDataManager eegDataManager;
 
+    private float frameTime;
+
     private string eyeFilePath;
     private string eegFilePath;
 
@@ -78,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        frameTime = Time.time;
         if (success) return;
 
         gameTime -= Time.deltaTime;
@@ -140,6 +143,11 @@ public class GameManager : MonoBehaviour
     {
         string result = success ? "SUCCESS" : "FAIL";
         StartCoroutine(GameResultCoroutine(result, score, hp, destroyedMeteo));
+    }
+
+    public float getFrameTime()
+    {
+        return frameTime;
     }
 
     public void ResetGameData()

@@ -104,7 +104,7 @@ public class EEGDataManager : MonoBehaviour
                 // 로그→선형 변환 후 저장
                 EEGEntry entry = new EEGEntry
                 {
-                    time_stamp = data.timestamp,
+                    time_stamp = GameManager.Instance.getFrameTime(),
                     delta      = ConvertLogToLinear(rawDelta),
                     theta      = ConvertLogToLinear(rawTheta),
                     alpha      = ConvertLogToLinear(rawAlpha),
