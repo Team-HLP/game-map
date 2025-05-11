@@ -41,11 +41,6 @@ public class FlyingObject : MonoBehaviour
         // 오브젝트 생성 후 변수에 저장
         GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
-        FindObjectOfType<BehaviorDataManager>()?.RecordObjectEvent( //행동데이터 기록
-        prefabToSpawn == meteoritePrefab ? "Meteorite" : "Fuel",
-        "Spawned"
-    );
-
         ClickableObject clickableObject = spawnedObject.GetComponent<ClickableObject>();
         if (clickableObject != null)
         {

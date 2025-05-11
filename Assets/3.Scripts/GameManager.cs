@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
 
     public EyesDataManager eyesDataManager;
     public EEGDataManager eegDataManager;
-    public BehaviorDataManager behaviorDataManager;
 
 
     private void Awake()
@@ -54,7 +53,6 @@ public class GameManager : MonoBehaviour
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
             eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager>();
-            behaviorDataManager = GameObject.Find("BehaviorDataManager")?.GetComponent<BehaviorDataManager>();
             
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();
@@ -119,7 +117,6 @@ public class GameManager : MonoBehaviour
         SaveGameResult();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
-        //behaviorDataManager.SaveBehaviorData();
         SceneManager.LoadScene("GameSuccessScene");
     }
 
@@ -129,7 +126,6 @@ public class GameManager : MonoBehaviour
         SaveGameResult();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
-        //behaviorDataManager.SaveBehaviorData();
         SceneManager.LoadScene("GameOverScene");
     }
 
