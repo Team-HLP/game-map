@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public EyesDataManager eyesDataManager;
     public EEGDataManager eegDataManager;
 
-    private float frameTime;
+    private float sceneStartTime;
 
     private string eyeFilePath;
     private string eegFilePath;
@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            sceneStartTime = Time.time;
             eyeFilePath = Path.Combine(Application.persistentDataPath, "eye_data.json");
             eegFilePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
             DontDestroyOnLoad(gameObject);
@@ -80,7 +81,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        frameTime = Time.time;
         if (success) return;
 
         gameTime -= Time.deltaTime;
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
 
     public float getFrameTime()
     {
-        return frameTime;
+        return Time.time - sceneStartTime;
     }
 
     public void ResetGameData()
