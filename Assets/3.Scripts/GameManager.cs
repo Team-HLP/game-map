@@ -1,5 +1,8 @@
+using System.IO;
+using System.Text;
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
@@ -21,11 +24,19 @@ public class GameManager : MonoBehaviour
     public EyesDataManager eyesDataManager;
     public EEGDataManager eegDataManager;
 
+    private float sceneStartTime;
+
+    private string eyeFilePath;
+    private string eegFilePath;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            sceneStartTime = Time.time;
+            eyeFilePath = Path.Combine(Application.persistentDataPath, "eye_data.json");
+            eegFilePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -52,7 +63,7 @@ public class GameManager : MonoBehaviour
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
             eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager>();
-
+            
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();
             UpdateHpUI();
@@ -65,6 +76,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         UpdateHpUI();
     }
+        
+        
 
     private void Update()
     {
@@ -109,18 +122,20 @@ public class GameManager : MonoBehaviour
 
     private void GameSuccess()
     {
+        GazeRaycaster.SaveUserStatusToJson();
         success = true;
-        SaveGameResult();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
+        SaveGameResult();
         SceneManager.LoadScene("GameSuccessScene");
     }
 
     private void GameOver()
     {
-        SaveGameResult();
+        GazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
+        SaveGameResult();
         SceneManager.LoadScene("GameOverScene");
     }
 
@@ -128,6 +143,11 @@ public class GameManager : MonoBehaviour
     {
         string result = success ? "SUCCESS" : "FAIL";
         StartCoroutine(GameResultCoroutine(result, score, hp, destroyedMeteo));
+    }
+
+    public float getFrameTime()
+    {
+        return Time.time - sceneStartTime;
     }
 
     public void ResetGameData()
@@ -150,30 +170,30 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GameResultCoroutine(string result, int score, int hp, int meteorite_broken_count)
     {
-        GameResultRequest requestData = new GameResultRequest(result, score, hp, meteorite_broken_count);
+        string jsonBody = JsonUtility.ToJson(new GameResultRequest(result, score, hp, meteorite_broken_count));
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
 
-        string jsonBody = JsonConvert.SerializeObject(requestData);
-        Debug.Log(jsonBody);
+        byte[] gmaeResult = Encoding.UTF8.GetBytes(jsonBody);
+        byte[] eegBytes = File.ReadAllBytes(eegFilePath);
+        byte[] eyeBytes = File.ReadAllBytes(eyeFilePath);
 
-        UnityWebRequest request = new UnityWebRequest(Apiconfig.url + "/game/meteorite", "POST");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
+        formData.Add(new MultipartFormFileSection("request", gmaeResult, "request.json", "application/json"));
+        formData.Add(new MultipartFormFileSection("eeg_data_file", eegBytes, "eeg_data.json", "application/json"));
+        formData.Add(new MultipartFormFileSection("eye_data_file", eyeBytes, "eye_data.json", "application/json"));
 
-        string accessToken = PlayerPrefs.GetString("access_token", "");
-        request.SetRequestHeader("Authorization", "Bearer " + accessToken);
+        UnityWebRequest request = UnityWebRequest.Post(Apiconfig.url + "/game/meteorite", formData);
+        request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("access_token", ""));
 
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("결과 저장 성공");
+            Debug.Log("Result Save Success");
         }
         else
         {
-            Debug.LogError("결과 저장 실패: " + request.error);
-            Debug.LogError("서버 응답 본문: " + request.downloadHandler.text);
+            Debug.LogError("Result Save Error: " + request.error);
+            Debug.LogError("Server Response Body: " + request.downloadHandler.text);
         }
     }
 }

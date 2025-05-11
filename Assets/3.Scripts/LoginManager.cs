@@ -17,7 +17,6 @@ public class LoginManager : MonoBehaviour
         string password = passwordInput.text;
 
         StartCoroutine(LoginCoroutine(id, password));
-        PlayerPrefs.SetInt("loginSuccess", 1);
     }
 
     IEnumerator LoginCoroutine(string id, string password)
@@ -37,6 +36,7 @@ public class LoginManager : MonoBehaviour
             LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
             PlayerPrefs.SetString("access_token", response.access_token);
             PlayerPrefs.Save();
+            PlayerPrefs.SetInt("loginSuccess", 1);
             SceneManager.LoadScene(nextSceneName);
         }
         else
