@@ -99,7 +99,7 @@ public class EEGDataManager : MonoBehaviour
                 double rawAlpha = data.Alpha(sensorID);
                 double rawBeta  = data.Beta(sensorID);
                 double rawGamma = data.Gamma(sensorID);
-                Debug.Log($"[EEG RAW] Δ:{rawDelta}, Θ:{rawTheta}, α:{rawAlpha}, β:{rawBeta}, γ:{rawGamma}");
+                // Debug.Log($"[EEG RAW] Δ:{rawDelta}, Θ:{rawTheta}, α:{rawAlpha}, β:{rawBeta}, γ:{rawGamma}");
 
                 // 로그→선형 변환 후 저장
                 EEGEntry entry = new EEGEntry
@@ -111,7 +111,7 @@ public class EEGDataManager : MonoBehaviour
                     beta       = ConvertLogToLinear(rawBeta),
                     gamma      = ConvertLogToLinear(rawGamma)
                 };
-                Debug.Log($"[EEG CONV] Δ:{entry.delta}, Θ:{entry.theta}, α:{entry.alpha}, β:{entry.beta}, γ:{entry.gamma}");
+                // Debug.Log($"[EEG CONV] Δ:{entry.delta}, Θ:{entry.theta}, α:{entry.alpha}, β:{entry.beta}, γ:{entry.gamma}");
 
                 collectedEEG.eeg_data.Add(entry);
             }
