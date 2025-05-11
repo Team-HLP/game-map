@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MeteoriteScene")
+        if (scene.name == "SCK_EnemyWaves")
         {
             hpText = GameObject.Find("HpText")?.GetComponent<Text>();
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
