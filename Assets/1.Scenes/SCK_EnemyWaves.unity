@@ -219,14 +219,14 @@ MonoBehaviour:
   respawnAfterTime: 0
   respawnTime: 3
   usePool: 0
-  pilotReference: {fileID: 8324808041890626422, guid: 2e8788f6c9cb96f4b8bab8c85b5a8dfc,
+  pilotReference: {fileID: 8324808041890626422, guid: a901f2adf8d9ee5458e079201b2b0a52,
     type: 3}
   instantiatePilot: 1
   parentPilotToSpawnTransform: 1
   specifyLoadout: 0
   loadout: 
   loadoutItems: {fileID: 0}
-  vehicleReference: {fileID: 5013588106213289073, guid: 0cf3581f1155fb84f8eca656a6870178,
+  vehicleReference: {fileID: 5013588106213289073, guid: f4e0b4a9e0238024194bc8b95403a000,
     type: 3}
   instantiateVehicle: 1
   parentVehicleToSpawnTransform: 1
@@ -456,12 +456,6 @@ Transform:
   m_Father: {fileID: 1790971927}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &274540077 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6338015132292483055, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1123227554}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &372945684
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,12 +855,12 @@ PrefabInstance:
         type: 3}
       propertyPath: backupVehiclePrefab
       value: 
-      objectReference: {fileID: 2378030215333013681, guid: 9398898c2e689404b8fbf79879cc068f,
+      objectReference: {fileID: 2378030215333013681, guid: 36b392263acd88941aeee95a53a5dd89,
         type: 3}
     - target: {fileID: 9160187105857624258, guid: e335710b9fde64045a562a650736ee4b,
         type: 3}
       propertyPath: onVehicleSpawned.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9160187105857624258, guid: e335710b9fde64045a562a650736ee4b,
         type: 3}
@@ -877,7 +871,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onVehicleSpawned.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1311745866}
+      objectReference: {fileID: 0}
     - target: {fileID: 9160187105857624258, guid: e335710b9fde64045a562a650736ee4b,
         type: 3}
       propertyPath: onVehicleSpawned.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -2163,7 +2157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1388598154005164, guid: 163e58f67a1a63b4e8dd75b31cf60073, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4292126357827146, guid: 163e58f67a1a63b4e8dd75b31cf60073, type: 3}
       propertyPath: m_RootOrder
@@ -2207,6 +2201,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4292126357827146, guid: 163e58f67a1a63b4e8dd75b31cf60073, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 81143506353839118, guid: 163e58f67a1a63b4e8dd75b31cf60073,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2468,75 +2467,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'HP : 100'
---- !u!1001 &1123227554
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 22
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6338015132292483055, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
-        type: 3}
-      propertyPath: m_Name
-      value: XR Origin (XR Rig)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 09aef74854e766e4f8f2c39bd6b2ca1f, type: 3}
 --- !u!1 &1197580953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2657,52 +2587,6 @@ Transform:
   - {fileID: 638645194}
   m_Father: {fileID: 1356788171}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1311745865
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1311745867}
-  - component: {fileID: 1311745866}
-  m_Layer: 0
-  m_Name: XROriginAttacher
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1311745866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311745865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02348c90d7c29664eb920d8c749e59a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xrOrigin: {fileID: 274540077}
-  cockpitMountName: Ship
---- !u!4 &1311745867
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1311745865}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1320761379
 GameObject:
@@ -3376,14 +3260,14 @@ MonoBehaviour:
   respawnAfterTime: 0
   respawnTime: 3
   usePool: 0
-  pilotReference: {fileID: 8324808041890626422, guid: 2e8788f6c9cb96f4b8bab8c85b5a8dfc,
+  pilotReference: {fileID: 8324808041890626422, guid: a901f2adf8d9ee5458e079201b2b0a52,
     type: 3}
   instantiatePilot: 1
   parentPilotToSpawnTransform: 1
   specifyLoadout: 0
   loadout: 
   loadoutItems: {fileID: 0}
-  vehicleReference: {fileID: 5013588106213289073, guid: 0cf3581f1155fb84f8eca656a6870178,
+  vehicleReference: {fileID: 5013588106213289073, guid: f4e0b4a9e0238024194bc8b95403a000,
     type: 3}
   instantiateVehicle: 1
   parentVehicleToSpawnTransform: 1
@@ -3624,14 +3508,14 @@ MonoBehaviour:
   respawnAfterTime: 0
   respawnTime: 3
   usePool: 0
-  pilotReference: {fileID: 8324808041890626422, guid: 2e8788f6c9cb96f4b8bab8c85b5a8dfc,
+  pilotReference: {fileID: 8324808041890626422, guid: a901f2adf8d9ee5458e079201b2b0a52,
     type: 3}
   instantiatePilot: 1
   parentPilotToSpawnTransform: 1
   specifyLoadout: 0
   loadout: 
   loadoutItems: {fileID: 0}
-  vehicleReference: {fileID: 5013588106213289073, guid: 0cf3581f1155fb84f8eca656a6870178,
+  vehicleReference: {fileID: 5013588106213289073, guid: f4e0b4a9e0238024194bc8b95403a000,
     type: 3}
   instantiateVehicle: 1
   parentVehicleToSpawnTransform: 1
