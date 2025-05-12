@@ -3,27 +3,27 @@ using UnityEngine.InputSystem;
 
 public class Moving : MonoBehaviour
 {
-    public float speed;     // ÀüÁø ¼Óµµ
-    public float turnSpeed = 25f; // È¸Àü ¼Óµµ
-    public InputActionProperty leftMoveAction;   // ¿Þ¼Õ ÄÁÆ®·Ñ·¯ ÀÔ·Â
-    public InputActionProperty rightMoveAction;  // ¿À¸¥¼Õ ÄÁÆ®·Ñ·¯ ÀÔ·Â
+    public float speed;     // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
+    public float turnSpeed = 25f; // È¸ï¿½ï¿½ ï¿½Óµï¿½
+    public InputActionProperty leftMoveAction;   // ï¿½Þ¼ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½Ô·ï¿½
+    public InputActionProperty rightMoveAction;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½Ô·ï¿½
     void Start()
     {
-        speed = 4f;
+        speed = 20f;
     }
     void Update()
     {
-        // ÀüÁø
+        // ï¿½ï¿½ï¿½ï¿½
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        // ÁÂ¿ì ÀÔ·Â °ª °¡Á®¿À±â
+        // ï¿½Â¿ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Vector2 leftInput = leftMoveAction.action.ReadValue<Vector2>();
         Vector2 rightInput = rightMoveAction.action.ReadValue<Vector2>();
 
-        // µÑ Áß °ªÀÌ ´õ Å« ÂÊ »ç¿ë (ÀÔ·ÂµÈ ¼Õ¸¸ Àû¿ëµÊ)
+        // ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å« ï¿½ï¿½ ï¿½ï¿½ï¿½ (ï¿½Ô·Âµï¿½ ï¿½Õ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)
         float horizontal = Mathf.Abs(rightInput.x) > Mathf.Abs(leftInput.x) ? rightInput.x : leftInput.x;
 
-        // ÁÂ¿ì ÀÌµ¿
+        // ï¿½Â¿ï¿½ ï¿½Ìµï¿½
         transform.Translate(Vector3.right * horizontal * turnSpeed * Time.deltaTime);
     }
 }
