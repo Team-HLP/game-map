@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FlyingObject : MonoBehaviour
@@ -11,8 +9,13 @@ public class FlyingObject : MonoBehaviour
     public RectTransform spawnArea;
     private Transform playerCamera;
 
+    private static int meteoriteSpawnCount;
+    private static int fuelSpawnCount;
+
     void Start()
     {
+        meteoriteSpawnCount = 0;
+        fuelSpawnCount = 0;
         playerCamera = Camera.main.transform;
         InvokeRepeating(nameof(SpawnObject), 1f, spawnInterval);
     }
@@ -36,7 +39,16 @@ public class FlyingObject : MonoBehaviour
         spawnPosition.y -= 3f;
 
         // 운석과 연료 중 하나를 랜덤으로 선택
-        GameObject prefabToSpawn = Random.value < 0.7f ? meteoritePrefab : fuelPrefab;
+        GameObject prefabToSpawn;
+
+        if (Random.value < 0.7f) {
+            prefabToSpawn = meteoritePrefab;
+            meteoriteSpawnCount++;
+        }
+        else {
+            prefabToSpawn = fuelPrefab;
+            fuelSpawnCount++;
+        }
 
         // 오브젝트 생성 후 변수에 저장
         GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
@@ -46,5 +58,10 @@ public class FlyingObject : MonoBehaviour
         {
             clickableObject.autoDestroyTime = 8f;
         }
+    }
+
+    public static void SavePrefabSpawnCount() {
+        PlayerPrefs.SetInt("meteorite_prefab_count", meteoriteSpawnCount);
+        PlayerPrefs.SetInt("fuel_prefab_count", fuelSpawnCount);
     }
 }

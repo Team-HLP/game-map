@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
         success = true;
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
+        FlyingObject.SavePrefabSpawnCount();
         SaveGameResult();
         SceneManager.LoadScene("GameSuccessScene");
     }
@@ -140,6 +141,7 @@ public class GameManager : MonoBehaviour
         gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
+        FlyingObject.SavePrefabSpawnCount();
         SaveGameResult();
         SceneManager.LoadScene("GameOverScene");
     }
@@ -175,7 +177,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GameResultCoroutine(string result, int score, int hp, int meteorite_broken_count)
     {
-        string jsonBody = JsonUtility.ToJson(new GameResultRequest(result, score, hp, meteorite_broken_count));
+        int meteorite_prefab_count = PlayerPrefs.GetInt("meteorite_prefab_count");
+        int fuel_prefab_count = PlayerPrefs.GetInt("fuel_prefab_count");
+
+        string jsonBody = JsonUtility.ToJson(new GameResultRequest(meteorite_prefab_count, fuel_prefab_count, result, score, hp, meteorite_broken_count));
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
 
         byte[] gmaeResult = Encoding.UTF8.GetBytes(jsonBody);
