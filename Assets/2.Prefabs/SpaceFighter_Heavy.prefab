@@ -4545,6 +4545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2349176207629778755}
+  - component: {fileID: 5519702285224476867}
   - component: {fileID: 2330589126129408075}
   - component: {fileID: 2378030215333013681}
   - component: {fileID: 1257643947870394721}
@@ -4605,6 +4606,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5519702285224476867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347346155212535549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a56e928ec29e741a07e32963bd2096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeed: 0.3
 --- !u!54 &2330589126129408075
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4619,7 +4633,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &2378030215333013681
 MonoBehaviour:
