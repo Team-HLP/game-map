@@ -8,34 +8,24 @@ using System;
 
 public class EEGDataManager : MonoBehaviour
 {
-    enum BandType { Delta, Theta, Alpha, Beta, Gamma }
+    private const int linkFequency = 5;
+    enum BandType { DELTA, THETA, ALPHA, BETA, GAMMA }
     private string filePath;
-
     private EEGDataWrapper collectedEEG;
-    private EEGSensorID sensorID = EEGSensorID.Fp1;  // Fp1만 사용
-
-    // --- 3DVisualizer 예제에서 가져온 센서 상태 저장 변수
+    private EEGSensorID sensorID = EEGSensorID.Fp1;
     private EEGSensor sensorStatusData;
-
     private Coroutine measureCoroutine;
 
     void Start()
     {
         filePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
         collectedEEG = new EEGDataWrapper();
+
         LooxidLinkManager.Instance.Initialize();
-
-        // 센서 상태 이벤트 구독
         LooxidLinkData.OnReceiveEEGSensorStatus += OnReceiveEEGSensorStatus;
-
-        // 원시 신호 이벤트 구독
         LooxidLinkData.OnReceiveEEGRawSignals += OnReceiveEEGRawSignals;
-
-        // 노이즈 / 센서 Off 메시지
-        LooxidLinkManager.OnShowNoiseSignalMessage += () =>
-            Debug.LogWarning("[EEG] 노이즈 신호 발생 (Noise Detected)");
-        LooxidLinkManager.OnHideNoiseSignalMessage += () =>
-            Debug.Log("[EEG] 노이즈 신호 사라짐 (Noise Cleared)");
+        LooxidLinkManager.OnShowNoiseSignalMessage += () => { };
+        LooxidLinkManager.OnHideNoiseSignalMessage += () => { };
 
         StartMeasuring();
     }
@@ -43,29 +33,20 @@ public class EEGDataManager : MonoBehaviour
     void OnDestroy()
     {
         LooxidLinkData.OnReceiveEEGSensorStatus -= OnReceiveEEGSensorStatus;
-        LooxidLinkData.OnReceiveEEGRawSignals   -= OnReceiveEEGRawSignals;
+        LooxidLinkData.OnReceiveEEGRawSignals -= OnReceiveEEGRawSignals;
     }
 
-    // 센서 접촉 상태 콜백
     void OnReceiveEEGSensorStatus(EEGSensor status)
     {
         sensorStatusData = status;
-        bool isFp1On = sensorStatusData.IsSensorOn(EEGSensorID.Fp1);
-        Debug.Log($"[EEG STATUS] Fp1 Sensor On? {isFp1On}");
     }
 
-    // 원시 신호 콜백
     void OnReceiveEEGRawSignals(EEGRawSignal raw)
     {
         double[] channelData = raw.FilteredRawSignal(sensorID);
         if (channelData != null && channelData.Length > 0)
         {
             double sample = channelData[channelData.Length - 1];
-            Debug.Log($"[RAW SIGNAL] {sensorID} latest sample: {sample}");
-        }
-        else
-        {
-            Debug.LogWarning($"[RAW SIGNAL] {sensorID} no raw data!");
         }
     }
 
@@ -75,56 +56,129 @@ public class EEGDataManager : MonoBehaviour
 
         while (true)
         {
-            // 연결 상태
-            Debug.Log("[EEG] Link Core: " +
-                      LooxidLinkManager.Instance.isLinkCoreConnected +
-                      " | Link Hub: " +
-                      LooxidLinkManager.Instance.isLinkHubConnected);
-
-            // 밴드 파워 데이터 (float 리터럴)
-            List<EEGFeatureIndex> recentData =
-                LooxidLinkData.Instance.GetEEGFeatureIndexData(1.0f);
-
-            foreach (var data in recentData)
+            EEGEntry entry = new EEGEntry
             {
-                if (sensorStatusData != null)
-                {
-                    bool on = sensorStatusData.IsSensorOn(sensorID);
-                    Debug.Log($"[EEG STATUS] {sensorID} On? {on}");
-                }
+                time_stamp = GameManager.Instance.getFrameTime(),
+                delta = GetLatestFeatureValue(sensorID, BandType.DELTA),
+                theta = GetLatestFeatureValue(sensorID, BandType.THETA),
+                alpha = GetLatestFeatureValue(sensorID, BandType.ALPHA),
+                beta = GetLatestFeatureValue(sensorID, BandType.BETA),
+                gamma = GetLatestFeatureValue(sensorID, BandType.GAMMA)
+            };
 
-                // 원본 로그 값
-                double rawDelta = data.Delta(sensorID);
-                double rawTheta = data.Theta(sensorID);
-                double rawAlpha = data.Alpha(sensorID);
-                double rawBeta  = data.Beta(sensorID);
-                double rawGamma = data.Gamma(sensorID);
-                // Debug.Log($"[EEG RAW] Δ:{rawDelta}, Θ:{rawTheta}, α:{rawAlpha}, β:{rawBeta}, γ:{rawGamma}");
-
-                // 로그→선형 변환 후 저장
-                EEGEntry entry = new EEGEntry
-                {
-                    time_stamp = GameManager.Instance.getFrameTime(),
-                    delta      = ConvertLogToLinear(rawDelta),
-                    theta      = ConvertLogToLinear(rawTheta),
-                    alpha      = ConvertLogToLinear(rawAlpha),
-                    beta       = ConvertLogToLinear(rawBeta),
-                    gamma      = ConvertLogToLinear(rawGamma)
-                };
-                // Debug.Log($"[EEG CONV] Δ:{entry.delta}, Θ:{entry.theta}, α:{entry.alpha}, β:{entry.beta}, γ:{entry.gamma}");
-
-                collectedEEG.eeg_data.Add(entry);
-            }
+            collectedEEG.eeg_data.Add(entry);
 
             yield return interval;
         }
     }
 
-    double ConvertLogToLinear(double value)
+    private List<double> GetFeatureDataList(EEGSensorID sensorID, BandType featureIndex)
     {
-        if (double.IsNaN(value) || double.IsInfinity(value))
-            return 0.0;
-        return Math.Pow(10, value);
+        List<double> dataList = new List<double>();
+        List<double> ScaleDataList = new List<double>();
+        List<EEGFeatureIndex> featureScaleList = LooxidLinkData.Instance.GetEEGFeatureIndexData(10.0f);
+        if (featureScaleList.Count > 0)
+        {
+            for (int i = 0; i < featureScaleList.Count; i++)
+            {
+                if (featureIndex == BandType.DELTA && !double.IsNaN(featureScaleList[i].Delta(sensorID))) ScaleDataList.Add(featureScaleList[i].Delta(sensorID));
+                if (featureIndex == BandType.THETA && !double.IsNaN(featureScaleList[i].Theta(sensorID))) ScaleDataList.Add(featureScaleList[i].Theta(sensorID));
+                if (featureIndex == BandType.ALPHA && !double.IsNaN(featureScaleList[i].Alpha(sensorID))) ScaleDataList.Add(featureScaleList[i].Alpha(sensorID));
+                if (featureIndex == BandType.BETA && !double.IsNaN(featureScaleList[i].Beta(sensorID))) ScaleDataList.Add(featureScaleList[i].Beta(sensorID));
+                if (featureIndex == BandType.GAMMA && !double.IsNaN(featureScaleList[i].Gamma(sensorID))) ScaleDataList.Add(featureScaleList[i].Gamma(sensorID));
+            }
+        }
+
+        List<EEGFeatureIndex> featureDataList = LooxidLinkData.Instance.GetEEGFeatureIndexData(8.0f);
+        if (featureDataList.Count > 0)
+        {
+            double min = Min(ScaleDataList);
+            double max = Max(ScaleDataList);
+
+            int numIndexList = 6 * linkFequency;
+            for (int i = 0; i < featureDataList.Count; i++)
+            {
+                if (i < numIndexList)
+                {
+                    if (featureIndex == BandType.DELTA)
+                    {
+                        double delta = double.IsNaN(featureDataList[i].Delta(sensorID)) ? 0.0 : Scale(min, max, 0.0f, 1.0f, featureDataList[i].Delta(sensorID));
+                        dataList.Add(delta);
+                    }
+                    if (featureIndex == BandType.THETA)
+                    {
+                        double theta = double.IsNaN(featureDataList[i].Theta(sensorID)) ? 0.0 : Scale(min, max, 0.0f, 1.0f, featureDataList[i].Theta(sensorID));
+                        dataList.Add(theta);
+                    }
+                    if (featureIndex == BandType.ALPHA)
+                    {
+                        double alpha = double.IsNaN(featureDataList[i].Alpha(sensorID)) ? 0.0 : Scale(min, max, 0.0f, 1.0f, featureDataList[i].Alpha(sensorID));
+                        dataList.Add(alpha);
+                    }
+                    if (featureIndex == BandType.BETA)
+                    {
+                        double beta = double.IsNaN(featureDataList[i].Beta(sensorID)) ? 0.0 : Scale(min, max, 0.0f, 1.0f, featureDataList[i].Beta(sensorID));
+                        dataList.Add(beta);
+                    }
+                    if (featureIndex == BandType.GAMMA)
+                    {
+                        double gamma = double.IsNaN(featureDataList[i].Gamma(sensorID)) ? 0.0 : Scale(min, max, 0.0f, 1.0f, featureDataList[i].Gamma(sensorID));
+                        dataList.Add(gamma);
+                    }
+                }
+            }
+        }
+        return dataList;
+    }
+
+    private double GetLatestFeatureValue(EEGSensorID sensorID, BandType featureIndex)
+    {
+        List<double> scaledList = GetFeatureDataList(sensorID, featureIndex);
+        if (scaledList.Count == 0) return 0.0;
+        return scaledList[scaledList.Count - 1];
+    }
+
+    private double Min(List<double> minList)
+    {
+        if (minList.Count <= 0) return 0.0;
+        double min = minList[0];
+        for (int i = 0; i < minList.Count; i++)
+        {
+            if (!double.IsNaN(minList[i]))
+            {
+                if (minList[i] < min) min = minList[i];
+            }
+        }
+        return min;
+    }
+
+    private double Max(List<double> maxList)
+    {
+        if (maxList.Count <= 0) return 0.0;
+        double max = maxList[0];
+        for (int i = 0; i < maxList.Count; i++)
+        {
+            if (!double.IsNaN(maxList[i]))
+            {
+                if (maxList[i] > max) max = maxList[i];
+            }
+        }
+        return max;
+    }
+
+    private double Scale(double inputLow, double inputHigh, double outputLow, double outputHigh, double value)
+    {
+        if (value <= inputLow)
+        {
+            return outputLow;
+        }
+
+        if (value >= inputHigh)
+        {
+            return outputHigh;
+        }
+
+        return (outputHigh - outputLow) * ((value - inputLow) / (inputHigh - inputLow)) + outputLow;
     }
 
     public void StartMeasuring()
@@ -142,13 +196,11 @@ public class EEGDataManager : MonoBehaviour
         }
     }
 
-    // GameManager용: 저장된 데이터 초기화
     public void ResetManager()
     {
         collectedEEG = new EEGDataWrapper();
     }
 
-    // GameManager용: 측정 재시작
     public void ReMeasuring()
     {
         StartMeasuring();
