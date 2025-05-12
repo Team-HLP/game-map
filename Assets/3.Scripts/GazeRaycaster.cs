@@ -68,7 +68,7 @@ public class GazeRaycaster : MonoBehaviour
 
     public static void SaveUserStatusToJson()
     {
-        string filePath = Path.Combine(Application.persistentDataPath, "behavior_series.json");
+        string filePath = Path.Combine(Application.persistentDataPath, "behavior_data.json");
 
         UserStatusListWrapper wrapper = new UserStatusListWrapper();
         wrapper.behavior_data = userStatus;

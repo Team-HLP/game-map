@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     private string eyeFilePath;
     private string eegFilePath;
+    private string behaviorFilePath;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
             sceneStartTime = Time.time;
             eyeFilePath = Path.Combine(Application.persistentDataPath, "eye_data.json");
             eegFilePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
+            behaviorFilePath = Path.Combine(Application.persistentDataPath, "behavior_series.json");
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -176,10 +178,12 @@ public class GameManager : MonoBehaviour
         byte[] gmaeResult = Encoding.UTF8.GetBytes(jsonBody);
         byte[] eegBytes = File.ReadAllBytes(eegFilePath);
         byte[] eyeBytes = File.ReadAllBytes(eyeFilePath);
+        byte[] behaviorBytes = File.ReadAllBytes(behaviorFilePath);
 
         formData.Add(new MultipartFormFileSection("request", gmaeResult, "request.json", "application/json"));
         formData.Add(new MultipartFormFileSection("eeg_data_file", eegBytes, "eeg_data.json", "application/json"));
         formData.Add(new MultipartFormFileSection("eye_data_file", eyeBytes, "eye_data.json", "application/json"));
+        formData.Add(new MultipartFormFileSection("behavior_file", behaviorBytes, "behavior_data.json", "application/json"));
 
         UnityWebRequest request = UnityWebRequest.Post(Apiconfig.url + "/game/meteorite", formData);
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("access_token", ""));
