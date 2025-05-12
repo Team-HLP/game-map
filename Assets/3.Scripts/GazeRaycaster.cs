@@ -71,7 +71,7 @@ public class GazeRaycaster : MonoBehaviour
         string filePath = Path.Combine(Application.persistentDataPath, "behavior_series.json");
 
         UserStatusListWrapper wrapper = new UserStatusListWrapper();
-        wrapper.behavior_series = userStatus;
+        wrapper.behavior_data = userStatus;
 
         string json = JsonUtility.ToJson(wrapper, true);
 
@@ -101,6 +101,6 @@ public class GazeRaycaster : MonoBehaviour
     [System.Serializable]
     public class UserStatusListWrapper
     {
-        public List<UserStatus> behavior_series;
+        public List<UserStatus> behavior_data;
     }
 }
