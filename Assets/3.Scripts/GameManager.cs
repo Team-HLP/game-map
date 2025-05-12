@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public GazeRaycaster gazeRaycaster;
+
     public int hp = 100;
     public int score = 0;           // 점수 설정 아직 안 함
     public int destroyedMeteo = 0;  // 운석 파괴 횟수
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
             eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager>();
+            gazeRaycaster = GameObject.Find("GazeRaycaster")?.GetComponent<GazeRaycaster>();
             
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();
@@ -124,7 +127,7 @@ public class GameManager : MonoBehaviour
 
     private void GameSuccess()
     {
-        GazeRaycaster.SaveUserStatusToJson();
+        gazeRaycaster.SaveUserStatusToJson();
         success = true;
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
@@ -134,7 +137,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        GazeRaycaster.SaveUserStatusToJson();
+        gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
         SaveGameResult();

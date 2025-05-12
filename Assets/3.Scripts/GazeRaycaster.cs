@@ -1,28 +1,35 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using Tobii.XR;
 using System.IO;
 
 public class GazeRaycaster : MonoBehaviour
 {
-    public static List<UserStatus> userStatus = new List<UserStatus>();
+    private static List<UserStatus> userStatus = new List<UserStatus>();
     public ClickableObject currentObject = null;
+    private bool isLookingAtObject = false;
+    private string currentObjectType = "";
+    private Coroutine coroutine;
+
+    void Start()
+    {
+        coroutine = StartCoroutine(LogUserStatusCoroutine());
+    }
 
     void Update()
     {
-        // TobiiXR로부터 시선 정보 받아오기
         var eyeData = TobiiXR.GetEyeTrackingData(TobiiXR_TrackingSpace.World);
 
-        // 시선이 유효하지 않으면 무시
         if (!eyeData.GazeRay.IsValid)
         {
+            isLookingAtObject = false;
             ExitCurrentObject();
             return;
         }
 
         Ray gazeRay = new Ray(eyeData.GazeRay.Origin, eyeData.GazeRay.Direction);
 
-        // 시선으로 Raycast 쏘기
         if (Physics.Raycast(gazeRay, out RaycastHit hit, 100f))
         {
             ClickableObject hitObject = hit.collider.GetComponent<ClickableObject>();
@@ -35,19 +42,21 @@ public class GazeRaycaster : MonoBehaviour
                     currentObject = hitObject;
                 }
 
-                // 개인 로컬에서 돌리면 컴퓨터가 터질수도 있기 때문에 주석 처리
-                //userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.LOCKED, currentObject.GetObjectTypeAsString()));
-                currentObject.OnGazeEnter(); // 시선이 닿았다고 알림
+                currentObject.OnGazeEnter();
+                isLookingAtObject = true;
+                currentObjectType = currentObject.GetObjectTypeAsString();
             }
             else
             {
-                //userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
+                isLookingAtObject = false;
+                currentObjectType = "";
                 ExitCurrentObject();
             }
         }
         else
         {
-            //userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
+            isLookingAtObject = false;
+            currentObjectType = "";
             ExitCurrentObject();
         }
     }
@@ -56,8 +65,25 @@ public class GazeRaycaster : MonoBehaviour
     {
         if (currentObject != null)
         {
-            currentObject.OnGazeExit(); // 응시 종료 알림 추가
+            currentObject.OnGazeExit();
             currentObject = null;
+        }
+    }
+
+    IEnumerator LogUserStatusCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+
+            if (isLookingAtObject)
+            {
+                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.GAZE, currentObjectType));
+            }
+            else
+            {
+                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_GAZE, ""));
+            }
         }
     }
 
@@ -71,7 +97,7 @@ public class GazeRaycaster : MonoBehaviour
         userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.AUTO_DESTROY, object_name));
     }
 
-    public static void SaveUserStatusToJson()
+    public void SaveUserStatusToJson()
     {
         string filePath = Path.Combine(Application.persistentDataPath, "behavior_data.json");
 
@@ -83,7 +109,15 @@ public class GazeRaycaster : MonoBehaviour
         File.WriteAllText(filePath, json);
         Debug.Log("User status saved to: " + filePath);
         userStatus = new List<UserStatus>();
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
     }
+
+    [System.Serializable]
+    public enum Status { GAZE, NOT_GAZE, USER_DESTROY, AUTO_DESTROY }
 
     [System.Serializable]
     public class UserStatus
@@ -99,9 +133,6 @@ public class GazeRaycaster : MonoBehaviour
             this.object_name = object_name;
         }
     }
-
-    [System.Serializable]
-    public enum Status { GAZE, NOT_GAZE, USER_DESTROY, AUTO_DESTROY }
 
     [System.Serializable]
     public class UserStatusListWrapper
