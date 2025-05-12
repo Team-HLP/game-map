@@ -96,7 +96,7 @@ public class GazeRaycaster : MonoBehaviour
     }
 
     [System.Serializable]
-    public enum Status { GAZE, NOT_GAZE, DESTROY }
+    public enum Status { LOCKED, NOT_LOCKED, DESTROY }
 
     [System.Serializable]
     public class UserStatusListWrapper

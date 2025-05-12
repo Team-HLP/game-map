@@ -12,7 +12,7 @@ public class wak_GameManager : MonoBehaviour
     public int score = 0;                   // 점수 (현재 사용 안 함)
     public int destroyedMeteo = 0;          // 파괴한 운석 개수
     public bool success = false;            // 게임 성공 여부
-    public float gameTime = 90f;            // 제한 시간 (90초)
+    public float gameTime = 20f;            // 제한 시간 (90초)
 
     //public List<GameResult> gameResults = new List<GameResult>(); // 게임 결과 리스트 저장
 
@@ -115,7 +115,7 @@ public class wak_GameManager : MonoBehaviour
         success = true;
         //SaveGameResult();                 // 결과 저장
         eyesDataManager.SaveEyesData();  // 눈 데이터 저장
-        SceneManager.LoadScene("GameSuccessScene"); // 성공 씬으로 전환
+        SceneManager.LoadScene("wak_GameSuccessScene"); // 성공 씬으로 전환
     }
 
     // 게임 오버 시 호출
@@ -123,7 +123,7 @@ public class wak_GameManager : MonoBehaviour
     {
         //SaveGameResult();                 // 결과 저장
         eyesDataManager.SaveEyesData();  // 눈 데이터 저장
-        SceneManager.LoadScene("GameOverScene"); // 게임오버 씬으로 전환
+        SceneManager.LoadScene("wak_GameOverScene"); // 게임오버 씬으로 전환
     }
 
     // 게임 결과 저장 (List에 추가)
@@ -141,6 +141,6 @@ public class wak_GameManager : MonoBehaviour
         score = 0;
         destroyedMeteo = 0;
         success = false;
-        gameTime = 90f;
+        gameTime = 20f;
     }
 }
