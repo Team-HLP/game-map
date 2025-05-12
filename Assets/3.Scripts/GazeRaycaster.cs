@@ -5,11 +5,6 @@ using System.IO;
 
 public class GazeRaycaster : MonoBehaviour
 {
-
-    [Header("Raycast")]
-    public float maxDistance = 200f;
-    public LayerMask gazeMask = ~0;        // 기본 Everything
-
     public static List<UserStatus> userStatus = new List<UserStatus>();
     public ClickableObject currentObject = null;
 
@@ -26,9 +21,6 @@ public class GazeRaycaster : MonoBehaviour
         }
 
         Ray gazeRay = new Ray(eyeData.GazeRay.Origin, eyeData.GazeRay.Direction);
-        
-        // 디버그용 레이 표시
-        Debug.DrawRay(gazeRay.origin, gazeRay.direction * maxDistance, Color.green);
 
         // 시선으로 Raycast 쏘기
         if (Physics.Raycast(gazeRay, out RaycastHit hit, 100f))
@@ -104,7 +96,7 @@ public class GazeRaycaster : MonoBehaviour
     }
 
     [System.Serializable]
-    public enum Status { GAZE, NOT_GAZE, DESTROY }
+    public enum Status { LOCKED, NOT_LOCKED, DESTROY }
 
     [System.Serializable]
     public class UserStatusListWrapper
