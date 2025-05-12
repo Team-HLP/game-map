@@ -63,7 +63,12 @@ public class GazeRaycaster : MonoBehaviour
 
     public static void SaveUserDestoryStatus(string object_name)
     {
-        userStatus.Add(new UserStatus(Time.time, Status.DESTROY, object_name));
+        userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.USER_DESTROY, object_name));
+    }
+
+    public static void SaveAutoDestoryStatus(string object_name)
+    {
+        userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.AUTO_DESTROY, object_name));
     }
 
     public static void SaveUserStatusToJson()
@@ -96,7 +101,7 @@ public class GazeRaycaster : MonoBehaviour
     }
 
     [System.Serializable]
-    public enum Status { GAZE, NOT_GAZE, DESTROY }
+    public enum Status { GAZE, NOT_GAZE, USER_DESTROY, AUTO_DESTROY }
 
     [System.Serializable]
     public class UserStatusListWrapper

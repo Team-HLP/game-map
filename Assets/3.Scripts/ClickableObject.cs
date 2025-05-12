@@ -125,6 +125,8 @@ public class ClickableObject : MonoBehaviour
         if (hasInteracted) return;
         hasInteracted = true;
 
+        GazeRaycaster.SaveAutoDestoryStatus(objectType.ToString());
+
         if (objectType == ObjectType.Meteorite)
         {
             GameManager.Instance.AddHp(-10);
