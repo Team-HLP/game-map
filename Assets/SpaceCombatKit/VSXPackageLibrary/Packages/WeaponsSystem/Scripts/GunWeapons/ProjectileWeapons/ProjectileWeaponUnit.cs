@@ -6,6 +6,8 @@ using VSX.Pooling;
 using VSX.Vehicles;
 using VSX.Utilities;
 using VSX.Health;
+using Tobii.XR;
+
 
 namespace VSX.Weapons
 {
@@ -197,13 +199,20 @@ namespace VSX.Weapons
             if (projectilePrefab != null)
             {
                 float nextMaxInaccuracyAngle = maxInaccuracyAngle * (1 - accuracy);
-                spawnPoint.Rotate(new Vector3(Random.Range(-nextMaxInaccuracyAngle, nextMaxInaccuracyAngle),
-                                                Random.Range(-nextMaxInaccuracyAngle, nextMaxInaccuracyAngle),
-                                                Random.Range(-nextMaxInaccuracyAngle, nextMaxInaccuracyAngle)));
 
-                // Get/instantiate the projectile
+                // 👇 기존 회전 흔들림 삭제 (시선 기반이면 불필요하거나 보완 가능)
+                // spawnPoint.Rotate(...)
+
+                // 👉 ① 시선 정보 가져오기
+                var eyeData = Tobii.XR.TobiiXR.GetEyeTrackingData(Tobii.XR.TobiiXR_TrackingSpace.World);
+                if (eyeData.GazeRay.IsValid)
+                {
+                    // 👉 ② 시선 방향으로 회전 설정
+                    spawnPoint.rotation = Quaternion.LookRotation(eyeData.GazeRay.Direction);
+                }
+
+                // 👉 ③ 발사체 생성 (위치 그대로, 회전은 시선)
                 Projectile projectileController;
-
                 if (usePoolManager)
                 {
                     projectileController = PoolManager.Instance.Get(projectilePrefab.gameObject, spawnPoint.position, spawnPoint.rotation).GetComponent<Projectile>();
@@ -213,6 +222,7 @@ namespace VSX.Weapons
                     projectileController = GameObject.Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
                 }
 
+                // 👇 나머지 기존 유지
                 projectileController.SetOwner(owner);
                 projectileController.SetSenderRootTransform(rootTransform);
 
@@ -222,11 +232,11 @@ namespace VSX.Weapons
                     projectileController.AddVelocity(transform.TransformDirection(projectileRelativeImpulseVelocity));
                 }
 
-                // Call the event
                 onProjectileLaunched.Invoke(projectileController);
             }
 
             ClearAim();
         }
+
     }
 }

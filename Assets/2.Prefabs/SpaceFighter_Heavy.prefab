@@ -24119,6 +24119,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin (XR Rig)
       objectReference: {fileID: 0}
+    - target: {fileID: 6338015132292483055, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09aef74854e766e4f8f2c39bd6b2ca1f, type: 3}
 --- !u!4 &2602757953675957927 stripped
