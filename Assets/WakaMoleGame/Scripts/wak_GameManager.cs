@@ -21,18 +21,15 @@ public class wak_GameManager : MonoBehaviour
 
     public EyesDataManager eyesDataManager; // 눈 데이터 매니저 (깜빡임, 동공 등)
 
-    private float sceneStartTime;
-
     // 싱글톤 초기화 및 중복 방지
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-            sceneStartTime = Time.time;
+            DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 유지
         }
-        else Destroy(gameObject);
+        else Destroy(gameObject);          // 중복이면 제거
     }
 
     // 씬 로드 이벤트 등록
@@ -65,7 +62,6 @@ public class wak_GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;   // 타임스케일 초기화 (혹시 멈춰있을 경우 대비)
         UpdateHpUI();          // 체력 UI 표시
-        Debug.Log("eyesDataManager: " + (eyesDataManager == null ? "null" : eyesDataManager.name));
     }
 
     // 매 프레임마다 실행됨
@@ -146,10 +142,5 @@ public class wak_GameManager : MonoBehaviour
         destroyedMeteo = 0;
         success = false;
         gameTime = 20f;
-    }
-
-    public float getFrameTime()
-    {
-        return Time.time - sceneStartTime;
     }
 }
