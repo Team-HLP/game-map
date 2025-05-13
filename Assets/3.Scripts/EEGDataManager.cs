@@ -50,6 +50,21 @@ public class EEGDataManager : MonoBehaviour
         }
     }
 
+    public void ImmeditelyEegDataSave()
+    {
+        EEGEntry entry = new EEGEntry
+        {
+            time_stamp = GameManager.Instance.getFrameTime(),
+            delta = GetLatestFeatureValue(sensorID, BandType.DELTA),
+            theta = GetLatestFeatureValue(sensorID, BandType.THETA),
+            alpha = GetLatestFeatureValue(sensorID, BandType.ALPHA),
+            beta = GetLatestFeatureValue(sensorID, BandType.BETA),
+            gamma = GetLatestFeatureValue(sensorID, BandType.GAMMA)
+        };
+
+        collectedEEG.eeg_data.Add(entry);
+    }
+
     IEnumerator MeasureEEGData()
     {
         WaitForSeconds interval = new WaitForSeconds(1.0f);

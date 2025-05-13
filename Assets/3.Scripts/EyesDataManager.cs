@@ -66,6 +66,11 @@ public class EyesDataManager : MonoBehaviour
         eyesPupilSizeManager.StartMeasuring();
     }
 
+    public void ImmeditelyEyePupilDataSave()
+    {
+        eyesPupilSizeManager.ImmeditelyEyePupilDataSave();
+    }
+
     [System.Serializable]
     private class EyesData
     {

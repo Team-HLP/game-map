@@ -208,4 +208,10 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Server Response Body: " + request.downloadHandler.text);
         }
     }
+
+    public void ImmeditelyBioDataSave()
+    {
+        eyesDataManager.ImmeditelyEyePupilDataSave();
+        eegDataManager.ImmeditelyEegDataSave();
+    }
 }
