@@ -8,12 +8,13 @@ public class GazeRaycaster : MonoBehaviour
     public static List<UserStatus> userStatus = new List<UserStatus>();
     public ClickableObject currentObject = null;
 
+    // 최대 사정거리
+    private float maxRayDistance = 100f;
+
     void Update()
     {
         // TobiiXR로부터 시선 정보 받아오기
         var eyeData = TobiiXR.GetEyeTrackingData(TobiiXR_TrackingSpace.World);
-
-        // 시선이 유효하지 않으면 무시
         if (!eyeData.GazeRay.IsValid)
         {
             ExitCurrentObject();
@@ -22,16 +23,20 @@ public class GazeRaycaster : MonoBehaviour
 
         Ray gazeRay = new Ray(eyeData.GazeRay.Origin, eyeData.GazeRay.Direction);
 
-        // 시선으로 Raycast 쏘기
-        if (Physics.Raycast(gazeRay, out RaycastHit hit, 100f))
+        // Raycast 결과에 따라 색상 및 디버그 시각화
+        if (Physics.Raycast(gazeRay, out RaycastHit hit, maxRayDistance))
         {
-            ClickableObject hitObject = hit.collider.GetComponent<ClickableObject>();
-
-                    // 여기서 디버깅 로그 출력
+            // 맞은 거리만큼 초록색으로
             Debug.DrawRay(gazeRay.origin, gazeRay.direction * hit.distance, Color.green);
-            Debug.Log("[GazeRaycaster] Ray hit object: " + hit.collider.gameObject.name);
-            // Debug.Log("[GazeRaycaster] Hit Point: " + hit.point);
+            // 히트 지점에 작은 노란 구체 표시
+            Debug.DrawLine(hit.point + Vector3.up * 0.1f,
+                          hit.point - Vector3.up * 0.1f, Color.yellow);
+            Debug.DrawLine(hit.point + Vector3.right * 0.1f,
+                          hit.point - Vector3.right * 0.1f, Color.yellow);
 
+            Debug.Log($"[GazeRaycaster] Ray hit object: {hit.collider.gameObject.name}");
+
+            var hitObject = hit.collider.GetComponent<ClickableObject>();
             if (hitObject != null)
             {
                 if (hitObject != currentObject)
@@ -39,23 +44,21 @@ public class GazeRaycaster : MonoBehaviour
                     ExitCurrentObject();
                     currentObject = hitObject;
                 }
-
-                // 개인 로컬에서 돌리면 컴퓨터가 터질수도 있기 때문에 주석 처리
-                //userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.LOCKED, currentObject.GetObjectTypeAsString()));
-                currentObject.OnGazeEnter(); // 시선이 닿았다고 알림
+                currentObject.OnGazeEnter();
             }
             else
             {
-                //userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
                 ExitCurrentObject();
             }
         }
         else
         {
-            //userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_LOCKED, ""));
+            // 아무것도 못 맞추면 레이 전체를 빨간색으로
+            Debug.DrawRay(gazeRay.origin, gazeRay.direction * maxRayDistance, Color.red);
             ExitCurrentObject();
         }
     }
+
 
     void ExitCurrentObject()
     {

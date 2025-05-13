@@ -20080,6 +20080,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TobiiXR Initializer
       objectReference: {fileID: 0}
+    - target: {fileID: 162632899269269357, guid: d56b1bd67ffb7b146bd2aa76462e5222,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 168190131765200123, guid: d56b1bd67ffb7b146bd2aa76462e5222,
         type: 3}
       propertyPath: m_RootOrder
