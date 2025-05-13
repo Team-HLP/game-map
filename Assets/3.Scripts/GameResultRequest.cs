@@ -1,8 +1,8 @@
 [System.Serializable]
 public class GameResultRequest
 {
-    public int meteorite_prefab_count;
-    public int fuel_prefab_count;
+    public int meteorite_count;
+    public int fuel_count;
     public string result;
     public int score;
     public int hp;
@@ -10,8 +10,8 @@ public class GameResultRequest
 
     public GameResultRequest(int meteorite_prefab_count, int fuel_prefab_count, string result, int score, int hp, int meteorite_broken_count)
     {
-        this.meteorite_prefab_count = meteorite_prefab_count;
-        this.fuel_prefab_count = fuel_prefab_count;
+        this.meteorite_count = meteorite_prefab_count;
+        this.fuel_count = fuel_prefab_count;
         this.result = result;
         this.score = score;
         this.hp = hp;
