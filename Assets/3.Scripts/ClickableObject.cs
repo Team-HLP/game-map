@@ -64,25 +64,12 @@ public class ClickableObject : MonoBehaviour
         // 3) 하이라이트 색상 보간
         if (_renderer != null)
         {
-            if (_renderer.material.HasProperty("_BaseColor"))
-            {
-                _renderer.material.SetColor(
-                    "_BaseColor",
-                    Color.Lerp(
-                        _renderer.material.GetColor("_BaseColor"),
-                        _targetColor,
-                        Time.deltaTime * highlightLerpSpeed
-                    )
-                );
-            }
-            else
-            {
-                _renderer.material.color = Color.Lerp(
-                    _renderer.material.color,
-                    _targetColor,
-                    Time.deltaTime * highlightLerpSpeed
-                );
-            }
+            _renderer.material.color = Color.Lerp(
+                _renderer.material.color,
+                _targetColor,
+                Time.deltaTime * highlightLerpSpeed
+            );
+
         }
     }
 

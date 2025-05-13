@@ -10,7 +10,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - GazeTarget
   - Water
   - UI
   - 
@@ -21,7 +21,7 @@ TagManager:
   - Shield
   - Interior
   - Exterior
-  - GazeTarget
+  - 
   - NonWalkable
   - Background
   - Map

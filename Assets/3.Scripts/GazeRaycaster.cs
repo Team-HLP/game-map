@@ -9,11 +9,13 @@ public class GazeRaycaster : MonoBehaviour
     public ClickableObject currentObject = null;
 
     // 최대 사정거리
-    private float maxRayDistance = 100f;
+    private float maxRayDistance = 1000f;
+
+    // 추가: 감지할 레이어 정의
+    public LayerMask gazeTargetLayer;
 
     void Update()
     {
-        // TobiiXR로부터 시선 정보 받아오기
         var eyeData = TobiiXR.GetEyeTrackingData(TobiiXR_TrackingSpace.World);
         if (!eyeData.GazeRay.IsValid)
         {
@@ -23,18 +25,10 @@ public class GazeRaycaster : MonoBehaviour
 
         Ray gazeRay = new Ray(eyeData.GazeRay.Origin, eyeData.GazeRay.Direction);
 
-        // Raycast 결과에 따라 색상 및 디버그 시각화
-        if (Physics.Raycast(gazeRay, out RaycastHit hit, maxRayDistance))
+        // 지정된 레이어만 감지
+        if (Physics.Raycast(gazeRay, out RaycastHit hit, maxRayDistance, gazeTargetLayer))
         {
-            // 맞은 거리만큼 초록색으로
             Debug.DrawRay(gazeRay.origin, gazeRay.direction * hit.distance, Color.green);
-            // 히트 지점에 작은 노란 구체 표시
-            Debug.DrawLine(hit.point + Vector3.up * 0.1f,
-                          hit.point - Vector3.up * 0.1f, Color.yellow);
-            Debug.DrawLine(hit.point + Vector3.right * 0.1f,
-                          hit.point - Vector3.right * 0.1f, Color.yellow);
-
-            Debug.Log($"[GazeRaycaster] Ray hit object: {hit.collider.gameObject.name}");
 
             var hitObject = hit.collider.GetComponent<ClickableObject>();
             if (hitObject != null)
@@ -53,7 +47,6 @@ public class GazeRaycaster : MonoBehaviour
         }
         else
         {
-            // 아무것도 못 맞추면 레이 전체를 빨간색으로
             Debug.DrawRay(gazeRay.origin, gazeRay.direction * maxRayDistance, Color.red);
             ExitCurrentObject();
         }
