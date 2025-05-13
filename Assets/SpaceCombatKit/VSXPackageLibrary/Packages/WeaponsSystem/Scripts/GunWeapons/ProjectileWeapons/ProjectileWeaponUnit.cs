@@ -164,8 +164,10 @@ namespace VSX.Weapons
         }
 
 
-        [SerializeField] private float gazeFireInterval = 1.5f; // 자동 발사 간격
+        [SerializeField] private float gazeFireInterval = 0.2f; // 자동 발사 간격
         private float nextFireTime = 0f;
+        private bool isGazingAtTarget = false;
+
         // GazeTarget 레이어만 감지하기 위한 LayerMask
         private int gazeLayerMask;
         private void Start()
@@ -183,24 +185,26 @@ namespace VSX.Weapons
         {
             var eyeData = TobiiXR.GetEyeTrackingData(TobiiXR_TrackingSpace.World);
 
-            if (eyeData.GazeRay.IsValid && Time.time >= nextFireTime)
+            if (!eyeData.GazeRay.IsValid) return;
+
+            Ray gazeRay = new Ray(eyeData.GazeRay.Origin, eyeData.GazeRay.Direction);
+
+            if (Physics.Raycast(gazeRay, out RaycastHit hit, 1000f, gazeLayerMask))
             {
-                Ray gazeRay = new Ray(eyeData.GazeRay.Origin, eyeData.GazeRay.Direction);
-
-                // GazeTarget 레이어만 감지
-                if (Physics.Raycast(gazeRay, out RaycastHit hit, 1000f, gazeLayerMask))
+                // 응시 대상 감지 성공
+                if (Time.time >= nextFireTime)
                 {
-                    // 시선 방향으로 발사 위치 회전
-                    spawnPoint.rotation = Quaternion.LookRotation(eyeData.GazeRay.Direction);
+                    spawnPoint.rotation = Quaternion.LookRotation(gazeRay.direction);
 
-                    // 발사
+                    // 🔥 레이저 발사
                     TriggerOnce();
 
-                    // 다음 발사 시간 갱신
+                    // ✅ 다음 발사 시간 정확히 갱신
                     nextFireTime = Time.time + gazeFireInterval;
                 }
             }
         }
+
 
         /// <summary>
         /// Set the damage multiplier for this weapon unit.
