@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
             sceneStartTime = Time.time;
             eyeFilePath = Path.Combine(Application.persistentDataPath, "eye_data.json");
             eegFilePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
-            behaviorFilePath = Path.Combine(Application.persistentDataPath, "behavior_series.json");
+            behaviorFilePath = Path.Combine(Application.persistentDataPath, "behavior_data.json");
             DontDestroyOnLoad(gameObject);
         }
         else
