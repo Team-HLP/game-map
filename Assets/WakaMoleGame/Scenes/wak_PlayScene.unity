@@ -1262,8 +1262,8 @@ MonoBehaviour:
   destroyedMeteo: 0
   success: 0
   gameTime: 20
-  hpText: {fileID: 0}
-  timerText: {fileID: 0}
+  hpText: {fileID: 1662746130}
+  timerText: {fileID: 49400160}
   eyesDataManager: {fileID: 1351673605}
   eegDataManager: {fileID: 0}
 --- !u!1001 &1903001075
