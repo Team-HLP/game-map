@@ -163,15 +163,44 @@ namespace VSX.Weapons
             }
         }
 
-        protected virtual void Start()
+
+        [SerializeField] private float gazeFireInterval = 1.5f; // 자동 발사 간격
+        private float nextFireTime = 0f;
+        // GazeTarget 레이어만 감지하기 위한 LayerMask
+        private int gazeLayerMask;
+        private void Start()
         {
             if (usePoolManager && PoolManager.Instance == null)
             {
                 usePoolManager = false;
                 Debug.LogWarning("No PoolManager component found in scene, please add one to pool projectiles.");
             }
+
+            gazeLayerMask = LayerMask.GetMask("GazeTarget");  // 레이어 마스크 설정
         }
 
+        private void Update()
+        {
+            var eyeData = TobiiXR.GetEyeTrackingData(TobiiXR_TrackingSpace.World);
+
+            if (eyeData.GazeRay.IsValid && Time.time >= nextFireTime)
+            {
+                Ray gazeRay = new Ray(eyeData.GazeRay.Origin, eyeData.GazeRay.Direction);
+
+                // GazeTarget 레이어만 감지
+                if (Physics.Raycast(gazeRay, out RaycastHit hit, 1000f, gazeLayerMask))
+                {
+                    // 시선 방향으로 발사 위치 회전
+                    spawnPoint.rotation = Quaternion.LookRotation(eyeData.GazeRay.Direction);
+
+                    // 발사
+                    TriggerOnce();
+
+                    // 다음 발사 시간 갱신
+                    nextFireTime = Time.time + gazeFireInterval;
+                }
+            }
+        }
 
         /// <summary>
         /// Set the damage multiplier for this weapon unit.
