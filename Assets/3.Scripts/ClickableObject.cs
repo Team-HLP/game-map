@@ -90,6 +90,7 @@ public class ClickableObject : MonoBehaviour
     public void OnGazeEnter()
     {
         gazeActiveUntil = Time.time + 0.1f;
+        Debug.Log("[ClickableObject] Gaze entered: " + gameObject.name);
     }
 
     public void OnGazeExit()

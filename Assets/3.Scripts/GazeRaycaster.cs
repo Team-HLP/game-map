@@ -27,6 +27,11 @@ public class GazeRaycaster : MonoBehaviour
         {
             ClickableObject hitObject = hit.collider.GetComponent<ClickableObject>();
 
+                    // 여기서 디버깅 로그 출력
+            Debug.DrawRay(gazeRay.origin, gazeRay.direction * hit.distance, Color.green);
+            Debug.Log("[GazeRaycaster] Ray hit object: " + hit.collider.gameObject.name);
+            // Debug.Log("[GazeRaycaster] Hit Point: " + hit.point);
+
             if (hitObject != null)
             {
                 if (hitObject != currentObject)
