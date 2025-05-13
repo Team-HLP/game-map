@@ -157,7 +157,7 @@ MonoBehaviour:
   objectType: 1
   continuousGazeTime: 1
   autoDestroyTime: 6
-  explosionEffectPrefab: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
+  explosionEffectPrefab: {fileID: 1251383659594566248, guid: 83cbf6b524af79247a289a9e24f0f3dc,
     type: 3}
   fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
     type: 3}
