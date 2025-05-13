@@ -3,7 +3,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ClickableObject : MonoBehaviour
 {
-    public enum ObjectType { Meteorite, Fuel, Enemy }
+    public enum ObjectType { Meteorite, Fuel }
     public ObjectType objectType;
 
     [SerializeField] private float continuousGazeTime = 3f; // ★ 연속 응시 필요 시간
@@ -106,24 +106,18 @@ public class ClickableObject : MonoBehaviour
         GazeRaycaster.SaveUserDestoryStatus(objectType.ToString());
         CancelInvoke(nameof(AutoDestroy));
 
-        switch (objectType)
+        if (objectType == ObjectType.Meteorite)
         {
-            case ObjectType.Meteorite:
-                GameManager.Instance.destroyedMeteo++;
-                SpawnEffect(explosionEffectPrefab);
-                break;
-            case ObjectType.Fuel:
-                SpawnEffect(fuelCollectEffectPrefab);
-                break;
-            case ObjectType.Enemy:
-                SpawnEffect(explosionEffectPrefab);
-                // 여기에 추가로 적 비행기의 AI 중지나 스코어 반영 로직 넣기
-                break;
+            GameManager.Instance.destroyedMeteo++;
+            SpawnEffect(explosionEffectPrefab);
+        }
+        else
+        {
+            SpawnEffect(explosionEffectPrefab);
         }
 
-        Destroy(gameObject); // 적절하면 여기서 Destroy
+        Destroy(gameObject);
     }
-
 
     /* ────────────────────────────── 자동 파괴 ──────────────────────────────── */
     void AutoDestroy()
@@ -131,23 +125,18 @@ public class ClickableObject : MonoBehaviour
         if (hasInteracted) return;
         hasInteracted = true;
 
-        switch (objectType)
+        if (objectType == ObjectType.Meteorite)
         {
-            case ObjectType.Meteorite:
-                GameManager.Instance.AddHp(-10);
-                break;
-            case ObjectType.Fuel:
-                SpawnEffect(fuelCollectEffectPrefab);
-                GameManager.Instance.AddHp(10);
-                break;
-            case ObjectType.Enemy:
-                // 적 전투기는 자동 파괴 안 하고 무시할 수도 있음
-                break;
+            GameManager.Instance.AddHp(-10);
+        }
+        else
+        {
+            SpawnEffect(fuelCollectEffectPrefab);
+            GameManager.Instance.AddHp(10);
         }
 
         Destroy(gameObject);
     }
-
 
     /* ────────────────────────────── 이펙트 스폰 ────────────────────────────── */
     void SpawnEffect(GameObject effectPrefab)
