@@ -74,8 +74,17 @@ public class wak_ClickableObject : MonoBehaviour
                     Time.deltaTime * highlightLerpSpeed));
         }
 
+        if (triggerAction != null && triggerAction.action != null)
+    {
+        if (triggerAction.action.WasPressedThisFrame())
+        {
+            Debug.Log("트리거 클릭됨");
+        }
+    }
+
         if (isGazedNow && triggerAction.action != null && triggerAction.action.WasPressedThisFrame())
         {
+            Debug.Log("클릭됨");
             Interact();
         }
     }
@@ -91,12 +100,12 @@ public class wak_ClickableObject : MonoBehaviour
 
         if (objectType == ObjectType.Meteorite_wak)
         {
-            wak_GameManager.Instance.AddHp(10); // 체력 +10
+            GameManager.Instance.AddHp(10); // 체력 +10
             SpawnEffect(meteoriteExplosionEffectPrefab);
         }
         else if (objectType == ObjectType.OtherMeteorite_wak)
         {
-            wak_GameManager.Instance.AddHp(-20); // 체력 -20
+            GameManager.Instance.AddHp(-20); // 체력 -20
             SpawnEffect(otherMeteoriteExplosionEffectPrefab);
         }
 
@@ -108,7 +117,7 @@ public class wak_ClickableObject : MonoBehaviour
         if (hasInteracted) return;
         hasInteracted = true;
 
-        wak_GameManager.Instance.AddHp(-20); // 자동 파괴 시 체력 -20
+        GameManager.Instance.AddHp(-20); // 자동 파괴 시 체력 -20
 
         if (fuelCollectEffectPrefab != null)
             SpawnEffect(fuelCollectEffectPrefab);

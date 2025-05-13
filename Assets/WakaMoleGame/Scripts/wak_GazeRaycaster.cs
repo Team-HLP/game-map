@@ -36,6 +36,7 @@ public class wak_GazeRaycaster : MonoBehaviour
                 {
                     ExitCurrentObject();
                     currentObject = hitObject;
+                    Debug.Log(currentObject);
                 }
 
                 currentObject.OnGazeEnter();
