@@ -17,7 +17,8 @@ public class EyesPupilSizeManager : MonoBehaviour
 
     IEnumerator MeasurEyePupilSize()
     {
-        WaitForSeconds interval = new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.1f);
+        WaitForSeconds interval = new WaitForSeconds(1.0f);
 
         while (true)
         {
@@ -38,6 +39,25 @@ public class EyesPupilSizeManager : MonoBehaviour
             }
 
             yield return interval;
+        }
+    }
+
+    public void ImmeditelyEyePupilDataSave()
+    {
+        if (XR_HTC_eye_tracker.Interop.GetEyePupilData(out XrSingleEyePupilDataHTC[] pupils) && pupils != null && pupils.Length >= 2)
+        {
+            var left = pupils[(int)XrEyePositionHTC.XR_EYE_POSITION_LEFT_HTC];
+            var right = pupils[(int)XrEyePositionHTC.XR_EYE_POSITION_RIGHT_HTC];
+
+            if (left.isDiameterValid && right.isDiameterValid)
+            {
+                eyeDatas.Add(new EyeData
+                {
+                    timestamp = GameManager.Instance.getFrameTime(),
+                    leftPupilSize = left.pupilDiameter * 1000f,
+                    rightPupilSize = right.pupilDiameter * 1000f
+                });
+            }
         }
     }
 

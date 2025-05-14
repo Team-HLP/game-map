@@ -49,9 +49,7 @@ public class EyesDataManager : MonoBehaviour
             }
         };
 
-        EyesDataWrapper wrapper = new EyesDataWrapper { eyes_data = eyesData };
-
-        string json = JsonUtility.ToJson(wrapper, true);
+        string json = JsonUtility.ToJson(eyesData, true);
         File.WriteAllText(filePath, json, Encoding.UTF8);
         Debug.Log("파일 저장 경로 : " + filePath);
     }
@@ -68,10 +66,9 @@ public class EyesDataManager : MonoBehaviour
         eyesPupilSizeManager.StartMeasuring();
     }
 
-    [System.Serializable]
-    private class EyesDataWrapper
+    public void ImmeditelyEyePupilDataSave()
     {
-        public EyesData eyes_data;
+        eyesPupilSizeManager.ImmeditelyEyePupilDataSave();
     }
 
     [System.Serializable]

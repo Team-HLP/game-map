@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/1.Scenes/LoginScene.unity
     guid: 7d0d592f95b7f074ea0b6d29a7d47b29
   - enabled: 1
-    path: Assets/1.Scenes/MeteoriteScene.unity
+    path: Assets/1.Scenes/MeteoriteScene_original.unity
     guid: df553599c96cf35408aec8d809e33e07
   - enabled: 1
     path: Assets/1.Scenes/SelectGameScene.unity

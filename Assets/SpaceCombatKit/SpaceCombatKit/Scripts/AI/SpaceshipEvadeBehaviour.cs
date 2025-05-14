@@ -78,6 +78,9 @@ namespace VSX.SpaceCombatKit
             Vector3 flattenedEvade = new Vector3(evadeDirection.x, 0, evadeDirection.z).normalized;
             evadeDirection = Vector3.Slerp(evadeDirection, flattenedEvade, 1 - verticalAmount);
             
+            float desiredY = Camera.main.transform.position.y + 0.5f;
+            evadeDirection.y = desiredY - vehicle.transform.position.y; // 고도 차이 보정
+            
             // Get the vector from the vehicle to the scene center
             //Vector3 toCenterVec = -vehicle.transform.position;
             
@@ -125,7 +128,7 @@ namespace VSX.SpaceCombatKit
             Maneuvring.TurnToward(vehicle.transform, vehicle.transform.position + evadeDirection, maxRotationAngles, shipPIDController.steeringPIDController);
             engines.SetSteeringInputs(shipPIDController.steeringPIDController.GetControlValues());
 
-            engines.SetMovementInputs(new Vector3(0, 0, 1));
+            engines.SetMovementInputs(new Vector3(0, 0, 0.4f));
 
             return true;
             
