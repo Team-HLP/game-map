@@ -12,6 +12,9 @@ public class GazeRaycaster : MonoBehaviour
     private string currentObjectType = "";
     private Coroutine coroutine;
 
+    [Header("Gaze Settings")]
+    public LayerMask gazeTargetLayer;  // GazeTarget 레이어 마스크
+
     void Start()
     {
         coroutine = StartCoroutine(LogUserStatusCoroutine());
@@ -30,7 +33,8 @@ public class GazeRaycaster : MonoBehaviour
 
         Ray gazeRay = new Ray(eyeData.GazeRay.Origin, eyeData.GazeRay.Direction);
 
-        if (Physics.Raycast(gazeRay, out RaycastHit hit, 100f))
+        // 지정된 GazeTarget 레이어만 감지
+        if (Physics.Raycast(gazeRay, out RaycastHit hit, 100f, gazeTargetLayer))
         {
             ClickableObject hitObject = hit.collider.GetComponent<ClickableObject>();
 
@@ -109,6 +113,7 @@ public class GazeRaycaster : MonoBehaviour
         File.WriteAllText(filePath, json);
         Debug.Log("User status saved to: " + filePath);
         userStatus = new List<UserStatus>();
+
         if (coroutine != null)
         {
             StopCoroutine(coroutine);

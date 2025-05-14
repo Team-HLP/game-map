@@ -206,6 +206,10 @@ namespace VSX.SpaceCombatKit
 
             Vector3 targetPos = weapons.GetAverageLeadTargetPosition(weapons.WeaponsTargetSelector.SelectedTarget.transform.position, velocity);
 
+            // 현재 기체보다 높이를 최소 2~최대 6 m 사이로 제한
+            float yOffset = Mathf.Clamp(targetPos.y - vehicle.transform.position.y, 2f, 6f);
+            targetPos.y   = vehicle.transform.position.y + yOffset;
+
             Vector3 toTargetVector = targetPos - vehicle.transform.position;
 
             // Do primary weapons

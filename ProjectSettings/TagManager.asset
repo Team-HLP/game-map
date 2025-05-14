@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - FlyByParticles
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - GazeTarget
   - Water
   - UI
   - 

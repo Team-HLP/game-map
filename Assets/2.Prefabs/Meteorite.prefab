@@ -97,7 +97,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1594188475075920964
 MonoBehaviour:
@@ -112,10 +112,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 0
-  requiredTotalGazeTime: 2
-  autoDestroyTime: 5
-  explosionEffectPrefab: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
-  fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
+  continuousGazeTime: 1
+  autoDestroyTime: 6
+  explosionEffectPrefab: {fileID: 1251383659594566248, guid: 83cbf6b524af79247a289a9e24f0f3dc,
+    type: 3}
+  fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
+    type: 3}
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
   highlightLerpSpeed: 10
 --- !u!1 &4082215337674395669
