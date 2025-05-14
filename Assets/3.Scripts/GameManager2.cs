@@ -12,7 +12,7 @@ public class GameManager2 : MonoBehaviour
 {
     public static GameManager2 Instance;
 
-    public GazeRaycaster gazeRaycaster;
+    public GazeRaycaster2 gazeRaycaster;
 
     public int hp = 100;
     public int score = 0;           // 점수 설정 아직 안 함
@@ -67,7 +67,7 @@ public class GameManager2 : MonoBehaviour
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager2>();
             eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager2>();
-            gazeRaycaster = GameObject.Find("GazeRaycaster")?.GetComponent<GazeRaycaster>();
+            gazeRaycaster = GameObject.Find("GazeRaycaster")?.GetComponent<GazeRaycaster2>();
             
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();

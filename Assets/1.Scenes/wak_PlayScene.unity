@@ -1900,12 +1900,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7983d5869c16d3448242c323e49df84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gazeRaycaster: {fileID: 8680698082068116074}
+  gazeRaycaster: {fileID: 944178102}
   hp: 100
   score: 0
   destroyedMeteo: 0
   success: 0
-  gameTime: 20
+  gameTime: 60
   hpText: {fileID: 1102102528}
   timerText: {fileID: 903170940}
   eyesDataManager: {fileID: 1920779105}
@@ -2445,6 +2445,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78b306063586054697bac9cfc234e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &944178099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 944178101}
+  - component: {fileID: 944178102}
+  m_Layer: 0
+  m_Name: GazeRaycaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &944178101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944178099}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -113.09235, y: 31.014702, z: -220.23901}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &944178102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944178099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5964dd7f4c4060948b3e8171f287f446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentObject: {fileID: 0}
+  gazeTargetLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &958768454
 GameObject:
   m_ObjectHideFlags: 0
@@ -5585,106 +5633,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1001 &8680698082068116073
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8680698082474766810, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_Name
-      value: GazeRaycaster
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766810, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -113.09235
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 31.014702
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -220.23901
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766812, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766813, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: gazeTargetLayer.m_Bits
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766814, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680698082474766815, guid: 4dddd6a8c773a4e43aac464b147332ae,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8680698082474766814, guid: 4dddd6a8c773a4e43aac464b147332ae, type: 3}
-    - {fileID: 8680698082474766815, guid: 4dddd6a8c773a4e43aac464b147332ae, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: 4dddd6a8c773a4e43aac464b147332ae, type: 3}
---- !u!114 &8680698082068116074 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8680698082474766813, guid: 4dddd6a8c773a4e43aac464b147332ae,
-    type: 3}
-  m_PrefabInstance: {fileID: 8680698082068116073}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34fde0c77108cd24f987cc5312d469b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

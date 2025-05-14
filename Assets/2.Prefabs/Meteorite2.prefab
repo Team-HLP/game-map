@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2887293748681507088}
   - component: {fileID: 3040313887848767753}
   - component: {fileID: 5732868315270214459}
-  - component: {fileID: 1594188475075920964}
+  - component: {fileID: 8803878684341203879}
   m_Layer: 3
   m_Name: Meteorite2
   m_TagString: Untagged
@@ -99,7 +99,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1594188475075920964
+--- !u!114 &8803878684341203879
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,13 +108,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 3897906897140901242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c1f86a45bcf9334fae293963f5561d1, type: 3}
+  m_Script: {fileID: 11500000, guid: f28989bddeaf69044b413eb6b8a9bd4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 0
-  continuousGazeTime: 1
-  autoDestroyTime: 6
-  explosionEffectPrefab: {fileID: 1251383659594566248, guid: 83cbf6b524af79247a289a9e24f0f3dc,
+  autoDestroyTime: 3
+  triggerAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Trigger
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 364dd4b4-7c93-40f3-9fb2-ba188a65f4c5
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+  explosionEffectPrefab: {fileID: 1251383659594566248, guid: 8c3544bc18f0be048b82accfab000b88,
     type: 3}
   fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
     type: 3}

@@ -6,7 +6,7 @@ public class FlyingObject2 : MonoBehaviour
     public GameObject fuelPrefab;
    
     [SerializeField]
-    private float spawnInterval = 1.5f;  // ���� ����
+    private float spawnInterval = 3f;  // ���� ����
 
     public RectTransform spawnArea;
     private Transform playerCamera;
@@ -55,7 +55,7 @@ public class FlyingObject2 : MonoBehaviour
         // ������Ʈ ���� �� ������ ����
         GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
-        ClickableObject clickableObject = spawnedObject.GetComponent<ClickableObject>();
+        ClickableObject2 clickableObject = spawnedObject.GetComponent<ClickableObject2>();
         if (clickableObject != null)
         {
             clickableObject.autoDestroyTime = 3f;

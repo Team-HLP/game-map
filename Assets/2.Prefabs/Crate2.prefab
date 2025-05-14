@@ -104,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6085896215333849443}
   - component: {fileID: -8740144505283619766}
-  - component: {fileID: 7151054929614263623}
+  - component: {fileID: 2612310446435797018}
   m_Layer: 3
   m_Name: Crate2
   m_TagString: Untagged
@@ -142,7 +142,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.084038, y: 1.5597259, z: 1.2268479}
   m_Center: {x: 0.04201901, y: 0.6335915, z: -0.0013685226}
---- !u!114 &7151054929614263623
+--- !u!114 &2612310446435797018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,13 +151,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 6830579541325509221}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c1f86a45bcf9334fae293963f5561d1, type: 3}
+  m_Script: {fileID: 11500000, guid: f28989bddeaf69044b413eb6b8a9bd4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 1
-  continuousGazeTime: 1
-  autoDestroyTime: 6
-  explosionEffectPrefab: {fileID: 1251383659594566248, guid: 83cbf6b524af79247a289a9e24f0f3dc,
+  autoDestroyTime: 3
+  triggerAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Trigger
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 02dcd8cc-c429-43c2-973e-6ad32c8bb6e1
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  explosionEffectPrefab: {fileID: 1251383659594566248, guid: 8c3544bc18f0be048b82accfab000b88,
     type: 3}
   fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
     type: 3}
