@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 8900000, guid: a03eace4d5ceb4847af30bf2101a06a7, type: 3}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.008031655, g: 0.008928052, b: 0.009403007, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.008033793, g: 0.0089286305, b: 0.009403301, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1885,6 +1885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9623c714cf9fe26439ba5c696fb8157b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gazeRaycaster: {fileID: 0}
   hp: 100
   score: 0
   destroyedMeteo: 0
@@ -4206,6 +4207,10 @@ PrefabInstance:
     - target: {fileID: 1245199412096664, guid: 8352bb59d9d95a9418e0ea72bcce781d, type: 3}
       propertyPath: m_Name
       value: Tobii Dev Tools
+      objectReference: {fileID: 0}
+    - target: {fileID: 1245199412096664, guid: 8352bb59d9d95a9418e0ea72bcce781d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1324200867925136, guid: 8352bb59d9d95a9418e0ea72bcce781d, type: 3}
       propertyPath: m_Layer
