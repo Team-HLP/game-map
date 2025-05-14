@@ -35,13 +35,14 @@ public class StartButtonManager : MonoBehaviour
 
     public void OnMoleButtonClicked()
     {
-        if (wak_GameManager.Instance != null)
+        if (GameManager2.Instance != null)
         {
-            wak_GameManager.Instance.ResetGameData();
+            GameManager2.Instance.ResetGameData();
         }
 
         Time.timeScale = 1;
-
-        SceneManager.LoadScene("wak_PlayScene");
+        PlayerPrefs.SetString("gameScene", "wak_PlayScene");
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("EyeDataMeausreScene");
     }
 }
