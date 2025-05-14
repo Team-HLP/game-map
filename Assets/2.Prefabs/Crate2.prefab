@@ -157,7 +157,7 @@ MonoBehaviour:
   objectType: 1
   autoDestroyTime: 3
   triggerAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Trigger
       m_Type: 0
@@ -167,13 +167,12 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
   explosionEffectPrefab: {fileID: 1251383659594566248, guid: 8c3544bc18f0be048b82accfab000b88,
     type: 3}
   fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
     type: 3}
-  highlightColor: {r: 1, g: 0, b: 0, a: 1}
-  highlightLerpSpeed: 10
 --- !u!1001 &7886777280229935224
 PrefabInstance:
   m_ObjectHideFlags: 0

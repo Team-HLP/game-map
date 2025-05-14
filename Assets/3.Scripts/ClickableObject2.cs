@@ -15,37 +15,13 @@ public class ClickableObject2 : MonoBehaviour
     public GameObject explosionEffectPrefab;
     public GameObject fuelCollectEffectPrefab;
 
-    public Color highlightColor = Color.red;
-    public float highlightLerpSpeed = 10f;
-
-    private Renderer _renderer;
-    private Color _originalColor;
-    private Color _targetColor;
-
-    private bool hasBaseColorProp;
-    private bool hasColorProp;
-
     void Start()
     {
-        _renderer = GetComponent<Renderer>();
-        if (_renderer != null)
-        {
-            hasBaseColorProp = _renderer.material.HasProperty("_BaseColor");
-            hasColorProp = _renderer.material.HasProperty("_Color");
-
-            if (hasBaseColorProp)
-                _originalColor = _renderer.material.GetColor("_BaseColor");
-            else if (hasColorProp)
-                _originalColor = _renderer.material.GetColor("_Color");
-            else
-                _renderer = null;
-
-            _targetColor = _originalColor;
-        }
-
+        // 트리거 액션 활성화
         if (triggerAction.action != null)
             triggerAction.action.Enable();
 
+        Debug.Log($"[ClickableObject2] Start() on \"{name}\", autoDestroyTime={autoDestroyTime}");
         Invoke(nameof(AutoDestroy), autoDestroyTime);
     }
 
@@ -54,18 +30,8 @@ public class ClickableObject2 : MonoBehaviour
         if (hasInteracted) return;
 
         bool isGazedNow = Time.time <= gazeActiveUntil;
-        _targetColor = isGazedNow ? highlightColor : _originalColor;
 
-        if (_renderer != null)
-        {
-            if (hasBaseColorProp)
-                _renderer.material.SetColor("_BaseColor",
-                    Color.Lerp(_renderer.material.GetColor("_BaseColor"), _targetColor, Time.deltaTime * highlightLerpSpeed));
-            else if (hasColorProp)
-                _renderer.material.SetColor("_Color",
-                    Color.Lerp(_renderer.material.GetColor("_Color"), _targetColor, Time.deltaTime * highlightLerpSpeed));
-        }
-
+        // 응시 중 + 트리거 입력 → Interact
         if (isGazedNow && triggerAction.action != null && triggerAction.action.WasPressedThisFrame())
         {
             Debug.Log("[ClickableObject2] 트리거 입력 감지됨 → Interact 호출");
@@ -73,12 +39,9 @@ public class ClickableObject2 : MonoBehaviour
         }
     }
 
+    // GazeRaycaster 에서 호출됨
     public void OnGazeEnter() => gazeActiveUntil = Time.time + 0.1f;
-    public void OnGazeExit() {
-        // 즉시 하이라이트 해제
-        gazeActiveUntil = 0f;
-        _targetColor = _originalColor;
-    }
+    public void OnGazeExit() => gazeActiveUntil = 0f;
 
     void Interact()
     {
@@ -104,7 +67,12 @@ public class ClickableObject2 : MonoBehaviour
 
     void AutoDestroy()
     {
-        if (hasInteracted) return;
+        Debug.Log($"[ClickableObject2] AutoDestroy() fired on \"{name}\" (hasInteracted={hasInteracted})");
+        if (hasInteracted)
+        {
+            Debug.Log("[ClickableObject2] → 스킵 (이미 interact됨)");
+            return;
+        }
         hasInteracted = true;
 
         GazeRaycaster2.SaveAutoDestoryStatus(objectType.ToString());
@@ -120,6 +88,7 @@ public class ClickableObject2 : MonoBehaviour
             GameManager2.Instance.AddHp(10);
         }
 
+        Debug.Log("[ClickableObject2] → 진짜 자동 파괴 실행");
         Destroy(gameObject);
     }
 
@@ -130,8 +99,5 @@ public class ClickableObject2 : MonoBehaviour
         Destroy(fx, 2f);
     }
 
-    public string GetObjectTypeAsString()
-    {
-        return objectType.ToString();
-    }
+    public string GetObjectTypeAsString() => objectType.ToString();
 }

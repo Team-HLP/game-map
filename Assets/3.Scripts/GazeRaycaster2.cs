@@ -82,23 +82,23 @@ public class GazeRaycaster2 : MonoBehaviour
 
             if (isLookingAtObject)
             {
-                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.GAZE, currentObjectType));
+                userStatus.Add(new UserStatus(GameManager2.Instance.getFrameTime(), Status.GAZE, currentObjectType));
             }
             else
             {
-                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_GAZE, ""));
+                userStatus.Add(new UserStatus(GameManager2.Instance.getFrameTime(), Status.NOT_GAZE, ""));
             }
         }
     }
 
     public static void SaveUserDestoryStatus(string object_name)
     {
-        userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.USER_DESTROY, object_name));
+        userStatus.Add(new UserStatus(GameManager2.Instance.getFrameTime(), Status.USER_DESTROY, object_name));
     }
 
     public static void SaveAutoDestoryStatus(string object_name)
     {
-        userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.AUTO_DESTROY, object_name));
+        userStatus.Add(new UserStatus(GameManager2.Instance.getFrameTime(), Status.AUTO_DESTROY, object_name));
     }
 
     public void SaveUserStatusToJson()
