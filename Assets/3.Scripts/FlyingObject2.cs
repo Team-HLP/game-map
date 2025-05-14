@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class FlyingObject : MonoBehaviour
+public class FlyingObject2 : MonoBehaviour
 {
     public GameObject meteoritePrefab;
     public GameObject fuelPrefab;
    
     [SerializeField]
-    private float spawnInterval = 4f;  // ���� ����
+    private float spawnInterval = 1.5f;  // ���� ����
 
     public RectTransform spawnArea;
     private Transform playerCamera;
@@ -58,7 +58,7 @@ public class FlyingObject : MonoBehaviour
         ClickableObject clickableObject = spawnedObject.GetComponent<ClickableObject>();
         if (clickableObject != null)
         {
-            clickableObject.autoDestroyTime = 8f;
+            clickableObject.autoDestroyTime = 3f;
         }
     }
 
