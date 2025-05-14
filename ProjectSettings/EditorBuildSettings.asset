@@ -29,6 +29,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1.Scenes/EyeDataMeausreScene.unity
     guid: 2469b7cff5309dd4db6e1940934c36e8
+  - enabled: 1
+    path: Assets/WakaMoleGame/Scenes/wak_PlayScene.unity
+    guid: 02afd31886d21494cbe00982418c38bd
+  - enabled: 1
+    path: Assets/WakaMoleGame/Scenes/wak_GameSuccessScene.unity
+    guid: 4f60deef452817a44abe73316fff7d6d
+  - enabled: 1
+    path: Assets/WakaMoleGame/Scenes/wak_GameOverScene.unity
+    guid: c0c075098786b4042b299bdd89ed23ea
+  - enabled: 1
+    path: Assets/WakaMoleGame/Scenes/wak_ResultScene.unity
+    guid: 55291b630b7bc2a419639a53eec7ba9e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 15762e7d1852b174496d703157a471ea,
       type: 2}

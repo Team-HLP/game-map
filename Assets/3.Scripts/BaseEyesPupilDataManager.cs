@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -31,7 +30,7 @@ public class BaseEyesPupilDataManager : MonoBehaviour
     {
         foreach (EyePupilData data in newData)
         {
-            this.eyePupilDatas.Add(data);
+            eyePupilDatas.Add(data);
         }
     }
 

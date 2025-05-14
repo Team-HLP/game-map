@@ -520,7 +520,7 @@ RectTransform:
   m_GameObject: {fileID: 359465640}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -29}
-  m_LocalScale: {x: 0.29430887, y: 0.31327072, z: 0.21789996}
+  m_LocalScale: {x: 0.2820421, y: 0.31327072, z: 0.21789996}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 501649738}
@@ -1490,9 +1490,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: ResultSceneManager, Assembly-CSharp
-          m_MethodName: OnResultButtonClicked
+        - m_Target: {fileID: 1128894435}
+          m_TargetAssemblyTypeName: StartButtonManager, Assembly-CSharp
+          m_MethodName: OnMoleButtonClicked
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1724,7 +1724,7 @@ GameObject:
   - component: {fileID: 1128894436}
   - component: {fileID: 1128894435}
   m_Layer: 0
-  m_Name: SceneManager -meteorite
+  m_Name: SceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
