@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public GazeRaycaster gazeRaycaster;
+
     public int hp = 100;
     public int score = 0;           // 점수 설정 아직 안 함
     public int destroyedMeteo = 0;  // 운석 파괴 횟수
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     private string eyeFilePath;
     private string eegFilePath;
+    private string behaviorFilePath;
 
     private void Awake()
     {
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour
             sceneStartTime = Time.time;
             eyeFilePath = Path.Combine(Application.persistentDataPath, "eye_data.json");
             eegFilePath = Path.Combine(Application.persistentDataPath, "eeg_data.json");
+            behaviorFilePath = Path.Combine(Application.persistentDataPath, "behavior_data.json");
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -57,12 +61,13 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "SCK_EnemyWaves")
+        if (scene.name == "MeteoriteScene")
         {
             hpText = GameObject.Find("HpText")?.GetComponent<Text>();
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
             eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager>();
+            gazeRaycaster = GameObject.Find("GazeRaycaster")?.GetComponent<GazeRaycaster>();
             
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();
@@ -122,19 +127,21 @@ public class GameManager : MonoBehaviour
 
     private void GameSuccess()
     {
-        GazeRaycaster.SaveUserStatusToJson();
+        gazeRaycaster.SaveUserStatusToJson();
         success = true;
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
+        FlyingObject.SavePrefabSpawnCount();
         SaveGameResult();
         SceneManager.LoadScene("GameSuccessScene");
     }
 
     private void GameOver()
     {
-        GazeRaycaster.SaveUserStatusToJson();
+        gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
+        FlyingObject.SavePrefabSpawnCount();
         SaveGameResult();
         SceneManager.LoadScene("GameOverScene");
     }
@@ -170,16 +177,21 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GameResultCoroutine(string result, int score, int hp, int meteorite_broken_count)
     {
-        string jsonBody = JsonUtility.ToJson(new GameResultRequest(result, score, hp, meteorite_broken_count));
+        int meteorite_prefab_count = PlayerPrefs.GetInt("meteorite_prefab_count");
+        int fuel_prefab_count = PlayerPrefs.GetInt("fuel_prefab_count");
+
+        string jsonBody = JsonUtility.ToJson(new GameResultRequest(meteorite_prefab_count, fuel_prefab_count, result, score, hp, meteorite_broken_count));
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
 
         byte[] gmaeResult = Encoding.UTF8.GetBytes(jsonBody);
         byte[] eegBytes = File.ReadAllBytes(eegFilePath);
         byte[] eyeBytes = File.ReadAllBytes(eyeFilePath);
+        byte[] behaviorBytes = File.ReadAllBytes(behaviorFilePath);
 
         formData.Add(new MultipartFormFileSection("request", gmaeResult, "request.json", "application/json"));
         formData.Add(new MultipartFormFileSection("eeg_data_file", eegBytes, "eeg_data.json", "application/json"));
         formData.Add(new MultipartFormFileSection("eye_data_file", eyeBytes, "eye_data.json", "application/json"));
+        formData.Add(new MultipartFormFileSection("behavior_file", behaviorBytes, "behavior_data.json", "application/json"));
 
         UnityWebRequest request = UnityWebRequest.Post(Apiconfig.url + "/game/meteorite", formData);
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("access_token", ""));
@@ -195,5 +207,11 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Result Save Error: " + request.error);
             Debug.LogError("Server Response Body: " + request.downloadHandler.text);
         }
+    }
+
+    public void ImmeditelyBioDataSave()
+    {
+        eyesDataManager.ImmeditelyEyePupilDataSave();
+        eegDataManager.ImmeditelyEegDataSave();
     }
 }

@@ -1,36 +1,43 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using Tobii.XR;
 using System.IO;
 
 public class GazeRaycaster : MonoBehaviour
 {
-    public static List<UserStatus> userStatus = new List<UserStatus>();
+    private static List<UserStatus> userStatus = new List<UserStatus>();
     public ClickableObject currentObject = null;
+    private bool isLookingAtObject = false;
+    private string currentObjectType = "";
+    private Coroutine coroutine;
 
-    // 최대 사정거리
-    private float maxRayDistance = 1000f;
+    [Header("Gaze Settings")]
+    public LayerMask gazeTargetLayer;  // GazeTarget 레이어 마스크
 
-    // 추가: 감지할 레이어 정의
-    public LayerMask gazeTargetLayer;
+    void Start()
+    {
+        coroutine = StartCoroutine(LogUserStatusCoroutine());
+    }
 
     void Update()
     {
         var eyeData = TobiiXR.GetEyeTrackingData(TobiiXR_TrackingSpace.World);
+
         if (!eyeData.GazeRay.IsValid)
         {
+            isLookingAtObject = false;
             ExitCurrentObject();
             return;
         }
 
         Ray gazeRay = new Ray(eyeData.GazeRay.Origin, eyeData.GazeRay.Direction);
 
-        // 지정된 레이어만 감지
-        if (Physics.Raycast(gazeRay, out RaycastHit hit, maxRayDistance, gazeTargetLayer))
+        // 지정된 GazeTarget 레이어만 감지
+        if (Physics.Raycast(gazeRay, out RaycastHit hit, 100f, gazeTargetLayer))
         {
-            Debug.DrawRay(gazeRay.origin, gazeRay.direction * hit.distance, Color.green);
+            ClickableObject hitObject = hit.collider.GetComponent<ClickableObject>();
 
-            var hitObject = hit.collider.GetComponent<ClickableObject>();
             if (hitObject != null)
             {
                 if (hitObject != currentObject)
@@ -38,48 +45,84 @@ public class GazeRaycaster : MonoBehaviour
                     ExitCurrentObject();
                     currentObject = hitObject;
                 }
+
                 currentObject.OnGazeEnter();
+                isLookingAtObject = true;
+                currentObjectType = currentObject.GetObjectTypeAsString();
             }
             else
             {
+                isLookingAtObject = false;
+                currentObjectType = "";
                 ExitCurrentObject();
             }
         }
         else
         {
-            Debug.DrawRay(gazeRay.origin, gazeRay.direction * maxRayDistance, Color.red);
+            isLookingAtObject = false;
+            currentObjectType = "";
             ExitCurrentObject();
         }
     }
-
 
     void ExitCurrentObject()
     {
         if (currentObject != null)
         {
-            currentObject.OnGazeExit(); // 응시 종료 알림 추가
+            currentObject.OnGazeExit();
             currentObject = null;
+        }
+    }
+
+    IEnumerator LogUserStatusCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+
+            if (isLookingAtObject)
+            {
+                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.GAZE, currentObjectType));
+            }
+            else
+            {
+                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_GAZE, ""));
+            }
         }
     }
 
     public static void SaveUserDestoryStatus(string object_name)
     {
-        userStatus.Add(new UserStatus(Time.time, Status.DESTROY, object_name));
+        userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.USER_DESTROY, object_name));
     }
 
-    public static void SaveUserStatusToJson()
+    public static void SaveAutoDestoryStatus(string object_name)
     {
-        string filePath = Path.Combine(Application.persistentDataPath, "behavior_series.json");
+        userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.AUTO_DESTROY, object_name));
+    }
+
+    public void SaveUserStatusToJson()
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, "behavior_data.json");
 
         UserStatusListWrapper wrapper = new UserStatusListWrapper();
-        wrapper.behavior_series = userStatus;
+        wrapper.behavior_data = userStatus;
 
         string json = JsonUtility.ToJson(wrapper, true);
 
         File.WriteAllText(filePath, json);
         Debug.Log("User status saved to: " + filePath);
         userStatus = new List<UserStatus>();
+
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
     }
+
+    [System.Serializable]
+    public enum Status { GAZE, NOT_GAZE, USER_DESTROY, AUTO_DESTROY }
 
     [System.Serializable]
     public class UserStatus
@@ -97,11 +140,8 @@ public class GazeRaycaster : MonoBehaviour
     }
 
     [System.Serializable]
-    public enum Status { LOCKED, NOT_LOCKED, DESTROY }
-
-    [System.Serializable]
     public class UserStatusListWrapper
     {
-        public List<UserStatus> behavior_series;
+        public List<UserStatus> behavior_data;
     }
 }
