@@ -92,6 +92,7 @@ public class ClickableObject : MonoBehaviour
         hasInteracted = true;
 
         GazeRaycaster.SaveUserDestoryStatus(objectType.ToString());
+        GameManager.Instance.ImmeditelyBioDataSave();
         CancelInvoke(nameof(AutoDestroy));
 
         if (objectType == ObjectType.Meteorite)
@@ -112,6 +113,9 @@ public class ClickableObject : MonoBehaviour
     {
         if (hasInteracted) return;
         hasInteracted = true;
+
+        GazeRaycaster.SaveAutoDestoryStatus(objectType.ToString());
+        GameManager.Instance.ImmeditelyBioDataSave();
 
         if (objectType == ObjectType.Meteorite)
         {
