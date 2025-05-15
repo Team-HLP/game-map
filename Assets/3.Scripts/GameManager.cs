@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public Text hpText;
     public Text timerText;
+    public Text scoreText;
 
     public EyesDataManager eyesDataManager;
     public EEGDataManager eegDataManager;
@@ -65,14 +66,18 @@ public class GameManager : MonoBehaviour
         {
             hpText = GameObject.Find("HpText")?.GetComponent<Text>();
             timerText = GameObject.Find("TimerText")?.GetComponent<Text>();
+            scoreText = GameObject.Find("ScoreText")?.GetComponent<Text>();
+
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
             eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager>();
             gazeRaycaster = GameObject.Find("GazeRaycaster")?.GetComponent<GazeRaycaster>();
             
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();
+
             UpdateHpUI();
             UpdateTimerUI();
+            UpdateScoreUI();
         }
     }
 
@@ -82,8 +87,6 @@ public class GameManager : MonoBehaviour
         UpdateHpUI();
     }
         
-        
-
     private void Update()
     {
         if (success) return;
@@ -97,6 +100,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private Coroutine hpColorCoroutine;
+    private Color originalHpColor;
+    public Color damageColor = Color.red;
+    public Color healColor = Color.green;
+
+    public void FlashHpColor(bool isHeal)
+    {
+        if (hpColorCoroutine != null)
+            StopCoroutine(hpColorCoroutine);
+
+        hpColorCoroutine = StartCoroutine(FlashHpColorCoroutine(isHeal));
+    }
+
+    private IEnumerator FlashHpColorCoroutine(bool isHeal)
+    {
+        if (hpText == null) yield break;
+
+        if (originalHpColor == default)
+            originalHpColor = hpText.color;
+
+        hpText.color = isHeal ? healColor : damageColor;
+        yield return new WaitForSeconds(1f);
+        hpText.color = originalHpColor;
+    }
+
     public void AddHp(int amount)
     {
         hp += amount;
@@ -107,6 +135,49 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
+    }
+
+    private Coroutine scoreColorCoroutine;
+    private Color originalScoreColor;
+    public Color highlightColor = Color.yellow;
+
+    private IEnumerator FlashScoreColor()
+    {
+        if (scoreText == null) yield break;
+
+        originalScoreColor = scoreText.color;
+        scoreText.color = highlightColor;
+
+        yield return new WaitForSeconds(1f);
+        scoreText.color = originalScoreColor;
+    }
+
+    private float lastDestroyTime = -999f;
+    private float comboThreshold = 10f;
+
+    public void AddScore()
+    {
+        int meteoDestroyScore = 100;
+        int bonusScore = 0;
+
+        float now = Time.time;
+
+        if (now - lastDestroyTime <= comboThreshold)
+        {
+            bonusScore = 50;
+        }
+
+        lastDestroyTime = now;
+
+        score += meteoDestroyScore + bonusScore;
+
+        UpdateScoreUI();
+
+        if (scoreColorCoroutine != null)
+        {
+            StopCoroutine(scoreColorCoroutine);
+        }
+        scoreColorCoroutine = StartCoroutine(FlashScoreColor());
     }
 
     private void UpdateHpUI()
@@ -122,6 +193,15 @@ public class GameManager : MonoBehaviour
             int minutes = Mathf.FloorToInt(gameTime / 60);
             int seconds = Mathf.FloorToInt(gameTime % 60);
             timerText.text = $"{minutes:00}:{seconds:00}";
+        }
+    }
+
+    private void UpdateScoreUI()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score : " + score;
+            Debug.Log("Score Updated: " + score);
         }
     }
 

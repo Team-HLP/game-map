@@ -99,6 +99,7 @@ public class ClickableObject : MonoBehaviour
         {
             GameManager.Instance.destroyedMeteo++;
             SpawnEffect(explosionEffectPrefab);
+            GameManager.Instance.AddScore();
         }
         else
         {
@@ -119,10 +120,12 @@ public class ClickableObject : MonoBehaviour
 
         if (objectType == ObjectType.Meteorite)
         {
+            GameManager.Instance.FlashHpColor(false);
             GameManager.Instance.AddHp(-10);
         }
         else
         {
+            GameManager.Instance.FlashHpColor(true);
             SpawnEffect(fuelCollectEffectPrefab);
             GameManager.Instance.AddHp(10);
         }
