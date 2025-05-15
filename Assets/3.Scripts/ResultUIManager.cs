@@ -42,7 +42,7 @@ public class ResultUIManager : MonoBehaviour
         UnityWebRequest request = UnityWebRequest.Get(url);
 
         string accessToken = PlayerPrefs.GetString("access_token", "");
-        request.SetRequestHeader("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MzksImV4cCI6MTc0NzI5NTk2MX0.h6Xac4xo0Ule8fw8zcQoNb5-zbYNNPAQEbjugeoP7GD4gTMvFlQqDnjHxU1gi8VUwP7mXw7kE3rvxi9rtyiCog");
+        request.SetRequestHeader("Authorization", "Bearer " + accessToken);
 
         yield return request.SendWebRequest();
 
@@ -82,7 +82,7 @@ public class ResultUIManager : MonoBehaviour
         request = UnityWebRequest.Get(url);
 
         accessToken = PlayerPrefs.GetString("access_token", "");
-        request.SetRequestHeader("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZCI6MzksImV4cCI6MTc0NzI5NTk2MX0.h6Xac4xo0Ule8fw8zcQoNb5-zbYNNPAQEbjugeoP7GD4gTMvFlQqDnjHxU1gi8VUwP7mXw7kE3rvxi9rtyiCog");
+        request.SetRequestHeader("Authorization", "Bearer " + accessToken);
 
         yield return request.SendWebRequest();
 
