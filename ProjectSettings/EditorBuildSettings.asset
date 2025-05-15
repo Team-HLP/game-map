@@ -44,9 +44,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/WakaMoleGame/Scenes/wak_GameOverScene.unity
     guid: c0c075098786b4042b299bdd89ed23ea
-  - enabled: 0
-    path: Assets/WakaMoleGame/Scenes/wak_ResultScene.unity
-    guid: 55291b630b7bc2a419639a53eec7ba9e
+  - enabled: 1
+    path: Assets/1.Scenes/GameOverScene2.unity
+    guid: 272e085b50b7e3245af288a2509c1abd
+  - enabled: 1
+    path: Assets/1.Scenes/GameSuccessScene2.unity
+    guid: 1b515927ed4a9dc48b8c64a2ccc031aa
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 15762e7d1852b174496d703157a471ea,
       type: 2}

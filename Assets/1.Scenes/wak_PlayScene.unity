@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 8900000, guid: a03eace4d5ceb4847af30bf2101a06a7, type: 3}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.008031655, g: 0.008928052, b: 0.009403007, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.008033793, g: 0.0089286305, b: 0.009403301, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1905,7 +1905,7 @@ MonoBehaviour:
   score: 0
   destroyedMeteo: 0
   success: 0
-  gameTime: 60
+  gameTime: 10
   hpText: {fileID: 1102102528}
   timerText: {fileID: 903170940}
   eyesDataManager: {fileID: 1920779105}
