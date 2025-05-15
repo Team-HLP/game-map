@@ -193,7 +193,7 @@ public class GameManager2 : MonoBehaviour
         formData.Add(new MultipartFormFileSection("eye_data_file", eyeBytes, "eye_data.json", "application/json"));
         formData.Add(new MultipartFormFileSection("behavior_file", behaviorBytes, "behavior_data.json", "application/json"));
 
-        UnityWebRequest request = UnityWebRequest.Post(Apiconfig.url + "/game/meteorite", formData);
+        UnityWebRequest request = UnityWebRequest.Post(Apiconfig.url + "/game/mole", formData);
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("access_token", ""));
 
         yield return request.SendWebRequest();
