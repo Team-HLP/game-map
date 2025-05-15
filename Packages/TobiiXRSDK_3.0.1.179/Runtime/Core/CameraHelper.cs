@@ -61,7 +61,7 @@ namespace Tobii.XR
                 }
             }
 
-            Debug.LogError("No active camera found in scene. Add a camera before running TobiiXR.");
+            // Debug.LogError("No active camera found in scene. Add a camera before running TobiiXR.");
             return null;
         }
     }

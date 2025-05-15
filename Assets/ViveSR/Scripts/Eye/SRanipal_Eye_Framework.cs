@@ -84,11 +84,11 @@ namespace ViveSR
                                 EnableEyeDataCallback = false;
                                 Debug.Log("[SRanipal] Current HMD do not support eye tracking!");
                             }
-                            else
-                            {
-                                Status = FrameworkStatus.ERROR;
-                                Debug.LogError("[SRanipal] Initial Eye : " + result);
-                            }
+                            // else
+                            // {
+                            //     Status = FrameworkStatus.ERROR;
+                            //     Debug.LogError("[SRanipal] Initial Eye : " + result);
+                            // }
                         }
                     }
                     else
