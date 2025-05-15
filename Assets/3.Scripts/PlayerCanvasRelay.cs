@@ -10,11 +10,13 @@ public class PlayerCanvasRelay : MonoBehaviour
         {
             var hpText = canvas.Find("HpText")?.GetComponent<Text>();
             var timerText = canvas.Find("TimerText")?.GetComponent<Text>();
+            var scoreText = canvas.Find("ScoreText")?.GetComponent<Text>();
 
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.hpText = hpText;
                 GameManager.Instance.timerText = timerText;
+                GameManager.Instance.scoreText = scoreText;
             }
         }
         else
