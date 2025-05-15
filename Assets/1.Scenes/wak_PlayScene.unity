@@ -1212,6 +1212,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1698164344811389177, guid: a2d322618011b154bb8a64feecdfc19f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1698164344811389179, guid: a2d322618011b154bb8a64feecdfc19f,
         type: 3}
       propertyPath: gameStates.Array.size
@@ -1905,7 +1910,7 @@ MonoBehaviour:
   score: 0
   destroyedMeteo: 0
   success: 0
-  gameTime: 10
+  gameTime: 40
   hpText: {fileID: 1102102528}
   timerText: {fileID: 903170940}
   eyesDataManager: {fileID: 1920779105}
@@ -3091,7 +3096,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1505856883
 Transform:
   m_ObjectHideFlags: 0

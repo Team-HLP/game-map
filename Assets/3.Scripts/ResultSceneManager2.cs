@@ -5,9 +5,9 @@ public class ResultSceneManager2 : MonoBehaviour
 {
     public void OnRestartButtonClicked()
     {
-        if (GameManager.Instance != null)
+        if (GameManager2.Instance != null)
         {
-            GameManager.Instance.ResetGameData();
+            GameManager2.Instance.ResetGameData();
         }
 
         Time.timeScale = 1;
@@ -15,9 +15,9 @@ public class ResultSceneManager2 : MonoBehaviour
     }
     public void OnQuitButtonClicked()
     {
-        if (GameManager.Instance != null)
+        if (GameManager2.Instance != null)
         {
-            GameManager.Instance.ResetGameData();
+            GameManager2.Instance.ResetGameData();
         }
 
         Time.timeScale = 1;
