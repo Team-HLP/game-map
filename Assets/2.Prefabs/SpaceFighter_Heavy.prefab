@@ -16899,6 +16899,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4147568942036265369, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147568942036265369, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -61.999992
+      objectReference: {fileID: 0}
     - target: {fileID: 4621328446333922315, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
         type: 3}
       propertyPath: m_IsActive
@@ -16965,6 +16975,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622330831899555960, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -61.999992
       objectReference: {fileID: 0}
     - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
         type: 3}
@@ -17051,6 +17066,11 @@ PrefabInstance:
       propertyPath: timerText
       value: 
       objectReference: {fileID: 2027923883997752818}
+    - target: {fileID: 7637799625863094220, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09aef74854e766e4f8f2c39bd6b2ca1f, type: 3}
 --- !u!114 &1219572660119098808 stripped
