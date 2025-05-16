@@ -517,6 +517,7 @@ GameObject:
   - component: {fileID: 4544219117696442}
   - component: {fileID: 95706204029656638}
   - component: {fileID: -2928418560517442423}
+  - component: {fileID: 398448959624074147}
   m_Layer: 3
   m_Name: TurtleShellPBR
   m_TagString: Untagged
@@ -593,6 +594,19 @@ MonoBehaviour:
     type: 3}
   fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
     type: 3}
+--- !u!65 &398448959624074147
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524411113276028}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 1.2, z: 1.2}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1532652994627396
 GameObject:
   m_ObjectHideFlags: 0
