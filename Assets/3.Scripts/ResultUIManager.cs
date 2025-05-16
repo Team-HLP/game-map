@@ -21,6 +21,13 @@ public class ResultUIManager : MonoBehaviour
     public Transform contentParent;
     public GameObject detailPanel;
 
+    [Header("상세 결과 표시용 텍스트")]
+    public Text moleCreatedAtText;
+    public Text moleResultText;
+    public Text moleScoreText;
+    public Text moleHpText;
+    public Text moleCountText;
+
     [Header("두더지 히스토리 리스트")]
     public GameObject moleHistoryEntryPrefab;
     public Transform moleContentParent;
@@ -152,5 +159,26 @@ public class ResultUIManager : MonoBehaviour
 
         if (detailPanel != null)
             detailPanel.SetActive(true);
+    }
+
+    public void MoleDisplayDetails(string created_at, string result, int score, int moleCount, int hp)
+    {
+        if (moleCreatedAtText != null)
+            moleCreatedAtText.text = $"플레이 시간  :  {created_at}";
+
+        if (moleResultText != null)
+            moleResultText.text = $"결과  :  {result}";
+
+        if (moleScoreText != null)
+            moleScoreText.text = $"점수  :  {score}";
+
+        if (moleHpText != null)
+            moleHpText.text = $"종료 시점 HP  :  {hp}";
+
+        if (moleCountText != null)
+            moleCountText.text = $"잡은 두더지 수  :  {moleCount}";
+
+        if (moleDetailPanel != null)
+            moleDetailPanel.SetActive(true);
     }
 }

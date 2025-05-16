@@ -12,20 +12,20 @@ public class HistoryEntryUICopy : MonoBehaviour
     private string result;
     private int score;
     private int hp;
-    private int meteorCount;
+    private int moleCount;
     private string createdAt;
 
-    public void Initialize(string result, int score, int hp, int meteorCount, string created_at, ResultUIManager manager)
+    public void Initialize(string result, int score, int hp, int moleCount, string created_at, ResultUIManager manager)
     {
         createdAtText.text = created_at;
         resultText.text = result;
-        scoreText.text = $"{score}��";
+        scoreText.text = $"{score}점";
 
         this.createdAt = created_at;
         this.result = result;
         this.score = score;
         this.hp = hp;
-        this.meteorCount = meteorCount;
+        this.moleCount = moleCount;
 
         resultUIManager = manager;
 
@@ -34,6 +34,6 @@ public class HistoryEntryUICopy : MonoBehaviour
 
     void OnClickEntry()
     {
-        resultUIManager.DisplayDetails(createdAt, result, score, meteorCount, hp);
+        resultUIManager.MoleDisplayDetails(createdAt, result, score, moleCount, hp);
     }
 }
