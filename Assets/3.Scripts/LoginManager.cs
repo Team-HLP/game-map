@@ -42,7 +42,6 @@ public class LoginManager : MonoBehaviour
         else
         {
             string errorMsg = ParseErrorMessage(request.downloadHandler.text);
-            Debug.Log(errorMsg);
         }
     }
 
@@ -67,8 +66,6 @@ public class LoginManager : MonoBehaviour
 
     string ParseErrorMessage(string json)
     {
-        Debug.Log($"서버 응답 원문 (에러): {json}");
-
         try
         {
             return JsonUtility.FromJson<ErrorResponse>(json).detail;

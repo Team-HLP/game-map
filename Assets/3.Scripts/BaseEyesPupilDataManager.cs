@@ -47,8 +47,6 @@ public class BaseEyesPupilDataManager : MonoBehaviour
         PlayerPrefs.SetFloat("left_avg", leftAvg);
         PlayerPrefs.SetFloat("right_avg", rightAvg);
         PlayerPrefs.Save();
-
-        Debug.Log($"왼쪽 평균: {leftAvg}, 오른쪽 평균: {rightAvg} 저장 완료");
     }
 }
 

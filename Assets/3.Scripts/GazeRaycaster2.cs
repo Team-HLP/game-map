@@ -111,7 +111,6 @@ public class GazeRaycaster2 : MonoBehaviour
         string json = JsonUtility.ToJson(wrapper, true);
 
         File.WriteAllText(filePath, json);
-        Debug.Log("User status saved to: " + filePath);
         userStatus = new List<UserStatus>();
 
         if (coroutine != null)

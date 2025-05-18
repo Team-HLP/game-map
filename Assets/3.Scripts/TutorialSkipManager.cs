@@ -63,7 +63,6 @@ public class TutorialSkipManager : MonoBehaviour
 
     void ShowStep()
     {
-        Debug.Log($"튜토리얼 step: {step}번째 메시지");
         tutorialPanel.SetActive(true);
         if (messages == null || messages.Length == 0)
         {

@@ -109,8 +109,6 @@ public class DotVisual : MonoBehaviour
         {
             var left = pupils[(int)XrEyePositionHTC.XR_EYE_POSITION_LEFT_HTC];
             var right = pupils[(int)XrEyePositionHTC.XR_EYE_POSITION_RIGHT_HTC];
-            Debug.Log(left.pupilDiameter);
-            Debug.Log(right.pupilDiameter);
             
             if (left.isDiameterValid && right.isDiameterValid)
             {

@@ -18,16 +18,8 @@ public class AutoGazeMissile : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("[AutoGazeMissile] Awake called!");
         triggerables = GetComponentInParent<TriggerablesManager>();
         triggerables.SetSelectedTriggerGroup(0);
-
-        // 디버그: 어떤 모듈이 어떤 트리거 인덱스에 매핑됐는지 출력
-        for (int i = 0; i < triggerables.MountedTriggerables.Count; ++i)
-        {
-            var m = triggerables.MountedTriggerables[i];
-            Debug.Log($"[Triggerables] Mounted[{i}]: {m.triggerable.name} → triggerValue {m.triggerValuesByGroup[0]}");
-        }
     }
 
     void Reset()
@@ -38,13 +30,11 @@ public class AutoGazeMissile : MonoBehaviour
 
     void Update()
     {
-        // Debug.Log("[AutoGazeMissile] Update tick");
         var eye = TobiiXR.GetEyeTrackingData(TobiiXR_TrackingSpace.World);
         if (!eye.GazeRay.IsValid) { ResetTimer(); return; }
 
         Ray ray = new Ray(eye.GazeRay.Origin, eye.GazeRay.Direction);
         if (!Physics.Raycast(ray, out var hit, 300f, gazeMask)) { 
-            Debug.Log($"[AutoGaze] Raycast hit: {hit.collider.name}");
             ResetTimer(); return; }
 
         var obj = hit.collider.GetComponent<ClickableObject>();

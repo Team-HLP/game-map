@@ -227,7 +227,6 @@ public class EEGDataManager2 : MonoBehaviour
         StopMeasuring();
         string json = JsonUtility.ToJson(collectedEEG, true);
         File.WriteAllText(filePath, json, Encoding.UTF8);
-        Debug.Log("[EEG] JSON 저장 완료: " + filePath);
     }
 
     [Serializable]

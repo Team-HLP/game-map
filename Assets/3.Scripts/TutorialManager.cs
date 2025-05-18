@@ -41,10 +41,6 @@ public class TutorialManager : MonoBehaviour
                 Time.timeScale = 0f;
             }
         }
-        else
-        {
-            Debug.LogError("Request failed: " + request.error);
-        }
     }
 
     [System.Serializable]

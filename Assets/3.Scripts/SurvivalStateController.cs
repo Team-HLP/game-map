@@ -31,7 +31,6 @@ public class SurvivalStateController : MonoBehaviour
         gameEnded = true;
 
         GameStateManager.Instance.EnterGameState(failureState);
-        Debug.Log("<color=red>[Survival] Player destroyed → FAILURE</color>");
     }
 
     // 180초 생존 시 호출
@@ -41,6 +40,5 @@ public class SurvivalStateController : MonoBehaviour
         gameEnded = true;
 
         GameStateManager.Instance.EnterGameState(successState);
-        Debug.Log("<color=green>[Survival] 3 minutes survived → SUCCESS</color>");
     }
 }

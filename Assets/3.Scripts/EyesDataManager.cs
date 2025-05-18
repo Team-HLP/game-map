@@ -51,7 +51,6 @@ public class EyesDataManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(eyesData, true);
         File.WriteAllText(filePath, json, Encoding.UTF8);
-        Debug.Log("파일 저장 경로 : " + filePath);
     }
 
     public void ResetManager()

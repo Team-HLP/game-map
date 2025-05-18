@@ -21,7 +21,6 @@ public class ClickableObject2 : MonoBehaviour
         if (triggerAction.action != null)
             triggerAction.action.Enable();
 
-        Debug.Log($"[ClickableObject2] Start() on \"{name}\", autoDestroyTime={autoDestroyTime}");
         Invoke(nameof(AutoDestroy), autoDestroyTime);
     }
 
@@ -34,7 +33,6 @@ public class ClickableObject2 : MonoBehaviour
         // 응시 중 + 트리거 입력 → Interact
         if (isGazedNow && triggerAction.action != null && triggerAction.action.WasPressedThisFrame())
         {
-            Debug.Log("[ClickableObject2] 트리거 입력 감지됨 → Interact 호출");
             Interact();
         }
     }
@@ -68,10 +66,8 @@ public class ClickableObject2 : MonoBehaviour
 
     void AutoDestroy()
     {
-        Debug.Log($"[ClickableObject2] AutoDestroy() fired on \"{name}\" (hasInteracted={hasInteracted})");
         if (hasInteracted)
         {
-            Debug.Log("[ClickableObject2] → 스킵 (이미 interact됨)");
             return;
         }
         hasInteracted = true;
@@ -91,7 +87,6 @@ public class ClickableObject2 : MonoBehaviour
             GameManager2.Instance.AddHp(10);
         }
 
-        Debug.Log("[ClickableObject2] → 진짜 자동 파괴 실행");
         Destroy(gameObject);
     }
 

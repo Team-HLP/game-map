@@ -56,7 +56,6 @@ public class ResultUIManager : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             string json = request.downloadHandler.text;
-            Debug.Log("서버에서 받은 결과:\n" + json);
 
             List<GameResultResponse> serverResults = JsonConvert.DeserializeObject<List<GameResultResponse>>(json);
 
@@ -79,11 +78,6 @@ public class ResultUIManager : MonoBehaviour
                 AddHistoryEntry(resultStr, result.score, result.hp, result.meteorite_broken_count, displayTime);
             }
         }
-        else
-        {
-            Debug.LogError("서버에서 결과 불러오기 실패: " + request.error);
-            Debug.LogError("서버 응답:\n" + request.downloadHandler.text);
-        }
 
         url = Apiconfig.url + "/games?gameCategory=CATCH_MOLE";
         request = UnityWebRequest.Get(url);
@@ -96,7 +90,6 @@ public class ResultUIManager : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             string json = request.downloadHandler.text;
-            Debug.Log("서버에서 받은 결과:\n" + json);
 
             List<GameResultResponse> serverResults = JsonConvert.DeserializeObject<List<GameResultResponse>>(json);
 
@@ -118,11 +111,6 @@ public class ResultUIManager : MonoBehaviour
 
                 AddMoleHistoryEntry(resultStr, result.score, result.hp, result.meteorite_broken_count, displayTime);
             }
-        }
-        else
-        {
-            Debug.LogError("서버에서 결과 불러오기 실패: " + request.error);
-            Debug.LogError("서버 응답:\n" + request.downloadHandler.text);
         }
     }
 

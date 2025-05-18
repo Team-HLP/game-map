@@ -201,7 +201,6 @@ public class GameManager : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = "Score : " + score;
-            Debug.Log("Score Updated: " + score);
         }
     }
 
@@ -277,16 +276,6 @@ public class GameManager : MonoBehaviour
         request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("access_token", ""));
 
         yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            Debug.Log("Result Save Success");
-        }
-        else
-        {
-            Debug.LogError("Result Save Error: " + request.error);
-            Debug.LogError("Server Response Body: " + request.downloadHandler.text);
-        }
     }
 
     public void ImmeditelyBioDataSave()
