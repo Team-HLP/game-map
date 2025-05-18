@@ -14384,7 +14384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62754ddb97033ca46a251c770d4f2596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meteoritePrefab: {fileID: 3897906897140901242, guid: d66c1928517a62e41919e35b3c3c52f3,
+  meteoritePrefab: {fileID: 1524411113276028, guid: e2aafa8770d34a9591b41bedf4e318ba,
     type: 3}
   fuelPrefab: {fileID: 6830579541325509221, guid: 0dfc43ae0fc8d3b4692647da42ba9f98,
     type: 3}
