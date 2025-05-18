@@ -9,7 +9,7 @@ public class LoginManager : MonoBehaviour
 {
     public TMP_InputField idInput;    // ID 입력창으로 변경
     public TMP_InputField passwordInput; // TMP_InputField로 변경
-    private string nextSceneName = "SelectGameScene"; // 로그인 성공 후 전환될 씬 이름
+    private string nextSceneName = "MENU"; // 로그인 성공 후 전환될 씬 이름
 
     public void OnLoginButtonClick()
     {
