@@ -21,10 +21,24 @@ public class ResultUIManager : MonoBehaviour
     public Transform contentParent;
     public GameObject detailPanel;
 
+    [Header("상세 결과 표시용 텍스트")]
+    public Text moleCreatedAtText;
+    public Text moleResultText;
+    public Text moleScoreText;
+    public Text moleHpText;
+    public Text moleCountText;
+
+    [Header("두더지 히스토리 리스트")]
+    public GameObject moleHistoryEntryPrefab;
+    public Transform moleContentParent;
+    public GameObject moleDetailPanel;
+
     void Start()
     {
         if (detailPanel != null)
             detailPanel.SetActive(false);
+        if (moleDetailPanel != null)
+            moleDetailPanel.SetActive(false);
 
         StartCoroutine(LoadGameResultsFromServer());
     }
@@ -70,12 +84,59 @@ public class ResultUIManager : MonoBehaviour
             Debug.LogError("서버에서 결과 불러오기 실패: " + request.error);
             Debug.LogError("서버 응답:\n" + request.downloadHandler.text);
         }
+
+        url = Apiconfig.url + "/games?gameCategory=CATCH_MOLE";
+        request = UnityWebRequest.Get(url);
+
+        accessToken = PlayerPrefs.GetString("access_token", "");
+        request.SetRequestHeader("Authorization", "Bearer " + accessToken);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string json = request.downloadHandler.text;
+            Debug.Log("서버에서 받은 결과:\n" + json);
+
+            List<GameResultResponse> serverResults = JsonConvert.DeserializeObject<List<GameResultResponse>>(json);
+
+            foreach (var result in serverResults)
+            {
+                string resultStr = result.result == "성공" ? "성공" : "실패";
+
+                DateTime createdTime;
+                string displayTime;
+
+                if (DateTime.TryParseExact(result.created_at, "yyyy.MM.dd HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out createdTime))
+                {
+                    displayTime = createdTime.ToString("yyyy.MM.dd HH:mm");
+                }
+                else
+                {
+                    displayTime = result.created_at;
+                }
+
+                AddMoleHistoryEntry(resultStr, result.score, result.hp, result.meteorite_broken_count, displayTime);
+            }
+        }
+        else
+        {
+            Debug.LogError("서버에서 결과 불러오기 실패: " + request.error);
+            Debug.LogError("서버 응답:\n" + request.downloadHandler.text);
+        }
     }
 
     public void AddHistoryEntry(string result, int score, int hp, int meteorCount, string created_at)
     {
         GameObject entryGO = Instantiate(historyEntryPrefab, contentParent);
         HistoryEntryUI entryUI = entryGO.GetComponent<HistoryEntryUI>();
+        entryUI.Initialize(result, score, hp, meteorCount, created_at, this);
+    }
+
+    public void AddMoleHistoryEntry(string result, int score, int hp, int meteorCount, string created_at)
+    {
+        GameObject entryGO = Instantiate(moleHistoryEntryPrefab, moleContentParent);
+        HistoryEntryUICopy entryUI = entryGO.GetComponent<HistoryEntryUICopy>();
         entryUI.Initialize(result, score, hp, meteorCount, created_at, this);
     }
 
@@ -98,5 +159,26 @@ public class ResultUIManager : MonoBehaviour
 
         if (detailPanel != null)
             detailPanel.SetActive(true);
+    }
+
+    public void MoleDisplayDetails(string created_at, string result, int score, int moleCount, int hp)
+    {
+        if (moleCreatedAtText != null)
+            moleCreatedAtText.text = $"플레이 시간  :  {created_at}";
+
+        if (moleResultText != null)
+            moleResultText.text = $"결과  :  {result}";
+
+        if (moleScoreText != null)
+            moleScoreText.text = $"점수  :  {score}";
+
+        if (moleHpText != null)
+            moleHpText.text = $"종료 시점 HP  :  {hp}";
+
+        if (moleCountText != null)
+            moleCountText.text = $"잡은 두더지 수  :  {moleCount}";
+
+        if (moleDetailPanel != null)
+            moleDetailPanel.SetActive(true);
     }
 }

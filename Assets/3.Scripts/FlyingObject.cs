@@ -4,7 +4,9 @@ public class FlyingObject : MonoBehaviour
 {
     public GameObject meteoritePrefab;
     public GameObject fuelPrefab;
-    private float spawnInterval = 4f;  // »ý¼º °£°Ý
+   
+    [SerializeField]
+    private float spawnInterval = 4f;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public RectTransform spawnArea;
     private Transform playerCamera;
@@ -22,23 +24,23 @@ public class FlyingObject : MonoBehaviour
 
     void SpawnObject()
     {
-        if (spawnArea == null) return; // spawnArea°¡ ¼³Á¤µÇÁö ¾ÊÀ¸¸é ¸®ÅÏ
+        if (spawnArea == null) return; // spawnAreaï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        float widthRange = spawnArea.rect.width * 0.3f;   // ÁÂ¿ì Æø 30%
-        float heightRange = spawnArea.rect.height * 0.3f; // »óÇÏ ³ôÀÌ 30%
+        float widthRange = spawnArea.rect.width * 0.3f;   // ï¿½Â¿ï¿½ ï¿½ï¿½ 30%
+        float heightRange = spawnArea.rect.height * 0.3f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 30%
 
-        // Äµ¹ö½º ³»¿¡¼­ ¿î¼®ÀÇ »ý¼º À§Ä¡¸¦ ·£´ýÇÏ°Ô ¼³Á¤
+        // Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¼®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         Vector2 spawnPosition2D = new Vector2(
             Random.Range(-spawnArea.rect.width / 2, spawnArea.rect.width / 2),
             Random.Range(-spawnArea.rect.height / 2, spawnArea.rect.height / 2)
         );
 
 
-        // Äµ¹ö½º °ø°£ ³»ÀÇ ÁÂÇ¥¸¦ ¿ùµå ÁÂÇ¥·Î º¯È¯
+        // Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½È¯
         Vector3 spawnPosition = spawnArea.TransformPoint(spawnPosition2D);
         spawnPosition.y -= 3f;
 
-        // ¿î¼®°ú ¿¬·á Áß ÇÏ³ª¸¦ ·£´ýÀ¸·Î ¼±ÅÃ
+        // ï¿½î¼®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         GameObject prefabToSpawn;
 
         if (Random.value < 0.7f) {
@@ -50,7 +52,7 @@ public class FlyingObject : MonoBehaviour
             fuelSpawnCount++;
         }
 
-        // ¿ÀºêÁ§Æ® »ý¼º ÈÄ º¯¼ö¿¡ ÀúÀå
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
         ClickableObject clickableObject = spawnedObject.GetComponent<ClickableObject>();
