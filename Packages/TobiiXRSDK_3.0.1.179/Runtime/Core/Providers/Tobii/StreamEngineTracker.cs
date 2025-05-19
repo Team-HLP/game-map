@@ -196,10 +196,10 @@ namespace Tobii.XR
             stopwatch.Stop();
             var milliseconds = stopwatch.ElapsedMilliseconds; 
 
-            if (result != tobii_error_t.TOBII_ERROR_NO_ERROR)
-            {
-                UnityEngine.Debug.LogError(string.Format("Failed to process callback. Error {0}", result));
-            }
+            // if (result != tobii_error_t.TOBII_ERROR_NO_ERROR)
+            // {
+            //     UnityEngine.Debug.LogError(string.Format("Failed to process callback. Error {0}", result));
+            // }
 
             // If data comes in faster than we can process it, we will sooner or later be kicked out by the runtime
             // when the client input buffer has been full for ~50 ms. 
