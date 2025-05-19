@@ -68,7 +68,8 @@ public class EEGDataManager2 : MonoBehaviour
     IEnumerator MeasureEEGData()
     {
         yield return new WaitForSeconds(0.1f);
-        WaitForSeconds interval = new WaitForSeconds(1.0f);
+        //WaitForSeconds interval = new WaitForSeconds(1.0f);
+        WaitForSeconds interval = new WaitForSeconds(0.1f);
 
         while (true)
         {

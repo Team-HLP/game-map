@@ -18,7 +18,8 @@ public class EyesPupilSizeManager2 : MonoBehaviour
     IEnumerator MeasurEyePupilSize()
     {
         yield return new WaitForSeconds(0.1f);
-        WaitForSeconds interval = new WaitForSeconds(1.0f);
+        //WaitForSeconds interval = new WaitForSeconds(1.0f);
+        WaitForSeconds interval = new WaitForSeconds(0.1f);
 
         while (true)
         {

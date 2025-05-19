@@ -17,7 +17,7 @@ public class GazeRaycaster2 : MonoBehaviour
 
     void Start()
     {
-        coroutine = StartCoroutine(LogUserStatusCoroutine());
+        //coroutine = StartCoroutine(LogUserStatusCoroutine());
     }
 
     void Update()
@@ -47,20 +47,38 @@ public class GazeRaycaster2 : MonoBehaviour
                 }
 
                 currentObject.OnGazeEnter();
+                /*
                 isLookingAtObject = true;
                 currentObjectType = currentObject.GetObjectTypeAsString();
+                */
+                userStatus.Add(new UserStatus(
+                    GameManager2.Instance.getFrameTime(), 
+                    Status.GAZE, 
+                    currentObject.GetObjectTypeAsString()));
             }
             else
             {
+                /*
                 isLookingAtObject = false;
                 currentObjectType = "";
+                */
+                userStatus.Add(new UserStatus(
+                    GameManager2.Instance.getFrameTime(), 
+                    Status.NOT_GAZE, 
+                    ""));
                 ExitCurrentObject();
             }
         }
         else
         {
+            /*
             isLookingAtObject = false;
             currentObjectType = "";
+            */
+             userStatus.Add(new UserStatus(
+                GameManager2.Instance.getFrameTime(), 
+                Status.NOT_GAZE, 
+                ""));
             ExitCurrentObject();
         }
     }
@@ -74,6 +92,7 @@ public class GazeRaycaster2 : MonoBehaviour
         }
     }
 
+    /*
     IEnumerator LogUserStatusCoroutine()
     {
         while (true)
@@ -82,14 +101,15 @@ public class GazeRaycaster2 : MonoBehaviour
 
             if (isLookingAtObject)
             {
-                userStatus.Add(new UserStatus(GameManager2.Instance.getFrameTime(), Status.GAZE, currentObjectType));
+                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.GAZE, currentObjectType));
             }
             else
             {
-                userStatus.Add(new UserStatus(GameManager2.Instance.getFrameTime(), Status.NOT_GAZE, ""));
+                userStatus.Add(new UserStatus(GameManager.Instance.getFrameTime(), Status.NOT_GAZE, ""));
             }
         }
     }
+    */
 
     public static void SaveUserDestoryStatus(string object_name)
     {
@@ -113,11 +133,13 @@ public class GazeRaycaster2 : MonoBehaviour
         File.WriteAllText(filePath, json);
         userStatus = new List<UserStatus>();
 
+        /*
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
             coroutine = null;
         }
+        */
     }
 
     [System.Serializable]

@@ -17,7 +17,7 @@ public class GazeRaycaster : MonoBehaviour
 
     void Start()
     {
-        coroutine = StartCoroutine(LogUserStatusCoroutine());
+        //coroutine = StartCoroutine(LogUserStatusCoroutine());
     }
 
     void Update()
@@ -47,20 +47,38 @@ public class GazeRaycaster : MonoBehaviour
                 }
 
                 currentObject.OnGazeEnter();
+                /*
                 isLookingAtObject = true;
                 currentObjectType = currentObject.GetObjectTypeAsString();
+                */
+                userStatus.Add(new UserStatus(
+                    GameManager.Instance.getFrameTime(), 
+                    Status.GAZE, 
+                    currentObject.GetObjectTypeAsString()));
             }
             else
             {
+                /*
                 isLookingAtObject = false;
                 currentObjectType = "";
+                */
+                userStatus.Add(new UserStatus(
+                    GameManager.Instance.getFrameTime(), 
+                    Status.NOT_GAZE, 
+                    ""));
                 ExitCurrentObject();
             }
         }
         else
         {
+            /*
             isLookingAtObject = false;
             currentObjectType = "";
+            */
+             userStatus.Add(new UserStatus(
+                GameManager.Instance.getFrameTime(), 
+                Status.NOT_GAZE, 
+                ""));
             ExitCurrentObject();
         }
     }
@@ -74,6 +92,7 @@ public class GazeRaycaster : MonoBehaviour
         }
     }
 
+    /*
     IEnumerator LogUserStatusCoroutine()
     {
         while (true)
@@ -90,6 +109,7 @@ public class GazeRaycaster : MonoBehaviour
             }
         }
     }
+    */
 
     public static void SaveUserDestoryStatus(string object_name)
     {
@@ -113,11 +133,13 @@ public class GazeRaycaster : MonoBehaviour
         File.WriteAllText(filePath, json);
         userStatus = new List<UserStatus>();
 
+        /*
         if (coroutine != null)
         {
             StopCoroutine(coroutine);
             coroutine = null;
         }
+        */
     }
 
     [System.Serializable]
