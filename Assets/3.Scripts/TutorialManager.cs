@@ -33,12 +33,10 @@ public class TutorialManager : MonoBehaviour
             if (res.GetExists())
             {
                 TutorialSkipManager.SetActive(false);
-                Time.timeScale = 1f;
             }
             else
             {
                 TutorialSkipManager.SetActive(true);
-                Time.timeScale = 0f;
             }
         }
     }
