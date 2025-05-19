@@ -18168,6 +18168,14 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!124 &2295727567978456930
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731720490116567032}
+  m_Enabled: 1
 --- !u!4 &3731720490116567035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4621328446466055856, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
