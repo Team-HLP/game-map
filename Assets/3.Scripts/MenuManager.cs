@@ -5,12 +5,21 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     public GameObject loginButton;
+    public GameObject logoutButton;
 
     void Start()
     {
-        if (loginButton != null && PlayerPrefs.GetInt("loginSuccess", 0) == 1)
+        int isLoggedIn = PlayerPrefs.GetInt("loginSuccess", 0);
+
+        if (isLoggedIn == 1)
         {
             loginButton.SetActive(false);
+            logoutButton.SetActive(true);
+        }
+        else
+        {
+            loginButton.SetActive(true);
+            logoutButton.SetActive(false);
         }
     }
 }

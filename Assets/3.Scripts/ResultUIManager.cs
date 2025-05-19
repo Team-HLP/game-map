@@ -164,7 +164,7 @@ public class ResultUIManager : MonoBehaviour
             moleHpText.text = $"종료 시점 HP  :  {hp}";
 
         if (moleCountText != null)
-            moleCountText.text = $"잡은 두더지 수  :  {moleCount}";
+            moleCountText.text = $"잡은 외계인 수  :  {moleCount}";
 
         if (moleDetailPanel != null)
             moleDetailPanel.SetActive(true);
