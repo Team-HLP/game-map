@@ -30,7 +30,7 @@ public class TutorialManager2 : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             ExistGameResponse res = JsonUtility.FromJson<ExistGameResponse>(request.downloadHandler.text);
-            if (!res.exists)
+            if (res.GetExists())
             {
                 TutorialSkipManager.SetActive(false);
                 Time.timeScale = 1f;
@@ -47,5 +47,10 @@ public class TutorialManager2 : MonoBehaviour
     public class ExistGameResponse
     {
         public bool exists;
+
+        public bool GetExists()
+        {
+            return exists;
+        }
     }
 }
