@@ -9,10 +9,38 @@ public class LoginManager : MonoBehaviour
 {
     public TMP_InputField idInput;    // ID 입력창으로 변경
     public TMP_InputField passwordInput; // TMP_InputField로 변경
-    private string nextSceneName = "SelectGameScene"; // 로그인 성공 후 전환될 씬 이름
+    private string nextSceneName = "MENU"; // 로그인 성공 후 전환될 씬 이름
+    public GameObject errorMessage;
+    public TMP_Text errorText;
+
+    void Start()
+    {
+        if (errorMessage != null)
+        {
+            errorMessage.SetActive(false);
+        }
+    }
+
+    public void OnErrorMessageButtonClick()
+    {
+        if (errorMessage != null)
+        {
+            errorMessage.SetActive(false);
+        }
+    }
 
     public void OnLoginButtonClick()
     {
+        if (string.IsNullOrEmpty(idInput.text))
+        {
+            disPlayErrorMessage("아이디를 입력해주세요.");
+            return;
+        }
+        if (string.IsNullOrEmpty(passwordInput.text))
+        {
+            disPlayErrorMessage("비밀번호를 입력해주세요.");
+            return;
+        }
         string id = "user" + idInput.text;
         string password = passwordInput.text;
 
@@ -42,6 +70,19 @@ public class LoginManager : MonoBehaviour
         else
         {
             string errorMsg = ParseErrorMessage(request.downloadHandler.text);
+            disPlayErrorMessage(errorMsg);
+        }
+    }
+
+    public void disPlayErrorMessage(string message)
+    {
+        if (errorMessage != null)
+        {
+            errorMessage.SetActive(true);
+            if (errorText != null)
+            {
+                errorText.text = message;
+            }
         }
     }
 
@@ -68,9 +109,10 @@ public class LoginManager : MonoBehaviour
     {
         try
         {
-            return JsonUtility.FromJson<ErrorResponse>(json).detail;
+            ErrorResponse err = JsonUtility.FromJson<ErrorResponse>(json);
+            return err.getMessage();
         }
-        catch
+        catch (System.Exception ex)
         {
             return "알 수 없는 오류가 발생했습니다.";
         }
@@ -79,6 +121,12 @@ public class LoginManager : MonoBehaviour
     [System.Serializable]
     public class ErrorResponse
     {
-        public string detail;
+        public int status;
+        public string message;
+
+        public string getMessage()
+        {
+            return this.message;
+        }
     }
 }
