@@ -44,11 +44,11 @@ public class TutorialManager : MonoBehaviour
     [System.Serializable]
     public class ExistGameResponse
     {
-        public bool exists;
+        public bool exist;
 
         public bool GetExists()
         {
-            return exists;
+            return exist;
         }
     }
 }
