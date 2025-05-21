@@ -69,7 +69,7 @@ public class EEGDataManager2 : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         //WaitForSeconds interval = new WaitForSeconds(1.0f);
-        WaitForSeconds interval = new WaitForSeconds(0.1f);
+        WaitForSeconds interval = new WaitForSeconds(0.0f);
 
         while (true)
         {
