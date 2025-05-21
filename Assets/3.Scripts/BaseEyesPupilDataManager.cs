@@ -41,11 +41,26 @@ public class BaseEyesPupilDataManager : MonoBehaviour
             return;
         }
 
-        float leftAvg = eyePupilDatas.Average(data => data.leftPupilSize);
-        float rightAvg = eyePupilDatas.Average(data => data.rightPupilSize);
+        var leftSorted = eyePupilDatas.Select(data => data.leftPupilSize).OrderBy(x => x).ToList();
+        var rightSorted = eyePupilDatas.Select(data => data.rightPupilSize).OrderBy(x => x).ToList();
 
-        PlayerPrefs.SetFloat("left_avg", leftAvg);
-        PlayerPrefs.SetFloat("right_avg", rightAvg);
+        float leftMedian;
+        float rightMedian;
+        int count = leftSorted.Count;
+
+        if (count % 2 == 1)
+        {
+            leftMedian = leftSorted[count / 2];
+            rightMedian = rightSorted[count / 2];
+        }
+        else
+        {
+            leftMedian = (leftSorted[(count / 2) - 1] + leftSorted[count / 2]) / 2f;
+            rightMedian = (rightSorted[(count / 2) - 1] + rightSorted[count / 2]) / 2f;
+        }
+
+        PlayerPrefs.SetFloat("left_avg", leftMedian);
+        PlayerPrefs.SetFloat("right_avg", rightMedian);
         PlayerPrefs.Save();
     }
 }
