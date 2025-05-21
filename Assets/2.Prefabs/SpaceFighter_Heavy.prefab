@@ -17963,6 +17963,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4147568942036265369, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147568942036265369, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -57.999977
+      objectReference: {fileID: 0}
     - target: {fileID: 4621328446333922315, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
         type: 3}
       propertyPath: m_IsActive
@@ -17987,6 +17997,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622330831899555960, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -57.999977
       objectReference: {fileID: 0}
     - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
         type: 3}
@@ -18053,6 +18068,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 7637799625863094220, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -58
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09aef74854e766e4f8f2c39bd6b2ca1f, type: 3}
 --- !u!114 &1219572660119098808 stripped
@@ -18091,6 +18111,14 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8353048931146764619}
   m_PrefabAsset: {fileID: 0}
+--- !u!124 &2295727567978456930
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731720490116567032}
+  m_Enabled: 1
 --- !u!114 &5166739382881930018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18168,14 +18196,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!124 &2295727567978456930
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3731720490116567032}
-  m_Enabled: 1
 --- !u!4 &3731720490116567035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4621328446466055856, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
