@@ -152,7 +152,9 @@ public class EEGDataManager2 : MonoBehaviour
     {
         List<double> scaledList = GetFeatureDataList(sensorID, featureIndex);
         if (scaledList.Count == 0) return 0.0;
-        return scaledList[scaledList.Count - 1];
+
+        double latestValue = scaledList[scaledList.Count - 1];
+        return Math.Round(latestValue, 2);
     }
 
     private double Min(List<double> minList)

@@ -30,11 +30,11 @@ public class EyesPupilSizeManager2 : MonoBehaviour
 
                 if (left.isDiameterValid && right.isDiameterValid)
                 {
-                    eyeDatas.Add(new EyeData
+                   eyeDatas.Add(new EyeData
                     {
                         timestamp = GameManager2.Instance.getFrameTime(),
-                        leftPupilSize = left.pupilDiameter * 1000f,
-                        rightPupilSize = right.pupilDiameter * 1000f
+                        leftPupilSize = Mathf.Round(left.pupilDiameter * 1000f * 100f) / 100f,
+                        rightPupilSize = Mathf.Round(right.pupilDiameter * 1000f * 100f) / 100f
                     });
                 }
             }

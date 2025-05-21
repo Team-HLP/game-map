@@ -33,8 +33,8 @@ public class EyesPupilSizeManager : MonoBehaviour
                     eyeDatas.Add(new EyeData
                     {
                         timestamp = GameManager.Instance.getFrameTime(),
-                        leftPupilSize = left.pupilDiameter * 1000f,
-                        rightPupilSize = right.pupilDiameter * 1000f
+                        leftPupilSize = Mathf.Round(left.pupilDiameter * 1000f * 100f) / 100f,
+                        rightPupilSize = Mathf.Round(right.pupilDiameter * 1000f * 100f) / 100f
                     });
                 }
             }
