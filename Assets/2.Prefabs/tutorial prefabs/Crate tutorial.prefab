@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 703646179421484644}
   - component: {fileID: 4483115120106783383}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 6085896215333849443}
   - component: {fileID: -8740144505283619766}
   - component: {fileID: 7151054929614263623}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Crate tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6830579541325509221}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c1f86a45bcf9334fae293963f5561d1, type: 3}
   m_Name: 
@@ -158,10 +158,8 @@ MonoBehaviour:
   objectType: 1
   continuousGazeTime: 1
   autoDestroyTime: 6
-  explosionEffectPrefab: {fileID: 1251383659594566248, guid: 83cbf6b524af79247a289a9e24f0f3dc,
-    type: 3}
-  fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
-    type: 3}
+  explosionEffectPrefab: {fileID: 0}
+  fuelCollectEffectPrefab: {fileID: 0}
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
   highlightLerpSpeed: 10
 --- !u!1 &8286250486444537561
@@ -188,14 +186,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8286250486444537561}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.81, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: -0.51, z: 0}
   m_LocalScale: {x: 0.77712, y: 0.77712, z: 0.77712}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6085896215333849443}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &973557405178586074
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -318,7 +316,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 6444fef9c9b06ce4abf7a4635d326a27,
         type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6444fef9c9b06ce4abf7a4635d326a27, type: 3}
