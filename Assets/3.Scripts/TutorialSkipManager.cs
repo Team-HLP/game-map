@@ -13,6 +13,13 @@ public class SceneTutorialOption
     // public TutorialSpawner tutorialSpawner; // 해당 씬에서 사용할 스포너 오브젝트 (삭제)
 }
 
+[System.Serializable]
+public class TutorialPrefabOption
+{
+    public int messageIndex;      // 몇 번째 메시지에 프리팹을 생성할지
+    public GameObject prefab;     // 생성할 프리팹
+}
+
 public class TutorialSkipManager : MonoBehaviour
 {
     public GameObject tutorialPanel;
@@ -20,9 +27,13 @@ public class TutorialSkipManager : MonoBehaviour
     public Button okButton;
 
     public List<SceneTutorialOption> sceneTutorialOptions; // Inspector에서 씬별 옵션 할당
+    public List<TutorialPrefabOption> tutorialPrefabOptions; // 인스펙터에서 할당
+    public Transform objectSpawner; // 프리팹을 생성할 부모 오브젝트(빈 오브젝트)
 
     private int step = 0;
     private string[] messages;
+    private GameObject spawnedObject; // 현재 생성된 프리팹
+    private int currentPrefabIndex = -1; // 현재 생성된 프리팹의 인덱스
     // private TutorialSpawner tutorialSpawner; (삭제)
 
     void Start()
@@ -72,18 +83,45 @@ public class TutorialSkipManager : MonoBehaviour
         {
             messageText.text = messages[step];
             okButton.gameObject.SetActive(true);
-            // dotSpawner 관련 코드 삭제
-            // 지정된 메시지 인덱스에서 스포너 동작
-            // if (step == spawnMessageIndex && tutorialSpawner != null)
-            // {
-            //     tutorialSpawner.SpawnMeteor();
-            // }
+            // 프리팹 관리
+            var prefabOption = tutorialPrefabOptions.Find(opt => opt.messageIndex == step);
+            if (prefabOption != null && prefabOption.prefab != null)
+            {
+                // 이전 프리팹이 있으면 삭제
+                if (spawnedObject != null)
+                {
+                    Destroy(spawnedObject);
+                    Debug.Log("튜토리얼 프리팹이 삭제되었습니다.");
+                }
+                spawnedObject = Instantiate(prefabOption.prefab, objectSpawner.position, objectSpawner.rotation, objectSpawner);
+                currentPrefabIndex = step;
+                Debug.Log("튜토리얼 프리팹이 생성되었습니다.");
+            }
+            else
+            {
+                // 현재 프리팹이 있고, 인덱스가 넘어가면 삭제
+                if (spawnedObject != null)
+                {
+                    Destroy(spawnedObject);
+                    spawnedObject = null;
+                    currentPrefabIndex = -1;
+                    Debug.Log("튜토리얼 프리팹이 삭제되었습니다.");
+                }
+            }
         }
         else
         {
             // 튜토리얼 종료, 게임 재개
             Time.timeScale = 1f;
             tutorialPanel.SetActive(false);
+            // 튜토리얼 종료 시 프리팹 삭제
+            if (spawnedObject != null)
+            {
+                Destroy(spawnedObject);
+                spawnedObject = null;
+                currentPrefabIndex = -1;
+                Debug.Log("튜토리얼 프리팹이 삭제되었습니다.");
+            }
         }
     }
 
