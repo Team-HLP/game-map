@@ -227,6 +227,15 @@ MonoBehaviour:
     messageTextAsset: {fileID: 4900000, guid: d76281c821be4634cbc22d3e19adebd3, type: 3}
   - sceneName: wak_PlayScene
     messageTextAsset: {fileID: 4900000, guid: 790651267cf70fd4d983a999afbc77b6, type: 3}
+  tutorialPrefabOptions:
+  - messageIndex: 0
+    prefab: {fileID: 1524411113276028, guid: d9a9fe8873f21154daf3a660709e9798, type: 3}
+  - messageIndex: 3
+    prefab: {fileID: 6830579541325509221, guid: 3504f1bdb57d0ba458f8c6c66a97615a,
+      type: 3}
+  - messageIndex: 2
+    prefab: {fileID: 1524411113276028, guid: 81019d7146d7ffa40b962ee0732487c0, type: 3}
+  objectSpawner: {fileID: 7981527802281818319}
 --- !u!1 &785484311159963447
 GameObject:
   m_ObjectHideFlags: 0
@@ -5218,6 +5227,37 @@ AudioLowPassFilter:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &2728005980734596304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7981527802281818319}
+  m_Layer: 0
+  m_Name: Prepabspawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7981527802281818319
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728005980734596304}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -4.7, y: -78.52, z: -372.99387}
+  m_LocalScale: {x: 2.1015515, y: 2.1015549, z: 2.1015515}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3731720490248682817}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &2878267604640496619
 GameObject:
   m_ObjectHideFlags: 0
