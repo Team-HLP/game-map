@@ -36,8 +36,26 @@ public class TutorialSkipManager : MonoBehaviour
     private int currentPrefabIndex = -1; // 현재 생성된 프리팹의 인덱스
     // private TutorialSpawner tutorialSpawner; (삭제)
 
+    public GameObject scoreText;
+    public GameObject timerText;
+    public GameObject hpText;
+
     void Start()
     {
+        if (scoreText != null) 
+        {
+            scoreText.SetActive(false);
+        }
+
+        if (timerText != null)
+        {
+            timerText.SetActive(false);
+        }
+        if (hpText != null)
+        {
+            hpText.SetActive(false);
+        }
+
         string currentScene = SceneManager.GetActiveScene().name;
         TextAsset selectedTextAsset = null;
         foreach (var option in sceneTutorialOptions)
@@ -91,11 +109,9 @@ public class TutorialSkipManager : MonoBehaviour
                 if (spawnedObject != null)
                 {
                     Destroy(spawnedObject);
-                    Debug.Log("튜토리얼 프리팹이 삭제되었습니다.");
                 }
                 spawnedObject = Instantiate(prefabOption.prefab, objectSpawner.position, objectSpawner.rotation, objectSpawner);
                 currentPrefabIndex = step;
-                Debug.Log("튜토리얼 프리팹이 생성되었습니다.");
             }
             else
             {
@@ -105,7 +121,6 @@ public class TutorialSkipManager : MonoBehaviour
                     Destroy(spawnedObject);
                     spawnedObject = null;
                     currentPrefabIndex = -1;
-                    Debug.Log("튜토리얼 프리팹이 삭제되었습니다.");
                 }
             }
         }
@@ -120,7 +135,20 @@ public class TutorialSkipManager : MonoBehaviour
                 Destroy(spawnedObject);
                 spawnedObject = null;
                 currentPrefabIndex = -1;
-                Debug.Log("튜토리얼 프리팹이 삭제되었습니다.");
+            }
+
+            if (scoreText != null) 
+            {
+                scoreText.SetActive(true);
+            }
+
+            if (timerText != null)
+            {
+                timerText.SetActive(true);
+            }
+            if (hpText != null)
+            {
+                hpText.SetActive(true);
             }
         }
     }
