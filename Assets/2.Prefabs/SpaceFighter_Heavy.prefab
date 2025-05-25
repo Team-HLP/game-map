@@ -18066,7 +18066,7 @@ PrefabInstance:
     - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6338015132292483052, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
         type: 3}
@@ -18275,7 +18275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52da9eb2d11a05643b72f2fa6be24a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDecay: 1.5
+  shakeDecay: 1
 --- !u!4 &3731720490116567035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4621328446466055856, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
