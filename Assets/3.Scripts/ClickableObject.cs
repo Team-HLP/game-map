@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections;
 
 public class ClickableObject : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class ClickableObject : MonoBehaviour
 
     public GameObject explosionEffectPrefab;
     public GameObject fuelCollectEffectPrefab;
+    public GameObject healParticles;
 
     public Color highlightColor = Color.red;
     public float highlightLerpSpeed = 10f;
@@ -32,6 +34,10 @@ public class ClickableObject : MonoBehaviour
         {
             _originalColor = _renderer.material.color;
             _targetColor = _originalColor;
+        }
+        if (healParticles != null)
+        {
+            healParticles.SetActive(false);
         }
         Invoke(nameof(AutoDestroy), autoDestroyTime);
     }
@@ -132,9 +138,22 @@ public class ClickableObject : MonoBehaviour
             GameManager.Instance.FlashHpColor(true);
             SpawnEffect(fuelCollectEffectPrefab);
             GameManager.Instance.AddHp(10);
+            ShowHealParticlesFor3Seconds();
         }
 
         Destroy(gameObject);
+    }
+
+    public void ShowHealParticlesFor3Seconds()
+    {
+        StartCoroutine(ActivateHealParticlesTemporarily(1f));
+    }
+
+    private IEnumerator ActivateHealParticlesTemporarily(float duration)
+    {
+        healParticles.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        healParticles.SetActive(false);
     }
 
     /* ────────────────────────────── 이펙트 스폰 ────────────────────────────── */
