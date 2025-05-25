@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-// CameraShake.cs
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
     public static CameraShake Instance { get; private set; }
 
-    [SerializeField] float shakeDecay = 1.5f;   // 감쇠 속도
+    [Header("세기 조절")]
+    [SerializeField] float maxOffset = 0.2f;   // 한 프레임 최대 이동량(← 줄이면 약해짐)
+    [SerializeField] float shakeDecay = 1.5f;   // 감쇠 속도(↑ 크면 빨리 잦아듦)
+
     Vector3 originalPos;
-    float currentIntensity;
 
     void Awake()
     {
@@ -17,21 +18,22 @@ public class CameraShake : MonoBehaviour
         originalPos = transform.localPosition;
     }
 
-    public void Shake(float intensity = 0.5f, float duration = 0.3f)
+    public void Shake(float intensity = 0.3f, float duration = 0.3f)
     {
-        currentIntensity = intensity;
         StopAllCoroutines();
-        StartCoroutine(ShakeRoutine(duration));
+        StartCoroutine(ShakeRoutine(intensity, duration));
     }
 
-    System.Collections.IEnumerator ShakeRoutine(float duration)
+    System.Collections.IEnumerator ShakeRoutine(float intensity, float duration)
     {
         float timer = 0f;
         while (timer < duration)
         {
-            transform.localPosition = originalPos + Random.insideUnitSphere * currentIntensity;
-            currentIntensity = Mathf.Lerp(currentIntensity, 0, Time.deltaTime * shakeDecay);
-            timer += Time.deltaTime;
+            float t = intensity * (1 - timer / duration);          // 선형 감쇠
+            transform.localPosition = originalPos +
+                                       Random.insideUnitSphere * t * maxOffset;
+
+            timer += Time.deltaTime * shakeDecay;
             yield return null;
         }
         transform.localPosition = originalPos;
