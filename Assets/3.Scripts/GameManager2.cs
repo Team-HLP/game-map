@@ -24,6 +24,7 @@ public class GameManager2 : MonoBehaviour
     public Text timerText;
     public Text scoreText;
 
+    public GameObject Canvas;
     public GameObject gameResultUI;
     public Text resultHpText;
     public Text resultScoreText;
@@ -246,6 +247,12 @@ public class GameManager2 : MonoBehaviour
         Time.timeScale = 0f;
         if (success) return;
 
+        if (Canvas != null)
+        {
+            // Canvas.transform.position = new Vector3(3.6f, 13.3f, 175.3f);
+            Canvas.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        }
+
         success = true;
         HideGameUI();
         gazeRaycaster.SaveUserStatusToJson();
@@ -259,6 +266,12 @@ public class GameManager2 : MonoBehaviour
     private void GameOver()
     {
         Time.timeScale = 0f;
+        if (Canvas != null)
+        {
+            // Canvas.transform.position = new Vector3(3.6f, 13.3f, 175.3f);
+            Canvas.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        }
+
         HideGameUI();
         gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();

@@ -8,6 +8,7 @@ public class GameUIRegistrar : MonoBehaviour
     public Text timerText;
     public Text scoreText;
 
+    public GameObject Canvas;
     public GameObject gameResultUI;
     public Text resultHpText;
     public Text resultScoreText;
@@ -18,6 +19,7 @@ public class GameUIRegistrar : MonoBehaviour
         if (GameManager.Instance != null)
         {
             // 런타임에 GameManager에 레퍼런스 할당
+            GameManager.Instance.Canvas = Canvas;
             GameManager.Instance.hpText    = hpText;
             GameManager.Instance.timerText = timerText;
             GameManager.Instance.scoreText = scoreText;

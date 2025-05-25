@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 8900000, guid: a03eace4d5ceb4847af30bf2101a06a7, type: 3}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.008030356, g: 0.008927091, b: 0.009402706, a: 0.5}
+  m_IndirectSpecularColor: {r: 0.008033793, g: 0.0089286305, b: 0.009403301, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1910,10 +1910,11 @@ MonoBehaviour:
   score: 0
   destroyedMeteo: 0
   success: 0
-  gameTime: 10
+  gameTime: 3
   hpText: {fileID: 0}
   timerText: {fileID: 0}
   scoreText: {fileID: 0}
+  Canvas: {fileID: 0}
   gameResultUI: {fileID: 0}
   resultHpText: {fileID: 0}
   resultScoreText: {fileID: 0}

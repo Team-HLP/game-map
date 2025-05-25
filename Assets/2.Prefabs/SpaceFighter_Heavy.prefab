@@ -18350,6 +18350,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1401821319843875916, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
         type: 3}
+      propertyPath: Canvas
+      value: 
+      objectReference: {fileID: 3731720490248682816}
+    - target: {fileID: 1401821319843875916, guid: 09aef74854e766e4f8f2c39bd6b2ca1f,
+        type: 3}
       propertyPath: hpText
       value: 
       objectReference: {fileID: 7531728396615725643}
