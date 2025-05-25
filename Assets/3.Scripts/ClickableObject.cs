@@ -119,6 +119,11 @@ public class ClickableObject : MonoBehaviour
 
         if (objectType == ObjectType.Meteorite)
         {
+            SpawnEffect(explosionEffectPrefab);
+
+            if (CameraShake.Instance != null)
+                CameraShake.Instance.Shake(intensity: 0.8f, duration: 0.4f);
+
             GameManager.Instance.FlashHpColor(false);
             GameManager.Instance.AddHp(-10);
         }
