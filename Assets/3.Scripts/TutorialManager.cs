@@ -21,23 +21,27 @@ public class TutorialManager : MonoBehaviour
         string param = (gameScene == "MeteoriteScene") ? "METEORITE_DESTRUCTION" : "CATCH_MOLE";
         string url = Apiconfig.url + "/games/exist?gameCategory=" + param;
 
-        UnityWebRequest request = UnityWebRequest.Get(url);
-        request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("access_token", ""));
-        request.SetRequestHeader("Content-Type", "application/json");
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
-            ExistGameResponse res = JsonUtility.FromJson<ExistGameResponse>(request.downloadHandler.text);
-            if (res.GetExists())
+            request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("access_token", ""));
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
             {
-                TutorialSkipManager.SetActive(false);
+                ExistGameResponse res = JsonUtility.FromJson<ExistGameResponse>(request.downloadHandler.text);
+                if (res.GetExists())
+                {
+                    TutorialSkipManager.SetActive(false);
+                }
+                else
+                {
+                    TutorialSkipManager.SetActive(true);
+                }
             }
-            else
-            {
-                TutorialSkipManager.SetActive(true);
-            }
+
+            request.downloadHandler?.Dispose();
         }
     }
 

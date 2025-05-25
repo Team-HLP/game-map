@@ -51,26 +51,32 @@ public class LoginManager : MonoBehaviour
     {
         string jsonBody = JsonUtility.ToJson(new LoginRequest(id, password));
 
-        UnityWebRequest request = new UnityWebRequest(Apiconfig.url + "/user/login", "POST");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
+        using (UnityWebRequest request = new UnityWebRequest(Apiconfig.url + "/user/login", "POST"))
         {
-            LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
-            PlayerPrefs.SetString("access_token", response.access_token);
-            PlayerPrefs.Save();
-            PlayerPrefs.SetInt("loginSuccess", 1);
-            SceneManager.LoadScene(nextSceneName);
-        }
-        else
-        {
-            string errorMsg = ParseErrorMessage(request.downloadHandler.text);
-            disPlayErrorMessage(errorMsg);
+            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
+
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                LoginResponse response = JsonUtility.FromJson<LoginResponse>(request.downloadHandler.text);
+                PlayerPrefs.SetString("access_token", response.access_token);
+                PlayerPrefs.Save();
+                PlayerPrefs.SetInt("loginSuccess", 1);
+                SceneManager.LoadScene(nextSceneName);
+            }
+            else
+            {
+                string errorMsg = ParseErrorMessage(request.downloadHandler.text);
+                disPlayErrorMessage(errorMsg);
+            }
+
+            request.uploadHandler?.Dispose();
+            request.downloadHandler?.Dispose();
         }
     }
 
