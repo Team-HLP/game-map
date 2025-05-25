@@ -22,10 +22,10 @@ public class GameUIRegistrar2 : MonoBehaviour
             GameManager2.Instance.timerText = timerText;
             GameManager2.Instance.scoreText = scoreText;
 
-            GameManager.Instance.gameResultUI = gameResultUI;
-            GameManager.Instance.resultHpText = resultHpText;
-            GameManager.Instance.resultScoreText = resultScoreText;
-            GameManager.Instance.resultText = resultText;
+            GameManager2.Instance.gameResultUI = gameResultUI;
+            GameManager2.Instance.resultHpText = resultHpText;
+            GameManager2.Instance.resultScoreText = resultScoreText;
+            GameManager2.Instance.resultText = resultText;
         }
     }
 }

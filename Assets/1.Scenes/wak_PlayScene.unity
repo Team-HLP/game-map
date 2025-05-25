@@ -1911,8 +1911,8 @@ MonoBehaviour:
   destroyedMeteo: 0
   success: 0
   gameTime: 10
-  hpText: {fileID: 1102102528}
-  timerText: {fileID: 903170940}
+  hpText: {fileID: 0}
+  timerText: {fileID: 0}
   scoreText: {fileID: 0}
   gameResultUI: {fileID: 0}
   resultHpText: {fileID: 0}
