@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public EyesDataManager eyesDataManager;
     public EEGDataManager eegDataManager;
+    private AudioSource audio;
 
     private float sceneStartTime;
 
@@ -71,6 +72,9 @@ public class GameManager : MonoBehaviour
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
             eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager>();
             gazeRaycaster = GameObject.Find("GazeRaycaster")?.GetComponent<GazeRaycaster>();
+
+            audio = GetComponent<AudioSource>();
+            if (audio != null) audio.Play();
             
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();
@@ -206,6 +210,7 @@ public class GameManager : MonoBehaviour
 
     private void GameSuccess()
     {
+        StopBGM();
         gazeRaycaster.SaveUserStatusToJson();
         success = true;
         eyesDataManager.SaveEyesData();
@@ -217,12 +222,18 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        StopBGM();
         gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
         FlyingObject.SavePrefabSpawnCount();
         SaveGameResult();
         SceneManager.LoadScene("GameOverScene");
+    }
+
+    private void StopBGM()
+    {
+        if (audio != null) audio.Stop();
     }
 
     private void SaveGameResult()
@@ -259,23 +270,31 @@ public class GameManager : MonoBehaviour
         int meteorite_prefab_count = PlayerPrefs.GetInt("meteorite_prefab_count");
         int fuel_prefab_count = PlayerPrefs.GetInt("fuel_prefab_count");
 
-        string jsonBody = JsonUtility.ToJson(new GameResultRequest(meteorite_prefab_count, fuel_prefab_count, result, score, hp, meteorite_broken_count));
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        string jsonBody = JsonUtility.ToJson(
+            new GameResultRequest(meteorite_prefab_count, fuel_prefab_count, result, score, hp, meteorite_broken_count)
+        );
 
         byte[] gmaeResult = Encoding.UTF8.GetBytes(jsonBody);
         byte[] eegBytes = File.ReadAllBytes(eegFilePath);
         byte[] eyeBytes = File.ReadAllBytes(eyeFilePath);
         byte[] behaviorBytes = File.ReadAllBytes(behaviorFilePath);
 
-        formData.Add(new MultipartFormFileSection("request", gmaeResult, "request.json", "application/json"));
-        formData.Add(new MultipartFormFileSection("eeg_data_file", eegBytes, "eeg_data.json", "application/json"));
-        formData.Add(new MultipartFormFileSection("eye_data_file", eyeBytes, "eye_data.json", "application/json"));
-        formData.Add(new MultipartFormFileSection("behavior_file", behaviorBytes, "behavior_data.json", "application/json"));
+        List<IMultipartFormSection> formData = new()
+        {
+            new MultipartFormFileSection("request", gmaeResult, "request.json", "application/json"),
+            new MultipartFormFileSection("eeg_data_file", eegBytes, "eeg_data.json", "application/json"),
+            new MultipartFormFileSection("eye_data_file", eyeBytes, "eye_data.json", "application/json"),
+            new MultipartFormFileSection("behavior_file", behaviorBytes, "behavior_data.json", "application/json")
+        };
 
-        UnityWebRequest request = UnityWebRequest.Post(Apiconfig.url + "/game/meteorite", formData);
-        request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("access_token", ""));
-
-        yield return request.SendWebRequest();
+        using (UnityWebRequest request = UnityWebRequest.Post(Apiconfig.url + "/game/meteorite", formData))
+        {
+            request.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("access_token", ""));
+            
+            yield return request.SendWebRequest();
+            request.uploadHandler?.Dispose();
+            request.downloadHandler?.Dispose();
+        }
     }
 
     public void ImmeditelyBioDataSave()
