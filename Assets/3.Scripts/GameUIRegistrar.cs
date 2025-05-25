@@ -8,6 +8,11 @@ public class GameUIRegistrar : MonoBehaviour
     public Text timerText;
     public Text scoreText;
 
+    public GameObject gameResultUI;
+    public Text resultHpText;
+    public Text resultScoreText;
+    public Text resultText;
+
     void Awake()
     {
         if (GameManager.Instance != null)
@@ -16,6 +21,11 @@ public class GameUIRegistrar : MonoBehaviour
             GameManager.Instance.hpText    = hpText;
             GameManager.Instance.timerText = timerText;
             GameManager.Instance.scoreText = scoreText;
+
+            GameManager.Instance.gameResultUI = gameResultUI;
+            GameManager.Instance.resultHpText = resultHpText;
+            GameManager.Instance.resultScoreText = resultScoreText;
+            GameManager.Instance.resultText = resultText;
         }
     }
 }

@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour
     public Text timerText;
     public Text scoreText;
 
+    public GameObject gameResultUI;
+    public Text resultHpText;
+    public Text resultScoreText;
+    public Text resultText;
+
     public EyesDataManager eyesDataManager;
     public EEGDataManager eegDataManager;
 
@@ -71,7 +76,12 @@ public class GameManager : MonoBehaviour
             eyesDataManager = GameObject.Find("EyesDataManager")?.GetComponent<EyesDataManager>();
             eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager>();
             gazeRaycaster = GameObject.Find("GazeRaycaster")?.GetComponent<GazeRaycaster>();
-            
+
+            gameResultUI = GameObject.Find("GameResultUI");
+            resultHpText = GameObject.Find("ResultHpText")?.GetComponent<Text>();
+            resultScoreText = GameObject.Find("ResultScoreText")?.GetComponent<Text>();
+            resultText = GameObject.Find("ResultText")?.GetComponent<Text>();
+
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();
 
@@ -204,25 +214,59 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator ShowGameResultAndLoadScene(string sceneName)
+    {
+        yield return StartCoroutine(ShowGameResultUI());
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private IEnumerator ShowGameResultUI()
+    {
+        if (gameResultUI != null)
+        {
+            resultHpText.text = "HP: " + hp;
+            resultScoreText.text = "Score: " + score;
+            resultText.text = success ? "게임 성공!" : "게임 실패!";
+
+            gameResultUI.SetActive(true);
+            yield return new WaitForSecondsRealtime(3f);
+            gameResultUI.SetActive(false);
+        }
+    }
+
+    private void HideGameUI()
+    {
+        if (hpText != null) hpText.gameObject.SetActive(false);
+        if (timerText != null) timerText.gameObject.SetActive(false);
+        if (scoreText != null) scoreText.gameObject.SetActive(false);
+    }
+
     private void GameSuccess()
     {
-        gazeRaycaster.SaveUserStatusToJson();
+        Time.timeScale = 0f;
+        if (success) return;
+
         success = true;
+        HideGameUI();
+        gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
         FlyingObject.SavePrefabSpawnCount();
         SaveGameResult();
-        SceneManager.LoadScene("GameSuccessScene");
+        StartCoroutine(ShowGameResultAndLoadScene("GameSuccessScene"));
     }
 
     private void GameOver()
     {
+        Time.timeScale = 0f;
+        HideGameUI();
         gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
         FlyingObject.SavePrefabSpawnCount();
         SaveGameResult();
-        SceneManager.LoadScene("GameOverScene");
+        StartCoroutine(ShowGameResultAndLoadScene("GameOverScene"));
     }
 
     private void SaveGameResult()

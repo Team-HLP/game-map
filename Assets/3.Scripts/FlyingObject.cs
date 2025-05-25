@@ -24,6 +24,7 @@ public class FlyingObject : MonoBehaviour
 
     void SpawnObject()
     {
+        if (GameManager.Instance.success || GameManager.Instance.hp <= 0) return;
         if (spawnArea == null) return; // spawnArea�� �������� ������ ����
 
         float widthRange = spawnArea.rect.width * 0.3f;   // �¿� �� 30%
