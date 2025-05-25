@@ -26,6 +26,7 @@ public class GameManager2 : MonoBehaviour
 
     public EyesDataManager2 eyesDataManager;
     public EEGDataManager2 eegDataManager;
+    private AudioSource audio;
 
     private float sceneStartTime;
 
@@ -72,6 +73,9 @@ public class GameManager2 : MonoBehaviour
             eegDataManager = GameObject.Find("EEGDataManager")?.GetComponent<EEGDataManager2>();
             gazeRaycaster = GameObject.Find("GazeRaycaster")?.GetComponent<GazeRaycaster2>();
             
+            audio = GetComponent<AudioSource>();
+            if (audio != null) audio.Play();
+
             eyesDataManager.ReMeasuring();
             eegDataManager.ReMeasuring();
 
@@ -207,6 +211,7 @@ public class GameManager2 : MonoBehaviour
 
     private void GameSuccess()
     {
+        StopBGM();
         gazeRaycaster.SaveUserStatusToJson();
         success = true;
         eyesDataManager.SaveEyesData();
@@ -218,12 +223,18 @@ public class GameManager2 : MonoBehaviour
 
     private void GameOver()
     {
+        StopBGM();
         gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
         FlyingObject2.SavePrefabSpawnCount();
         SaveGameResult();
         SceneManager.LoadScene("GameOverScene2");
+    }
+
+    private void StopBGM()
+    {
+        if (audio != null) audio.Stop();
     }
 
     private void SaveGameResult()
