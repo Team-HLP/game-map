@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6331275906715107348}
   - component: {fileID: 6331275906715107351}
   m_Layer: 0
-  m_Name: Area_heal_green
+  m_Name: Area_heal_green2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
