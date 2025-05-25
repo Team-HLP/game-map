@@ -1890,7 +1890,7 @@ MonoBehaviour:
   score: 0
   destroyedMeteo: 0
   success: 0
-  gameTime: 3
+  gameTime: 30
   hpText: {fileID: 0}
   timerText: {fileID: 0}
   scoreText: {fileID: 0}
