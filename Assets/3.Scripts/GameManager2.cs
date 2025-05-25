@@ -207,25 +207,23 @@ public class GameManager2 : MonoBehaviour
 
     private void GameSuccess()
     {
-        FadeController.Instance.FadeAndLoad("GameSuccessScene2", 0f);
         gazeRaycaster.SaveUserStatusToJson();
         success = true;
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
         FlyingObject2.SavePrefabSpawnCount();
         SaveGameResult();
-        //SceneManager.LoadScene("GameSuccessScene2");
+        SceneManager.LoadScene("GameSuccessScene2");
     }
 
     private void GameOver()
     {
-        FadeController.Instance.FadeAndLoad("GameOverScene2", 0f);
         gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
         FlyingObject2.SavePrefabSpawnCount();
         SaveGameResult();
-        //SceneManager.LoadScene("GameOverScene2");
+        SceneManager.LoadScene("GameOverScene2");
     }
 
     private void SaveGameResult()
