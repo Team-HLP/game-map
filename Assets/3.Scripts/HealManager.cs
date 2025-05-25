@@ -25,9 +25,6 @@ public class HealManager : MonoBehaviour
         if (instance != null && instance.healParticles != null)
         {
             instance.StartCoroutine(instance.TemporarilyActivateParticles(seconds));
-
-            var audio = instance.GetComponent<AudioSource>();
-            if (audio != null) audio.Play();
         }
     }
 
