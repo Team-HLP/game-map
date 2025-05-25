@@ -212,6 +212,7 @@ public class GameManager2 : MonoBehaviour
     private void GameSuccess()
     {
         StopBGM();
+        //FadeController.Instance.FadeAndLoad("GameSuccessScene2", 0f);
         gazeRaycaster.SaveUserStatusToJson();
         success = true;
         eyesDataManager.SaveEyesData();
@@ -224,6 +225,7 @@ public class GameManager2 : MonoBehaviour
     private void GameOver()
     {
         StopBGM();
+        //FadeController.Instance.FadeAndLoad("GameOverScene2", 0f);
         gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
