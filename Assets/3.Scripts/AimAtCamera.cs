@@ -1,33 +1,41 @@
-﻿// AimAtCamera.cs
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AimAtCamera : MonoBehaviour
 {
-    public bool updateContinuously = true;  // 매 프레임 추적 여부
-    [Tooltip("카메라 정면 기준 아래(−)로 얼마나 내릴지, 단위: 미터")]
-    public float verticalOffset = -0.3f; // -0.3m = 화면 중앙보다 아래
+    [Tooltip("비워 두면 Run 시에 Camera.main 자동 검색")]
+    public Transform targetCamera;
 
-    void Start()
+    [Header("옵션")]
+    public bool updateContinuously = true;
+    public float verticalOffset = -0.3f;   // 화면 아래로 살짝
+    public float forwardOffset = 1.0f;    // 카메라 앞 거리
+
+    void Awake()
     {
-        if (!updateContinuously) FaceToCam();
+        // 스폰 시점에 카메라가 아직 못 켜졌으면 다음 프레임에 다시 찾는다
+        if (targetCamera == null)
+            StartCoroutine(FindCameraNextFrame());
     }
 
-    void Update()
+    System.Collections.IEnumerator FindCameraNextFrame()
     {
-        if (updateContinuously) FaceToCam();
+        yield return null;                    // 1프레임 대기
+        if (targetCamera == null)
+            targetCamera = Camera.main?.transform;
     }
+
+    void Start() { if (!updateContinuously) FaceToCam(); }
+    void LateUpdate() { if (updateContinuously) FaceToCam(); }
 
     void FaceToCam()
     {
-        if (Camera.main == null) return;
+        if (targetCamera == null) return;
 
-        Transform cam = Camera.main.transform;
+        Vector3 tgt = targetCamera.position +
+                      targetCamera.forward * forwardOffset +
+                      targetCamera.up * verticalOffset;
 
-        // 카메라 앞 0.5m 지점을 먼저 잡고, 거기에 아래쪽 오프셋 추가
-        Vector3 targetPos =
-            cam.position + cam.forward * 1.0f + cam.up * verticalOffset;
-
-        transform.rotation =
-            Quaternion.LookRotation(targetPos - transform.position, Vector3.up);
+        transform.rotation = Quaternion.LookRotation(tgt - transform.position,
+                                                     Vector3.up);
     }
 }
