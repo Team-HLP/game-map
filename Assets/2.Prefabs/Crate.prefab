@@ -161,6 +161,8 @@ MonoBehaviour:
     type: 3}
   fuelCollectEffectPrefab: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9,
     type: 3}
+  healParticles: {fileID: 6331275906715107345, guid: 690951f4781b19649bc5c7892414ff37,
+    type: 3}
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
   highlightLerpSpeed: 10
 --- !u!1001 &7886777280229935224

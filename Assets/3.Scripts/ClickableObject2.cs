@@ -87,6 +87,7 @@ public class ClickableObject2 : MonoBehaviour
             GameManager2.Instance.FlashHpColor(true);
             SpawnEffect(fuelCollectEffectPrefab);
             GameManager2.Instance.AddHp(10);
+            HealManager2.ShowHealParticlesForSeconds(1.5f);
         }
 
         Destroy(gameObject);

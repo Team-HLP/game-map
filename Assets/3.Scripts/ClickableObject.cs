@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections;
 
 public class ClickableObject : MonoBehaviour
 {
@@ -132,6 +133,7 @@ public class ClickableObject : MonoBehaviour
             GameManager.Instance.FlashHpColor(true);
             SpawnEffect(fuelCollectEffectPrefab);
             GameManager.Instance.AddHp(10);
+            HealManager.ShowHealParticlesForSeconds(1.5f);
         }
 
         Destroy(gameObject);
