@@ -263,7 +263,7 @@ public class GameManager2 : MonoBehaviour
         gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
-        FlyingObject.SavePrefabSpawnCount();
+        FlyingObject2.SavePrefabSpawnCount();
         SaveGameResult();
         StartCoroutine(ShowGameResultAndLoadScene("GameSuccessScene2"));
     }
@@ -282,7 +282,7 @@ public class GameManager2 : MonoBehaviour
         gazeRaycaster.SaveUserStatusToJson();
         eyesDataManager.SaveEyesData();
         eegDataManager.SaveEEGData();
-        FlyingObject.SavePrefabSpawnCount();
+        FlyingObject2.SavePrefabSpawnCount();
         SaveGameResult();
         StartCoroutine(ShowGameResultAndLoadScene("GameOverScene2"));
     }
